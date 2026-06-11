@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi AKAN — Tu tratamiento</title>
+<meta name="description" content="Tu perfil AKAN: el estado de tu tratamiento, tus envíos y tu suscripción. Confidencial.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF6EC; --paper-deep:#F1EADA; --card:#FFFEFA; --sand:#DCCFB4;
+  --sage:#E7F0E6; --mint:#CFE7D6;
+  --forest:#1F3D2E; --emerald:#2E6B4D; --jade:#3E8E68;
+  --ink:#1B1812; --ink-soft:#57503F;
+  --clay:#C5623E; --copper:#E07B4C; --gold:#C9A876; --peach:#F2C9A8;
+  --grad-cta:linear-gradient(135deg,#C5623E 0%,#E07B4C 100%);
+  --grad-text:linear-gradient(110deg,#1F3D2E 0%,#3E8E68 55%,#C9A876 110%);
+  --line:rgba(27,24,18,.12); --glass:rgba(250,246,236,.6);
+  --r-md:18px; --r-lg:26px; --r-pill:100px;
+  --font-d:'Fraunces',serif; --font-b:'Hanken Grotesk',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-b);background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;font-size:17px;line-height:1.55;min-height:100svh}
+::selection{background:var(--clay);color:var(--paper)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.serif-i{font-family:var(--font-d);font-style:italic;font-weight:600}
+.grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--glass);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
+nav .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:760px;margin:0 auto}
+.logo{font-family:var(--font-d);font-weight:700;font-size:23px;letter-spacing:.04em;color:var(--forest)}
+.logo small{font-family:var(--font-b);font-weight:600;font-size:10.5px;letter-spacing:.16em;
+  color:var(--clay);display:block;margin-top:-2px;text-transform:uppercase}
+.conf-chip{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--jade);
+  letter-spacing:.06em;text-transform:uppercase}
+.conf-chip svg{width:13px;height:13px;stroke:var(--jade)}
+
+.stage{padding:104px 0 70px}
+.screen{animation:enter .5s var(--ease)}
+@keyframes enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+h1{font-family:var(--font-d);font-weight:700;letter-spacing:-.025em;line-height:1.08;
+  font-size:clamp(30px,6.4vw,44px)}
+.sub{color:var(--ink-soft);font-size:16px;margin-top:8px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;
+  font-size:16px;padding:15px 32px;border-radius:var(--r-pill);border:none;cursor:pointer;
+  transition:all .3s var(--ease);-webkit-tap-highlight-color:transparent}
+.btn:hover{transform:translateY(-2px)}
+.btn-cta{background:var(--grad-cta);color:#FFF7EC;box-shadow:0 10px 28px rgba(197,98,62,.32)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(27,24,18,.25)}
+.btn-green{background:var(--forest);color:var(--paper)}
+
+/* status hero */
+.status-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:clamp(24px,4vw,38px);margin-top:30px;box-shadow:0 24px 60px rgba(120,90,50,.12)}
+.st-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.st-top .plan{font-family:var(--font-d);font-weight:700;font-size:23px;letter-spacing:-.01em}
+.st-top .ref{font-size:13px;color:var(--ink-soft)}
+.st-pill{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:8px 16px;border-radius:var(--r-pill)}
+.st-pill.warn{background:#F7E8B8;color:#7A5B17}
+.st-pill.ok{background:var(--sage);color:var(--forest)}
+.st-pill.go{background:var(--grad-cta);color:#FFF7EC}
+
+/* timeline horizontal del tratamiento */
+.tl{display:flex;margin:34px 0 8px;position:relative}
+.tl::before{content:"";position:absolute;top:17px;left:9%;right:9%;height:3px;background:var(--paper-deep);z-index:0}
+.tl .fill{position:absolute;top:17px;left:9%;height:3px;background:linear-gradient(90deg,var(--jade),var(--emerald));
+  z-index:1;transition:width 1.2s var(--ease);border-radius:2px}
+.tl-step{flex:1;text-align:center;position:relative;z-index:2}
+.tl-step .dot{width:36px;height:36px;border-radius:50%;background:var(--paper-deep);margin:0 auto 8px;
+  display:flex;align-items:center;justify-content:center;font-size:15px;border:3px solid var(--paper);
+  transition:all .5s var(--ease)}
+.tl-step.done .dot{background:var(--jade);color:#fff}
+.tl-step.now .dot{background:var(--grad-cta);color:#fff;box-shadow:0 0 0 6px rgba(197,98,62,.18);
+  animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 5px rgba(197,98,62,.16)}50%{box-shadow:0 0 0 10px rgba(197,98,62,.07)}}
+.tl-step b{display:block;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+.tl-step.done b,.tl-step.now b{color:var(--ink)}
+.st-msg{background:var(--sage);border:1px solid var(--mint);border-radius:var(--r-md);
+  padding:16px 18px;font-size:14.5px;color:var(--forest);margin-top:24px;display:flex;gap:11px}
+.st-msg svg{width:18px;height:18px;stroke:var(--jade);flex-shrink:0;margin-top:2px}
+.st-msg.warn{background:#FBF1DC;border-color:#EBD9A8;color:#7A5B17}
+.st-msg.warn svg{stroke:#7A5B17}
+.pay-row{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+
+/* suscripción */
+.sub-card{background:linear-gradient(150deg,var(--forest),var(--emerald));color:var(--paper);
+  border-radius:var(--r-lg);padding:28px;margin-top:18px;display:flex;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;align-items:center}
+.sub-card .t{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--peach)}
+.sub-card .v{font-family:var(--font-d);font-weight:700;font-size:21px;margin-top:4px}
+.sub-card small{display:block;font-size:13px;color:rgba(250,246,236,.7);margin-top:2px}
+
+/* historial */
+.hist{margin-top:34px}
+.hist h2{font-family:var(--font-d);font-weight:700;font-size:22px;margin-bottom:14px}
+.h-row{display:flex;justify-content:space-between;gap:14px;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r-md);padding:16px 20px;margin-bottom:10px;
+  font-size:14.5px;align-items:center;flex-wrap:wrap}
+.h-row .r{font-weight:700}
+.h-row .s{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:5px 12px;border-radius:var(--r-pill);background:var(--paper-deep);color:var(--ink-soft)}
+
+/* login por código */
+.gate-box{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:clamp(26px,4vw,40px);margin-top:30px}
+.field label{display:block;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--ink-soft);
+  margin-bottom:7px;text-transform:uppercase}
+.field input{width:100%;padding:15px 16px;border-radius:14px;border:1.5px solid var(--line);
+  background:var(--paper);font-family:var(--font-b);font-size:16px;margin-bottom:14px}
+.field input:focus{outline:none;border-color:var(--jade)}
+.help-foot{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:40px;
+  color:var(--ink-soft);font-size:13.5px;font-weight:600}
+.help-foot a{color:var(--clay);text-decoration:underline;text-underline-offset:3px}
+
+.sprite{position:fixed;pointer-events:none;z-index:0;opacity:.4;
+  filter:drop-shadow(0 14px 22px rgba(120,90,50,.12))}
+.sprite img{width:100%}
+.s-float{animation:sFloat 13s ease-in-out infinite}
+.s-sway{animation:sSway 15s ease-in-out infinite;transform-origin:bottom center}
+@keyframes sFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-22px) rotate(4deg)}}
+@keyframes sSway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(5deg)}}
+.stage{position:relative;z-index:2}
+@media(prefers-reduced-motion:reduce){.s-float,.s-sway{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="sprite s-sway" style="top:14%;left:-16px;width:80px"><img src="assets/elements/leaf_eucalyptus.png" alt=""></div>
+<div class="sprite s-float" style="top:40%;right:-10px;width:52px"><img src="assets/elements/bubble_amber.png" alt=""></div>
+
+<nav>
+  <div class="bar">
+    <a href="index.html" class="logo">AKAN<small>Mi tratamiento</small></a>
+    <div class="conf-chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Confidencial</div>
+  </div>
+</nav>
+
+<div class="stage"><div class="wrap" id="app"></div></div>
+
+<script>
+const API_BASE = localStorage.getItem('AKAN_API') || 'http://localhost:8070';
+const app = document.getElementById('app');
+const params = new URLSearchParams(location.search);
+let token = params.get('t') || localStorage.getItem('akan_token') || '';
+if(params.get('t')) localStorage.setItem('akan_token', params.get('t'));
+
+const STATUS = {
+  revision_medica:{step:1,pill:['warn','Médico revisando'],msg:'Tu médico está revisando tu evaluación hoy mismo. Si tiene dudas te escribe por WhatsApp.'},
+  pago_pendiente:{step:2,pill:['go','Receta aprobada — pagar'],msg:'¡Tu médico aprobó tu tratamiento! Paga cuando quieras — tu plan está apartado.'},
+  pagada:{step:3,pill:['ok','Pago confirmado'],msg:'Pago recibido. Tu paquete se está preparando en caja neutra, sin marca.'},
+  preparando:{step:3,pill:['ok','Preparando tu caja'],msg:'Tu paquete se prepara en caja neutra, sin marca. Pronto tendrás tu guía.'},
+  enviada:{step:4,pill:['ok','En camino'],msg:'Tu paquete va en camino. Ni el repartidor sabe qué lleva.'},
+  entregada:{step:5,pill:['ok','Entregado'],msg:'Entregado. La constancia es todo — los resultados llegan con los meses. Aquí seguimos.'},
+  cancelada:{step:0,pill:['warn','Cancelada'],msg:'Esta orden fue cancelada. ¿Quieres retomarla? Escríbenos por WhatsApp.'}
+};
+const STEPS=['Evaluación','Médico','Pago','En camino','En tu puerta'];
+
+function el(h){const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild}
+const wa = t => 'https://wa.me/525500000000?text='+encodeURIComponent(t);
+
+function renderGate(notFound){
+  app.innerHTML='';
+  app.appendChild(el(`<div class="screen">
+    <h1>Tu tratamiento,<br><span class="serif-i grad-text">a un código.</span></h1>
+    <p class="sub">Tu código personal va en cada mensaje de WhatsApp de AKAN y en tu pantalla de confirmación. Sin contraseñas que olvidar.</p>
+    <div class="gate-box">
+      ${notFound?'<div class="st-msg warn" style="margin:0 0 18px"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span>No encontramos ese código. Revísalo o pídenos uno nuevo por WhatsApp.</span></div>':''}
+      <div class="field"><label>Tu código de acceso</label><input id="tok" placeholder="AKAN-XXXX-XXXX" autocomplete="off"></div>
+      <button class="btn btn-cta" style="width:100%" id="go">Ver mi tratamiento →</button>
+      <a class="btn btn-ghost" style="width:100%;margin-top:10px" href="${wa('Hola AKAN 👋 quiero el código de acceso a mi perfil.')}">Pedir mi código por WhatsApp</a>
+    </div>
+    <div class="help-foot"><span>¿Aún no empiezas?</span><a href="quiz.html">Hacer mi evaluación →</a></div>
+  </div>`));
+  document.getElementById('go').addEventListener('click',()=>{
+    const v=document.getElementById('tok').value.trim();
+    if(v){token=v;localStorage.setItem('akan_token',v);load()}
+  });
+}
+
+function renderProfile(d){
+  const o=(d.orders&&d.orders[0])||null;
+  const first=(d.customer&&d.customer.name||'').split(' ')[0]||'Hola';
+  app.innerHTML='';
+  let html=`<div class="screen">
+    <h1>Hola, ${first}.<br><span class="serif-i grad-text">Aquí va tu tratamiento.</span></h1>`;
+  if(o){
+    const st=STATUS[o.status]||STATUS.revision_medica;
+    const fillPct=Math.max(0,(st.step-1))/(STEPS.length-1)*82;
+    html+=`<div class="status-card">
+      <div class="st-top">
+        <div><div class="plan">${o.plan}</div><div class="ref">Orden ${o.ref}${o.cadence==='3m'?' · plan 3 meses':''}</div></div>
+        <span class="st-pill ${st.pill[0]}">${st.pill[1]}</span>
+      </div>
+      <div class="tl"><div class="fill" style="width:${fillPct}%"></div>
+        ${STEPS.map((s,i)=>`<div class="tl-step ${i+1<st.step?'done':''} ${i+1===st.step?'now':''}">
+          <div class="dot">${i+1<st.step?'✓':i+1}</div><b>${s}</b></div>`).join('')}
+      </div>
+      <div class="st-msg ${o.status==='pago_pendiente'?'warn':''}">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
+        <span>${st.msg}</span>
+      </div>
+      <div class="pay-row">
+        ${o.status==='pago_pendiente'&&o.payment_link?`<a class="btn btn-cta" href="${o.payment_link}">Pagar mi tratamiento →</a>`:''}
+        ${o.tracking&&o.tracking.ref?`<span class="st-pill ok" style="align-self:center">Guía ${o.tracking.carrier||''} ${o.tracking.ref}</span>`:''}
+        <a class="btn btn-ghost" href="${wa(`Hola AKAN 👋 soy ${d.customer.name}, tengo una duda sobre mi orden ${o.ref}.`)}">Hablar con AKAN</a>
+      </div>
+    </div>`;
+  }
+  if(d.subscription){
+    html+=`<div class="sub-card">
+      <div><div class="t">Tu suscripción</div><div class="v">${d.subscription.template||'AKAN'}</div>
+        <small>Estado: ${d.subscription.state||'activa'}</small></div>
+      <div><div class="t">Próximo envío</div><div class="v">${d.subscription.next_date||'por definir'}</div>
+        <small><a href="${wa('Hola AKAN 👋 quiero hacer un cambio en mi suscripción.')}" style="text-decoration:underline">Pausar o cambiar →</a></small></div>
+    </div>`;
+  }
+  if(d.orders&&d.orders.length>1){
+    html+=`<div class="hist"><h2>Historial</h2>${d.orders.slice(1).map(x=>{
+      const st=STATUS[x.status]||{pill:['','—']};
+      return `<div class="h-row"><span class="r">${x.ref}</span><span>${x.plan}</span><span class="s">${st.pill[1]}</span></div>`;
+    }).join('')}</div>`;
+  }
+  html+=`<div class="help-foot">
+    <a href="tienda.html">Tienda</a><a href="quiz.html">Nueva evaluación</a>
+    <a href="#" id="logout">Salir</a>
+  </div></div>`;
+  app.appendChild(el(html));
+  document.getElementById('logout').addEventListener('click',e=>{
+    e.preventDefault();localStorage.removeItem('akan_token');token='';renderGate(false);
+  });
+}
+
+function renderOffline(){
+  app.innerHTML='';
+  app.appendChild(el(`<div class="screen">
+    <h1>Estamos sincronizando<br><span class="serif-i grad-text">tu perfil.</span></h1>
+    <p class="sub">Tu información está segura. Mientras conectamos la plataforma, tu canal directo es WhatsApp — ahí te decimos el estado de tu orden al instante.</p>
+    <div class="gate-box" style="text-align:center">
+      <a class="btn btn-cta" style="width:100%" href="${wa('Hola AKAN 👋 ¿me das el estado de mi orden?')}">Consultar mi orden por WhatsApp →</a>
+      <a class="btn btn-ghost" style="width:100%;margin-top:10px" href="index.html">Volver al inicio</a>
+    </div>
+  </div>`));
+}
+
+async function load(){
+  if(!token){renderGate(false);return}
+  try{
+    const h=await fetch(API_BASE+'/akan/api/health',{signal:AbortSignal.timeout(3500)}).then(r=>r.json());
+    if(!h.ok){renderOffline();return}
+  }catch(e){renderOffline();return}
+  try{
+    const r=await fetch(API_BASE+'/akan/api/me?token='+encodeURIComponent(token),{signal:AbortSignal.timeout(8000)});
+    const d=await r.json();
+    if(d.ok)renderProfile(d);
+    else renderGate(true);
+  }catch(e){renderOffline()}
+}
+load();
+</script>
+</body>
+</html>

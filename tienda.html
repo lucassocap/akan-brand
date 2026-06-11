@@ -144,7 +144,7 @@ section,header,.how-band{position:relative;z-index:2}
       <a href="#desempeno">Desempeño</a>
       <a href="#cuidado">Cuidado diario</a>
       <a href="index.html">Inicio</a>
-      <a href="#" id="portalLink" style="display:none">Mi cuenta</a>
+      <a href="perfil.html">Mi cuenta</a>
     </div>
     <a href="quiz.html" class="btn btn-cta">Hacer mi evaluación</a>
   </div>
@@ -311,7 +311,7 @@ section,header,.how-band{position:relative;z-index:2}
 <footer>
   <div class="wrap">
     <span>© 2026 AKAN Salud Masculina S.A. de C.V. · Confidencial. Sin filas. A tu puerta.</span>
-    <span><a href="index.html">Inicio</a> · <a href="quiz.html">Evaluación</a> · <a href="#" id="portalLink2" style="display:none">Mi cuenta</a></span>
+    <span><a href="index.html">Inicio</a> · <a href="quiz.html">Evaluación</a> · <a href="perfil.html">Mi cuenta</a></span>
   </div>
 </footer>
 
@@ -333,10 +333,6 @@ const API_BASE = localStorage.getItem('AKAN_API') || 'http://localhost:8070';
 fetch(API_BASE + '/akan/api/health', {signal: AbortSignal.timeout(3500)})
   .then(r=>r.json()).then(j=>{
     if(!j.ok) return;
-    ['portalLink','portalLink2'].forEach(id=>{
-      const el=document.getElementById(id);
-      if(el){el.style.display='inline';el.href=API_BASE+'/my'}
-    });
     /* mapear cada botón OTC a su página de producto exacta */
     fetch(API_BASE + '/akan/api/products', {signal: AbortSignal.timeout(4000)})
       .then(r=>r.json()).then(p=>{
