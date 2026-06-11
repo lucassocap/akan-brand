@@ -799,6 +799,10 @@ function renderDone(result,cust){
     <div class="q-overline">Orden recibida</div>
     <h1 class="q-title">Listo, ${cust.name.split(' ')[0]}.<br>Lo difícil <span class="serif-i grad-text">ya pasó.</span></h1>
     <div class="order-ref">${result.order}</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px">
+      <span style="display:inline-flex;align-items:center;gap:7px;background:#F7E8B8;color:#7A5B17;font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pago: pendiente de aprobación médica</span>
+      <span style="display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:var(--forest);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">Guarda tu número de orden</span>
+    </div>
     <div class="timeline">
       <div class="tl-item"><b>Hoy — Tu médico revisa tu evaluación</b><span>Un médico con cédula valora tus respuestas. Si tiene dudas te escribe por WhatsApp.</span></div>
       <div class="tl-item dim"><b>Receta aprobada → link de pago</b><span>Te llega por WhatsApp. Hasta entonces, no pagas nada.</span></div>

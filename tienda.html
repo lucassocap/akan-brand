@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienda AKAN — Tratamientos para cabello y desempeño</title>
+<meta name="description" content="Catálogo AKAN: planes médicos para caída de cabello y desempeño sexual, y productos de cuidado capilar. Precios claros en MXN, entrega discreta.">
+<meta property="og:title" content="Tienda AKAN — Confidencial. Sin filas. A tu puerta.">
+<meta property="og:image" content="assets/premium/og_akan_light.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF6EC; --paper-deep:#F1EADA; --card:#FFFEFA; --sand:#DCCFB4;
+  --sage:#E7F0E6; --mint:#CFE7D6;
+  --forest:#1F3D2E; --emerald:#2E6B4D; --jade:#3E8E68;
+  --ink:#1B1812; --ink-soft:#57503F;
+  --clay:#C5623E; --copper:#E07B4C; --gold:#C9A876; --peach:#F2C9A8;
+  --grad-cta:linear-gradient(135deg,#C5623E 0%,#E07B4C 100%);
+  --grad-text:linear-gradient(110deg,#1F3D2E 0%,#3E8E68 55%,#C9A876 110%);
+  --line:rgba(27,24,18,.12); --glass:rgba(250,246,236,.6);
+  --r-md:18px; --r-lg:26px; --r-pill:100px;
+  --font-d:'Fraunces',serif; --font-b:'Hanken Grotesk',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;font-size:17px;line-height:1.55}
+::selection{background:var(--clay);color:var(--paper)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.serif-i{font-family:var(--font-d);font-style:italic;font-weight:600}
+.grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+@media(min-width:768px){.wrap{padding:0 48px}}
+.overline{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--glass);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
+nav .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1280px;margin:0 auto}
+@media(min-width:768px){nav .bar{padding:16px 48px}}
+.logo{font-family:var(--font-d);font-weight:700;font-size:25px;letter-spacing:.04em;color:var(--forest)}
+.nav-links{display:none;gap:30px;font-weight:600;font-size:15px}
+.nav-links a{opacity:.8}.nav-links a:hover{opacity:1}
+@media(min-width:900px){.nav-links{display:flex}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15.5px;
+  padding:13px 28px;border-radius:var(--r-pill);border:none;cursor:pointer;transition:all .3s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn-cta{background:var(--grad-cta);color:#FFF7EC;box-shadow:0 10px 28px rgba(197,98,62,.3)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(27,24,18,.25)}
+.btn-green{background:var(--forest);color:var(--paper)}
+
+.hero-strip{padding:140px 0 50px;text-align:center;
+  background:linear-gradient(165deg,#FBF7EE 0%,#F4EDDC 100%)}
+.hero-strip h1{font-family:var(--font-d);font-weight:700;font-size:clamp(38px,6vw,72px);
+  letter-spacing:-.03em;line-height:1.04;margin:14px 0 16px}
+.hero-strip p{color:var(--ink-soft);max-width:560px;margin:0 auto;font-size:18px}
+.cat-tabs{display:flex;gap:10px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+.cat-tabs a{padding:11px 24px;border-radius:var(--r-pill);font-weight:700;font-size:14.5px;
+  border:1.5px solid var(--line);background:var(--card);transition:all .25s}
+.cat-tabs a:hover{border-color:var(--jade)}
+
+.sec{padding:clamp(54px,7vw,90px) 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  flex-wrap:wrap;margin-bottom:34px}
+.sec-head h2{font-family:var(--font-d);font-weight:700;font-size:clamp(28px,3.6vw,44px);letter-spacing:-.02em}
+.sec-head .note{font-size:14px;color:var(--ink-soft)}
+.grid{display:grid;gap:20px}
+@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1080px){.grid{grid-template-columns:repeat(3,1fr)}}
+.prod{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  overflow:hidden;display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.prod:hover{transform:translateY(-7px);box-shadow:0 28px 60px rgba(120,90,50,.16)}
+.prod .ph{aspect-ratio:4/3;overflow:hidden;position:relative}
+.prod .ph img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.prod:hover .ph img{transform:scale(1.05)}
+.badge{position:absolute;top:14px;left:14px;font-size:11.5px;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;padding:6px 14px;border-radius:var(--r-pill);z-index:2}
+.badge.rx{background:var(--forest);color:var(--mint)}
+.badge.otc{background:#F7E8B8;color:#7A5B17}
+.badge.top{background:var(--grad-cta);color:#FFF7EC}
+.prod .body{padding:22px 24px 26px;display:flex;flex-direction:column;flex:1;gap:8px}
+.prod h3{font-family:var(--font-d);font-weight:700;font-size:21px;letter-spacing:-.01em}
+.prod .for{font-size:14px;color:var(--ink-soft);flex:1}
+.prod .price{font-family:var(--font-d);font-weight:700;font-size:26px;margin-top:4px}
+.prod .price small{font-family:var(--font-b);font-size:13px;font-weight:500;color:var(--ink-soft)}
+.prod .price s{font-size:15px;color:var(--ink-soft);font-weight:400;margin-right:8px}
+.prod .btn{margin-top:14px}
+.prod .micro{font-size:12px;color:var(--ink-soft);text-align:center;margin-top:8px}
+
+.how-band{background:var(--sage);border-top:1px solid var(--mint);border-bottom:1px solid var(--mint)}
+.how-band .wrap{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;padding:22px 24px;
+  font-size:14px;font-weight:600;color:var(--forest)}
+.how-band span{display:flex;align-items:center;gap:8px}
+.how-band svg{width:16px;height:16px;stroke:var(--jade)}
+
+footer{background:var(--forest);color:rgba(250,246,236,.75);padding:46px 0;font-size:14.5px;margin-top:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer a{text-decoration:underline;text-underline-offset:3px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="bar">
+    <a href="index.html" class="logo">AKAN</a>
+    <div class="nav-links">
+      <a href="#cabello">Cabello</a>
+      <a href="#desempeno">Desempeño</a>
+      <a href="#cuidado">Cuidado diario</a>
+      <a href="index.html">Inicio</a>
+      <a href="#" id="portalLink" style="display:none">Mi cuenta</a>
+    </div>
+    <a href="quiz.html" class="btn btn-cta">Hacer mi evaluación</a>
+  </div>
+</nav>
+
+<header class="hero-strip">
+  <div class="wrap">
+    <div class="overline">La tienda AKAN</div>
+    <h1>Todo tu tratamiento,<br>en <span class="serif-i grad-text">un solo lugar.</span></h1>
+    <p>Precios claros en pesos. Los planes médicos pasan por tu médico antes de cobrarte;
+      el cuidado diario se compra directo.</p>
+    <div class="cat-tabs">
+      <a href="#cabello">🌿 Cabello</a><a href="#desempeno">⚡ Desempeño</a><a href="#cuidado">🧴 Cuidado diario</a>
+    </div>
+  </div>
+</header>
+
+<div class="how-band">
+  <div class="wrap">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>Planes Rx: el médico aprueba antes de cobrar</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>100% confidencial, caja neutra</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/></svg>Envío gratis 24-72h</span>
+  </div>
+</div>
+
+<!-- CABELLO Rx -->
+<section class="sec" id="cabello">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Cabello <span class="serif-i grad-text">— planes médicos</span></h2>
+      <div class="note">Requieren evaluación (2 min) · El médico confirma antes de cobrar</div>
+    </div>
+    <div class="grid">
+      <div class="prod">
+        <div class="ph"><span class="badge rx">Rx · Receta</span><img src="assets/photography/product/akan_hero_products.jpg" alt="Plan Esencial" loading="lazy"></div>
+        <div class="body">
+          <h3>Plan Esencial</h3>
+          <div class="for">Finasteride 1mg oral. Frena la caída desde la raíz — ideal para entradas y prevención.</div>
+          <div class="price">$549 <small>/mes · $467/mes en plan 3 meses</small></div>
+          <a class="btn btn-ghost" href="quiz.html?plan=AKAN-ESENCIAL">Elegir con evaluación →</a>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="ph"><span class="badge top">El más elegido</span><img src="assets/premium/hero_light_products.jpg" alt="Plan Completo" loading="lazy"></div>
+        <div class="body">
+          <h3>Plan Completo</h3>
+          <div class="for">Finasteride + Minoxidil 5%. Frena la caída y recupera densidad — doble vía.</div>
+          <div class="price">$849 <small>/mes · $722/mes en plan 3 meses</small></div>
+          <a class="btn btn-cta" href="quiz.html?plan=AKAN-COMPLETO">Elegir con evaluación →</a>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="ph"><span class="badge rx">Rx · Receta</span><img src="assets/photography/product/akan_product_family.jpg" alt="Kit AKAN Total" loading="lazy"></div>
+        <div class="body">
+          <h3>Kit AKAN Total</h3>
+          <div class="for">El protocolo completo: Finasteride + Minoxidil + Shampoo Ketoconazol + Suplemento.</div>
+          <div class="price">$1,199 <small>/mes · $1,019/mes en plan 3 meses</small></div>
+          <a class="btn btn-ghost" href="quiz.html?plan=AKAN-KIT">Elegir con evaluación →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESEMPEÑO Rx -->
+<section class="sec" id="desempeno" style="background:var(--paper-deep)">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Desempeño <span class="serif-i" style="color:var(--clay)">— planes médicos</span></h2>
+      <div class="note">Evaluación de 5 preguntas · Confidencial de inicio a fin</div>
+    </div>
+    <div class="grid">
+      <div class="prod">
+        <div class="ph"><span class="badge rx">Rx · Receta</span><img src="assets/premium/macro_dropper.jpg" alt="Plan Momento" loading="lazy"></div>
+        <div class="body">
+          <h3>Plan Momento</h3>
+          <div class="for">Sildenafil 50mg, 8 dosis. Actúa en 30-60 minutos — para cuando tú decidas.</div>
+          <div class="price">$449 <small>/mes · $382/mes en plan 3 meses</small></div>
+          <a class="btn btn-ghost" href="quiz.html?plan=AKAN-SILD">Elegir con evaluación →</a>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="ph"><span class="badge top">Espontaneidad total</span><img src="assets/premium/hombre_confianza.jpg" alt="Plan Diario" loading="lazy"></div>
+        <div class="body">
+          <h3>Plan Diario</h3>
+          <div class="for">Tadalafil 5mg diario. Siempre listo, sin cronometrar nada — cobertura 24/7.</div>
+          <div class="price">$649 <small>/mes · $552/mes en plan 3 meses</small></div>
+          <a class="btn btn-cta" href="quiz.html?plan=AKAN-TADA">Elegir con evaluación →</a>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="ph"><span class="badge rx">Rx · Receta</span><img src="assets/premium/pareja_manana.jpg" alt="Kit Confianza" loading="lazy"></div>
+        <div class="body">
+          <h3>Kit Confianza</h3>
+          <div class="for">Tadalafil diario + suplemento de energía y circulación. El paquete completo.</div>
+          <div class="price">$899 <small>/mes · $764/mes en plan 3 meses</small></div>
+          <a class="btn btn-ghost" href="quiz.html?plan=AKAN-KITCONF">Elegir con evaluación →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUIDADO DIARIO OTC -->
+<section class="sec" id="cuidado">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Cuidado diario <span class="serif-i grad-text">— sin receta</span></h2>
+      <div class="note">Compra directa · Sin evaluación</div>
+    </div>
+    <div class="grid">
+      <div class="prod">
+        <div class="ph"><span class="badge otc">Sin receta</span><img src="assets/photography/product/akan_bathroom_shelf.jpg" alt="Shampoo Ketoconazol" loading="lazy"></div>
+        <div class="body">
+          <h3>Shampoo Ketoconazol 2%</h3>
+          <div class="for">Limpia el exceso de DHT del cuero cabelludo y controla la caspa. 3 veces por semana.</div>
+          <div class="price">$349</div>
+          <a class="btn btn-green otc-buy" data-code="AKAN-SHAMPOO" href="quiz.html?plan=AKAN-SHAMPOO">Comprar ahora →</a>
+          <div class="micro">Hoy: confirmas y pagas contra entrega coordinada por WhatsApp</div>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="ph"><span class="badge otc">Sin receta</span><img src="assets/photography/product/akan_product_family.jpg" alt="Suplemento Capilar" loading="lazy"></div>
+        <div class="body">
+          <h3>Suplemento Capilar</h3>
+          <div class="for">Biotina + Zinc. El pelo nuevo nace más grueso y fuerte. 1 cápsula al día.</div>
+          <div class="price">$399</div>
+          <a class="btn btn-green otc-buy" data-code="AKAN-SUPL" href="quiz.html?plan=AKAN-SUPL">Comprar ahora →</a>
+          <div class="micro">Hoy: confirmas y pagas contra entrega coordinada por WhatsApp</div>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="ph"><span class="badge otc">Sin receta*</span><img src="assets/premium/hero_light_products.jpg" alt="Minoxidil 5%" loading="lazy"></div>
+        <div class="body">
+          <h3>Minoxidil Tópico 5%</h3>
+          <div class="for">Reactiva el folículo y la circulación. Aplicación diaria en zonas con caída.</div>
+          <div class="price">$449</div>
+          <a class="btn btn-green otc-buy" data-code="AKAN-MINOX" href="quiz.html?plan=AKAN-MINOX">Comprar ahora →</a>
+          <div class="micro">*Tu primera compra incluye una validación rápida del médico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="text-align:center;background:linear-gradient(150deg,#F6EFDE,#F2DEC8)">
+  <div class="wrap">
+    <h2 style="font-family:var(--font-d);font-weight:700;font-size:clamp(28px,4vw,48px);letter-spacing:-.02em">¿No sabes cuál te toca?</h2>
+    <p style="color:var(--ink-soft);margin:14px auto 28px;max-width:480px">Responde la evaluación de 2 minutos y te lo decimos exacto. Confidencial.</p>
+    <a class="btn btn-cta" style="padding:17px 40px" href="quiz.html">Hacer mi evaluación →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 AKAN Salud Masculina S.A. de C.V. · Confidencial. Sin filas. A tu puerta.</span>
+    <span><a href="index.html">Inicio</a> · <a href="quiz.html">Evaluación</a> · <a href="#" id="portalLink2" style="display:none">Mi cuenta</a></span>
+  </div>
+</footer>
+
+<script>
+/* Si la plataforma Odoo es alcanzable: "Comprar ahora" va a la tienda real (/shop)
+   y aparece "Mi cuenta" (portal del cliente). Si no, deep-links al checkout propio. */
+const API_BASE = localStorage.getItem('AKAN_API') || 'http://localhost:8070';
+fetch(API_BASE + '/akan/api/health', {signal: AbortSignal.timeout(3500)})
+  .then(r=>r.json()).then(j=>{
+    if(!j.ok) return;
+    document.querySelectorAll('.otc-buy').forEach(a=>{a.href = API_BASE + '/shop'});
+    ['portalLink','portalLink2'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el){el.style.display='inline';el.href=API_BASE+'/my'}
+    });
+  }).catch(()=>{});
+</script>
+</body>
+</html>
