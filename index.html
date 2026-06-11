@@ -390,13 +390,13 @@ footer ul a:hover{color:var(--paper)}
   <div class="bar">
     <a href="#" class="logo">AKAN</a>
     <div class="nav-links">
-      <a href="#planes">Tratamientos</a>
+      <a href="#planes">Cabello</a>
+      <a href="#desempeno">Desempeño</a>
       <a href="#como">Cómo funciona</a>
       <a href="#ciencia">La ciencia</a>
       <a href="#medicos">Médicos</a>
-      <a href="brand.html">Marca</a>
     </div>
-    <a href="#quiz" class="btn btn-cta btn-nav">Comenzar</a>
+    <a href="quiz.html" class="btn btn-cta btn-nav">Comenzar</a>
   </div>
 </nav>
 
@@ -420,7 +420,7 @@ footer ul a:hover{color:var(--paper)}
       <p class="lead hero-sub">Tratamiento médico real para la caída de cabello. Evaluación en 3 minutos,
         médicos con cédula y entrega discreta a tu puerta.</p>
       <div class="hero-cta-row">
-        <a href="#quiz" class="btn btn-cta btn-xl pulse">Comenzar evaluación
+        <a href="quiz.html" class="btn btn-cta btn-xl pulse">Comenzar evaluación
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a href="#como" class="btn btn-ghost">Cómo funciona</a>
@@ -502,7 +502,9 @@ footer ul a:hover{color:var(--paper)}
 </section>
 
 <!-- ═══ QUIZ PATRÓN ═══ -->
-<section class="section-pad quiz-band" id="quiz">
+<section class="section-pad quiz-band" id="quiz" style="overflow:hidden">
+  <div class="sprite s-float" style="top:10%;right:4%;width:clamp(44px,5vw,76px);opacity:.75"><img src="assets/elements/bubble_amber.png" alt="" loading="lazy"></div>
+  <div class="sprite s-float2" style="bottom:12%;left:3%;width:clamp(36px,4vw,60px);opacity:.7"><img src="assets/elements/drop_gold.png" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="rv" style="max-width:720px">
       <div class="overline">Empieza por aquí</div>
@@ -511,19 +513,19 @@ footer ul a:hover{color:var(--paper)}
         Elige el tuyo y te decimos exactamente qué plan te toca.</p>
     </div>
     <div class="quiz-cards stagger">
-      <a class="quiz-card" href="#planes">
+      <a class="quiz-card" href="quiz.html?branch=pelo">
         <div class="glyph">C</div>
         <h3>Corona</h3>
         <p>Se te empieza a ver el cuero cabelludo en la parte de arriba, atrás.</p>
         <div class="arrow">Ver mi plan <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </a>
-      <a class="quiz-card" href="#planes">
+      <a class="quiz-card" href="quiz.html?branch=pelo">
         <div class="glyph">E</div>
         <h3>Entradas</h3>
         <p>La línea del cabello retrocede en las esquinas de la frente.</p>
         <div class="arrow">Ver mi plan <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </a>
-      <a class="quiz-card" href="#planes">
+      <a class="quiz-card" href="quiz.html?branch=pelo">
         <div class="glyph">G</div>
         <h3>General</h3>
         <p>Lo notas más delgado y débil en toda la cabeza, sin un punto claro.</p>
@@ -563,7 +565,9 @@ footer ul a:hover{color:var(--paper)}
 </section>
 
 <!-- ═══ PLANES ═══ -->
-<section class="section-pad" id="planes">
+<section class="section-pad" id="planes" style="overflow:hidden">
+  <div class="sprite s-sway" style="top:6%;right:-26px;width:clamp(80px,9vw,140px);opacity:.55"><img src="assets/elements/leaf_eucalyptus.png" alt="" loading="lazy"></div>
+  <div class="sprite s-float" style="bottom:8%;left:-18px;width:clamp(50px,6vw,90px);opacity:.6"><img src="assets/elements/capsule_green.png" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="rv" style="max-width:700px;margin:0 auto;text-align:center">
       <div class="overline">Tratamientos</div>
@@ -582,7 +586,7 @@ footer ul a:hover{color:var(--paper)}
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Seguimiento por chat ilimitado</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
         </ul>
-        <a href="#" class="btn btn-ghost">Elegir Esencial</a>
+        <a href="quiz.html?plan=AKAN-ESENCIAL" class="btn btn-ghost">Elegir Esencial</a>
       </div>
       <div class="plan featured">
         <div class="plan-badge">El más elegido</div>
@@ -595,7 +599,7 @@ footer ul a:hover{color:var(--paper)}
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta + seguimiento médico</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
         </ul>
-        <a href="#" class="btn btn-cta">Elegir Completo</a>
+        <a href="quiz.html?plan=AKAN-COMPLETO" class="btn btn-cta">Elegir Completo</a>
       </div>
       <div class="plan">
         <h3>Kit AKAN Total</h3>
@@ -607,7 +611,7 @@ footer ul a:hover{color:var(--paper)}
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Suplemento Biotina + Zinc</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta + seguimiento prioritario</li>
         </ul>
-        <a href="#" class="btn btn-ghost">Elegir Kit Total</a>
+        <a href="quiz.html?plan=AKAN-KIT" class="btn btn-ghost">Elegir Kit Total</a>
       </div>
     </div>
     <p class="plan-note rv">Cancela cuando quieras. Tu primera consulta médica es <strong>gratis</strong>.</p>
@@ -677,6 +681,60 @@ footer ul a:hover{color:var(--paper)}
   </div>
 </section>
 
+<!-- ═══ DESEMPEÑO ═══ -->
+<section class="section-pad" id="desempeno" style="background:var(--paper-deep);overflow:hidden">
+  <div class="sprite s-float" style="top:8%;right:-20px;width:clamp(60px,7vw,110px);opacity:.7"><img src="assets/elements/capsule_green.png" alt="" loading="lazy"></div>
+  <div class="sprite s-sway" style="bottom:5%;left:-30px;width:clamp(90px,10vw,160px);opacity:.5"><img src="assets/elements/leaf_agave.png" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <div class="rv" style="max-width:720px">
+      <div class="overline">Desempeño sexual</div>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">No solo es el pelo.<br>En la cama también, <span class="serif-i grad-text-warm">sin pena.</span></h2>
+      <p class="lead" style="color:var(--ink-soft);margin-top:20px">A 1 de cada 2 hombres mayores de 40 le pasa —
+        y a muchos antes. Tratamiento médico real, discreto, que funciona.</p>
+    </div>
+    <div class="plans stagger">
+      <div class="plan">
+        <h3>Plan Momento</h3>
+        <div class="for">Sildenafil 50mg · para cuando tú decidas</div>
+        <div class="price"><span class="cur">$</span>449<span class="per"> /mes</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>8 dosis al mes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Actúa en 30-60 minutos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta médica incluida</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
+        </ul>
+        <a href="quiz.html?plan=AKAN-SILD" class="btn btn-ghost">Elegir Momento</a>
+      </div>
+      <div class="plan featured">
+        <div class="plan-badge">Espontaneidad total</div>
+        <h3>Plan Diario</h3>
+        <div class="for">Tadalafil 5mg · siempre listo, sin planear</div>
+        <div class="price"><span class="cur">$</span>649<span class="per"> /mes</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Dosis diaria baja, 30 días</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Sin cronometrar nada</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta + seguimiento médico</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
+        </ul>
+        <a href="quiz.html?plan=AKAN-TADA" class="btn btn-cta">Elegir Diario</a>
+      </div>
+      <div class="plan">
+        <h3>Kit Confianza</h3>
+        <div class="for">Tadalafil + suplemento · el paquete completo</div>
+        <div class="price"><span class="cur">$</span>899<span class="per"> /mes</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Tadalafil 5mg diario</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Suplemento energía + circulación</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Seguimiento prioritario</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
+        </ul>
+        <a href="quiz.html?plan=AKAN-KITCONF" class="btn btn-ghost">Elegir Confianza</a>
+      </div>
+    </div>
+    <p class="plan-note rv">¿No sabes cuál? <a href="quiz.html?branch=desempeno" style="color:var(--clay);font-weight:700;text-decoration:underline;text-underline-offset:3px">Responde 5 preguntas</a> y te lo decimos. Tu médico valida todo antes de enviar.</p>
+  </div>
+</section>
+
 <!-- ═══ MÉDICOS ═══ -->
 <section class="section-pad" id="medicos">
   <div class="wrap">
@@ -719,7 +777,9 @@ footer ul a:hover{color:var(--paper)}
 </section>
 
 <!-- ═══ TESTIMONIOS ═══ -->
-<section class="section-pad" id="testimonios">
+<section class="section-pad" id="testimonios" style="overflow:hidden">
+  <div class="sprite s-float2" style="top:12%;right:2%;width:clamp(40px,4.6vw,70px);opacity:.65"><img src="assets/elements/drop_gold.png" alt="" loading="lazy"></div>
+  <div class="sprite s-sway" style="bottom:6%;left:-24px;width:clamp(70px,8vw,120px);opacity:.5;transform:rotate(40deg)"><img src="assets/elements/leaf_agave.png" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="rv" style="max-width:680px">
       <div class="overline">Hombres reales</div>
@@ -767,7 +827,7 @@ footer ul a:hover{color:var(--paper)}
     <div class="overline">Empieza hoy</div>
     <h2 class="mega" style="font-size:clamp(44px,7.2vw,106px)">Tu pelo no va<br>a <span class="serif-i grad-text-warm">esperar.</span></h2>
     <p class="lead">Cada mes que pasa es pelo más difícil de recuperar. La evaluación es gratis y toma 3 minutos.</p>
-    <a href="#quiz" class="btn btn-cta btn-xl pulse">Comenzar evaluación
+    <a href="quiz.html" class="btn btn-cta btn-xl pulse">Comenzar evaluación
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
     <div class="final-pills">
@@ -790,6 +850,7 @@ footer ul a:hover{color:var(--paper)}
         <h5>Tratamientos</h5>
         <ul>
           <li><a href="#planes">Caída de cabello</a></li>
+          <li><a href="#desempeno">Desempeño sexual</a></li>
           <li><a href="#planes">Kit completo</a></li>
           <li><a href="#planes">Shampoo</a></li>
           <li><a href="#planes">Suplementos</a></li>

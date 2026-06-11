@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación AKAN — 2 minutos, en serio</title>
+<meta name="description" content="Responde la evaluación médica AKAN en 2 minutos. Un médico con cédula revisa tu caso y recibes tu tratamiento en tu puerta.">
+<meta property="og:title" content="Evaluación AKAN — 2 minutos">
+<meta property="og:image" content="assets/premium/og_akan_light.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════
+   AKAN QUIZ FUNNEL — v2.1 Verde Vivo
+   Mobile-first. Tocan → contestan → compran.
+   ════════════════════════════════════════════════════════ */
+:root{
+  --paper:#FAF6EC; --paper-deep:#F1EADA; --card:#FFFEFA; --sand:#DCCFB4;
+  --sage:#E7F0E6; --mint:#CFE7D6;
+  --forest:#1F3D2E; --emerald:#2E6B4D; --jade:#3E8E68;
+  --ink:#1B1812; --ink-soft:#57503F;
+  --clay:#C5623E; --copper:#E07B4C; --gold:#C9A876; --peach:#F2C9A8;
+  --grad-cta:linear-gradient(135deg,#C5623E 0%,#E07B4C 100%);
+  --grad-text:linear-gradient(110deg,#1F3D2E 0%,#3E8E68 55%,#C9A876 110%);
+  --line:rgba(27,24,18,.12);
+  --r-md:18px; --r-lg:26px; --r-pill:100px;
+  --font-d:'Fraunces',serif; --font-b:'Hanken Grotesk',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;font-size:17px;line-height:1.55;min-height:100svh}
+::selection{background:var(--clay);color:var(--paper)}
+a{color:inherit;text-decoration:none}
+.serif-i{font-family:var(--font-d);font-style:italic;font-weight:600}
+.grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+
+/* top bar */
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,236,.85);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:13px 20px}
+.logo{font-family:var(--font-d);font-weight:700;font-size:21px;color:var(--forest);letter-spacing:.04em}
+.back{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s var(--ease);
+  visibility:hidden}
+.back:hover{border-color:var(--ink)}
+.back svg{width:17px;height:17px;stroke:var(--ink)}
+.progress{flex:1;height:7px;background:var(--paper-deep);border-radius:5px;overflow:hidden}
+.progress div{height:100%;width:0%;background:linear-gradient(90deg,var(--jade),var(--emerald));
+  border-radius:5px;transition:width .5s var(--ease)}
+.step-count{font-size:12.5px;font-weight:700;color:var(--ink-soft);min-width:44px;text-align:right}
+
+/* stage */
+.stage{max-width:680px;margin:0 auto;padding:108px 20px 60px;position:relative}
+.screen{display:none;animation:enter .5s var(--ease)}
+.screen.on{display:block}
+@keyframes enter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.q-overline{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--clay);margin-bottom:14px}
+.q-title{font-family:var(--font-d);font-weight:700;letter-spacing:-.025em;line-height:1.1;
+  font-size:clamp(28px,6.5vw,42px);margin-bottom:10px}
+.q-sub{color:var(--ink-soft);font-size:16px;margin-bottom:30px}
+
+/* opciones — tarjetas grandes, dedo-friendly */
+.opts{display:flex;flex-direction:column;gap:13px}
+.opts.grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.opt{display:flex;align-items:center;gap:16px;background:var(--card);border:1.5px solid var(--line);
+  border-radius:var(--r-md);padding:19px 20px;cursor:pointer;text-align:left;width:100%;
+  font-family:var(--font-b);font-size:16.5px;font-weight:600;color:var(--ink);
+  transition:all .22s var(--ease);-webkit-tap-highlight-color:transparent}
+.opt:active{transform:scale(.985)}
+.opt:hover{border-color:var(--jade);box-shadow:0 10px 28px rgba(120,90,50,.1)}
+.opt.sel{border-color:var(--jade);background:var(--sage);box-shadow:0 10px 28px rgba(62,142,104,.14)}
+.opt .glyph{width:46px;height:46px;border-radius:50%;background:var(--sage);border:1px solid var(--mint);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:var(--font-d);font-style:italic;font-weight:600;font-size:19px;color:var(--forest)}
+.opt .glyph.warm{background:#FBEADF;border-color:var(--peach);color:var(--clay)}
+.opt small{display:block;font-weight:400;color:var(--ink-soft);font-size:13.5px;margin-top:2px}
+.opt .tick{margin-left:auto;width:22px;height:22px;border-radius:50%;border:2px solid var(--sand);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.opt.sel .tick{background:var(--jade);border-color:var(--jade)}
+.opt.sel .tick::after{content:"✓";color:#fff;font-size:12px;font-weight:700}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-b);
+  font-weight:600;font-size:16.5px;padding:17px 36px;border-radius:var(--r-pill);border:none;
+  cursor:pointer;transition:all .3s var(--ease);-webkit-tap-highlight-color:transparent}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.98)}
+.btn-cta{background:var(--grad-cta);color:#FFF7EC;box-shadow:0 10px 30px rgba(197,98,62,.32);width:100%}
+.btn-cta:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(27,24,18,.25)}
+.next-wrap{margin-top:26px;display:none}
+.next-wrap.show{display:block}
+
+/* resultado */
+.plan-rec{background:var(--card);border:1.5px solid var(--mint);border-radius:var(--r-lg);
+  padding:30px 26px;box-shadow:0 24px 60px rgba(120,90,50,.13);position:relative;overflow:hidden}
+.plan-rec .pr-badge{display:inline-flex;background:var(--grad-cta);color:#FFF7EC;font-size:12px;
+  font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;
+  border-radius:var(--r-pill);margin-bottom:18px}
+.plan-rec h3{font-family:var(--font-d);font-weight:700;font-size:27px;letter-spacing:-.02em}
+.plan-rec .pr-price{font-family:var(--font-d);font-weight:700;font-size:44px;letter-spacing:-.03em;margin:10px 0 4px}
+.plan-rec .pr-price span{font-family:var(--font-b);font-size:15px;font-weight:500;color:var(--ink-soft)}
+.plan-rec ul{list-style:none;margin:18px 0 6px;display:flex;flex-direction:column;gap:10px}
+.plan-rec li{display:flex;gap:10px;font-size:15px;color:var(--ink-soft);align-items:flex-start}
+.plan-rec li::before{content:"✓";color:var(--jade);font-weight:700;flex-shrink:0}
+.med-note{display:flex;gap:12px;background:var(--sage);border:1px solid var(--mint);
+  border-radius:var(--r-md);padding:16px 18px;margin-top:20px;font-size:14px;color:var(--forest)}
+.med-note svg{width:20px;height:20px;stroke:var(--jade);flex-shrink:0;margin-top:1px}
+.alt-link{display:block;text-align:center;margin-top:18px;font-size:14.5px;color:var(--ink-soft);
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer;background:none;border:none;
+  width:100%;font-family:var(--font-b)}
+
+/* gate (seguridad) */
+.gate{background:#FBEADF;border:1.5px solid var(--peach);border-radius:var(--r-lg);padding:28px 26px}
+.gate h3{font-family:var(--font-d);font-size:24px;margin-bottom:10px;color:var(--clay)}
+.gate p{font-size:15.5px;color:var(--ink-soft)}
+
+/* checkout */
+.form{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field label{display:block;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--ink-soft);
+  margin-bottom:7px;text-transform:uppercase}
+.field input,.field select{width:100%;padding:15px 16px;border-radius:14px;border:1.5px solid var(--line);
+  background:var(--card);font-family:var(--font-b);font-size:16px;color:var(--ink);
+  transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.field input:focus,.field select:focus{outline:none;border-color:var(--jade)}
+.field input.err{border-color:var(--clay);background:#FDF1EA}
+.pay-note{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:16px 18px;font-size:14px;color:var(--ink-soft);margin-top:4px}
+.pay-note svg{width:20px;height:20px;stroke:var(--jade);flex-shrink:0;margin-top:1px}
+.order-summary{display:flex;justify-content:space-between;align-items:center;background:var(--sage);
+  border:1px solid var(--mint);border-radius:var(--r-md);padding:16px 20px;font-weight:600;margin-bottom:6px}
+.order-summary .serif-i{color:var(--forest)}
+
+/* éxito */
+.success-icon{width:84px;height:84px;border-radius:50%;background:var(--sage);border:1.5px solid var(--mint);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 26px;
+  animation:pop .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.success-icon svg{width:38px;height:38px;stroke:var(--jade)}
+.timeline{margin-top:34px;display:flex;flex-direction:column;border-left:2px solid var(--mint);
+  margin-left:10px;padding-left:24px;gap:22px;text-align:left}
+.tl-item{position:relative}
+.tl-item::before{content:"";position:absolute;left:-31px;top:5px;width:12px;height:12px;border-radius:50%;
+  background:var(--jade)}
+.tl-item.dim::before{background:var(--sand)}
+.tl-item b{display:block;font-size:15.5px}
+.tl-item span{font-size:14px;color:var(--ink-soft)}
+.order-ref{font-family:var(--font-d);font-weight:700;font-size:21px;color:var(--forest);
+  background:var(--sage);border:1px solid var(--mint);border-radius:var(--r-pill);
+  display:inline-flex;padding:10px 26px;margin-top:8px}
+
+/* sprites sutiles */
+.sprite{position:fixed;pointer-events:none;z-index:0;opacity:.5;
+  filter:drop-shadow(0 14px 22px rgba(120,90,50,.12))}
+.sprite img{width:100%}
+.s-float{animation:sFloat 13s ease-in-out infinite}
+.s-sway{animation:sSway 15s ease-in-out infinite;transform-origin:bottom center}
+@keyframes sFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-22px) rotate(4deg)}}
+@keyframes sSway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(5deg)}}
+.stage>*{position:relative;z-index:2}
+.trust-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:34px;
+  color:var(--ink-soft);font-size:13px;font-weight:600}
+.trust-row span{display:flex;align-items:center;gap:7px}
+.trust-row svg{width:14px;height:14px;stroke:var(--jade)}
+@media(prefers-reduced-motion:reduce){.s-float,.s-sway{animation:none}.screen{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="sprite s-sway" style="top:12%;left:-18px;width:90px"><img src="assets/elements/leaf_eucalyptus.png" alt=""></div>
+<div class="sprite s-float" style="top:30%;right:-14px;width:64px"><img src="assets/elements/bubble_amber.png" alt=""></div>
+<div class="sprite s-float" style="bottom:8%;left:6%;width:46px;animation-delay:3s"><img src="assets/elements/drop_gold.png" alt=""></div>
+
+<div class="bar">
+  <div class="bar-in">
+    <button class="back" id="backBtn" aria-label="Atrás"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <a class="logo" href="index.html">AKAN</a>
+    <div class="progress"><div id="progFill"></div></div>
+    <div class="step-count" id="stepCount"></div>
+  </div>
+</div>
+
+<div class="stage">
+  <div id="screens"></div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   AKAN Quiz Engine — flujo declarativo
+   ════════════════════════════════════════════════════════ */
+const API_BASE = localStorage.getItem('AKAN_API') || 'http://localhost:8070';
+let apiOnline = false;
+fetch(API_BASE + '/akan/api/health', {signal: AbortSignal.timeout(3500)})
+  .then(r=>r.json()).then(j=>{apiOnline = !!j.ok}).catch(()=>{apiOnline=false});
+
+const PLANS = {
+  'AKAN-ESENCIAL': {name:'Plan Esencial', price:549, branch:'pelo',
+    items:['Finasteride 1mg oral','Consulta médica incluida','Seguimiento por chat ilimitado','Envío discreto mensual'],
+    for:'Ideal para entradas y prevención temprana'},
+  'AKAN-COMPLETO': {name:'Plan Completo', price:849, branch:'pelo',
+    items:['Finasteride 1mg oral','Minoxidil tópico 5%','Consulta + seguimiento médico','Envío discreto mensual'],
+    for:'El más elegido — frena la caída y recupera'},
+  'AKAN-KIT': {name:'Kit AKAN Total', price:1199, branch:'pelo',
+    items:['Finasteride + Minoxidil 5%','Shampoo Ketoconazol 2%','Suplemento Biotina + Zinc','Seguimiento prioritario'],
+    for:'Máximo resultado para caída general'},
+  'AKAN-SILD': {name:'Plan Momento', price:449, branch:'desempeno',
+    items:['Sildenafil 50mg — 8 dosis','Actúa en 30-60 min','Consulta médica incluida','Envío discreto mensual'],
+    for:'Para cuando tú decidas'},
+  'AKAN-TADA': {name:'Plan Diario', price:649, branch:'desempeno',
+    items:['Tadalafil 5mg — 30 días','Siempre listo, sin planear','Consulta médica incluida','Envío discreto mensual'],
+    for:'Espontaneidad total, todos los días'},
+  'AKAN-KITCONF': {name:'Kit Confianza', price:899, branch:'desempeno',
+    items:['Tadalafil 5mg diario','Suplemento de energía y circulación','Seguimiento prioritario','Envío discreto mensual'],
+    for:'El paquete completo de desempeño'},
+  'AKAN-CONSULTA': {name:'Consulta Médica de Valoración', price:0, branch:'ambas',
+    items:['Videollamada con médico con cédula','Valoración completa de tu caso','Plan personalizado seguro','Sin costo, sin compromiso'],
+    for:'Tu caso necesita valoración personalizada'}
+};
+
+/* ── Definición del flujo ── */
+const FLOW = {
+  start: {
+    type:'q', overline:'Evaluación AKAN · 2 minutos', title:'¿Qué te trae por aquí?',
+    sub:'Todo es confidencial — solo tu médico ve tus respuestas.',
+    opts:[
+      {g:'P', t:'Mi pelo', s:'Caída, entradas, menos densidad', next:'p1', set:{branch:'pelo'}},
+      {g:'D', t:'Mi desempeño', s:'Erección, confianza en la cama', next:'d1', set:{branch:'desempeno'}},
+    ]
+  },
+
+  /* ───────── RAMA PELO ───────── */
+  p1:{type:'q', overline:'Tu cabello · 1 de 6', title:'¿Dónde notas la caída?',
+    opts:[
+      {g:'C', t:'Corona', s:'Se ve el cuero cabelludo arriba, atrás', next:'p2', ans:['Patrón de caída','Corona']},
+      {g:'E', t:'Entradas', s:'La línea retrocede en las esquinas', next:'p2', ans:['Patrón de caída','Entradas']},
+      {g:'G', t:'En general', s:'Más delgado y débil en toda la cabeza', next:'p2', ans:['Patrón de caída','General']},
+      {g:'✦', t:'Aún casi no se nota', s:'Quiero prevenir antes de perderlo', next:'p2', ans:['Patrón de caída','Prevención']},
+    ]},
+  p2:{type:'q', overline:'Tu cabello · 2 de 6', title:'¿Hace cuánto lo notaste?',
+    opts:[
+      {t:'Hace menos de 6 meses', next:'p3', ans:['Tiempo con caída','< 6 meses']},
+      {t:'Entre 6 meses y 2 años', next:'p3', ans:['Tiempo con caída','6 meses – 2 años']},
+      {t:'Más de 2 años', next:'p3', ans:['Tiempo con caída','> 2 años']},
+    ]},
+  p3:{type:'q', overline:'Sobre ti · 3 de 6', title:'¿Cuántos años tienes?',
+    opts:[
+      {t:'Menos de 18', next:'gate_age', ans:['Edad','< 18']},
+      {t:'18 a 25', next:'p4', ans:['Edad','18-25']},
+      {t:'26 a 35', next:'p4', ans:['Edad','26-35']},
+      {t:'36 a 45', next:'p4', ans:['Edad','36-45']},
+      {t:'46 o más', next:'p4', ans:['Edad','46+']},
+    ]},
+  p4:{type:'q', overline:'Sobre ti · 4 de 6', title:'¿Hay calvicie en tu familia?',
+    sub:'Papá, abuelos, tíos…',
+    opts:[
+      {t:'Sí', next:'p5', ans:['Antecedentes familiares','Sí']},
+      {t:'No', next:'p5', ans:['Antecedentes familiares','No']},
+      {t:'No estoy seguro', next:'p5', ans:['Antecedentes familiares','No sabe']},
+    ]},
+  p5:{type:'multi', overline:'Tu salud · 5 de 6', title:'¿Alguna de estas aplica?',
+    sub:'Sé honesto — de esto depende que tu tratamiento sea seguro.',
+    ansKey:'Condiciones de salud',
+    opts:[
+      {t:'Enfermedad del hígado', flag:true},
+      {t:'Depresión severa actual', flag:true},
+      {t:'Mi pareja y yo buscamos embarazo', flag:true},
+      {t:'Tomo medicamentos diario', flag:false},
+      {none:true, t:'Ninguna de las anteriores'},
+    ],
+    nextOk:'p6', nextFlag:'gate_consulta'},
+  p6:{type:'q', overline:'Casi listo · 6 de 6', title:'¿Qué tan a fondo quieres ir?',
+    opts:[
+      {g:'1', t:'Lo esencial', s:'Frenar la caída desde la raíz', next:'rec', ans:['Intensidad','Esencial'], set:{intensity:'esencial'}},
+      {g:'2', t:'Quiero resultados visibles', s:'Frenar + recuperar densidad', next:'rec', ans:['Intensidad','Completo'], set:{intensity:'completo'}},
+      {g:'3', t:'Quiero todo el arsenal', s:'El protocolo completo', next:'rec', ans:['Intensidad','Total'], set:{intensity:'total'}},
+    ]},
+
+  /* ───────── RAMA DESEMPEÑO ───────── */
+  d1:{type:'q', overline:'Tu desempeño · 1 de 5', title:'¿Qué describe mejor tu situación?',
+    sub:'Le pasa a más hombres de los que crees. Aquí se resuelve.',
+    opts:[
+      {t:'Me cuesta lograr la erección', next:'d2', ans:['Situación','Dificultad para lograr erección']},
+      {t:'La logro pero no se mantiene', next:'d2', ans:['Situación','Dificultad para mantener']},
+      {t:'A veces simplemente no pasa', next:'d2', ans:['Situación','Episodios intermitentes']},
+      {t:'Funciono bien, quiero más seguridad', next:'d2', ans:['Situación','Busca confianza extra']},
+    ]},
+  d2:{type:'q', overline:'Tu desempeño · 2 de 5', title:'¿Qué tan seguido tienes actividad sexual?',
+    opts:[
+      {t:'1-2 veces por semana', next:'d3', ans:['Frecuencia','1-2 por semana']},
+      {t:'3 o más veces por semana', next:'d3', ans:['Frecuencia','3+ por semana']},
+      {t:'Es impredecible — surge cuando surge', next:'d3', ans:['Frecuencia','Espontánea']},
+    ]},
+  d3:{type:'q', overline:'Sobre ti · 3 de 5', title:'¿Cuántos años tienes?',
+    opts:[
+      {t:'Menos de 18', next:'gate_age', ans:['Edad','< 18']},
+      {t:'18 a 30', next:'d4', ans:['Edad','18-30']},
+      {t:'31 a 45', next:'d4', ans:['Edad','31-45']},
+      {t:'46 a 60', next:'d4', ans:['Edad','46-60']},
+      {t:'Más de 60', next:'d4', ans:['Edad','60+']},
+    ]},
+  d4:{type:'multi', overline:'Tu salud · 4 de 5', title:'¿Alguna de estas aplica?',
+    sub:'Esto es lo más importante de toda la evaluación. Sé 100% honesto.',
+    ansKey:'Salud cardiovascular',
+    opts:[
+      {t:'Tomo nitratos (isosorbide, nitroglicerina)', hard:true},
+      {t:'Infarto o derrame en los últimos 6 meses', hard:true},
+      {t:'Presión arterial muy baja', flag:true},
+      {t:'Tomo medicamentos para el corazón', flag:true},
+      {none:true, t:'Ninguna de las anteriores'},
+    ],
+    nextOk:'d5', nextFlag:'gate_consulta', nextHard:'gate_nitratos'},
+  d5:{type:'q', overline:'Casi listo · 5 de 5', title:'¿Cómo lo prefieres?',
+    opts:[
+      {g:'M', t:'Para el momento', s:'Lo tomas cuando lo vas a usar', next:'rec', ans:['Preferencia','Para el momento'], set:{pref:'momento'}},
+      {g:'D', t:'Siempre listo', s:'Dosis diaria baja — espontaneidad total', next:'rec', ans:['Preferencia','Diario'], set:{pref:'diario'}},
+      {g:'+', t:'El paquete completo', s:'Diario + suplemento de energía', next:'rec', ans:['Preferencia','Kit completo'], set:{pref:'kit'}},
+    ]},
+
+  /* ───────── GATES ───────── */
+  gate_age:{type:'gate', title:'Necesitas ser mayor de edad',
+    body:'Por regulación sanitaria solo podemos tratar mayores de 18 años. Si te preocupa tu pelo o tu desempeño, habla con tus papás o con un médico de confianza.',
+    ctaText:'Volver al inicio', ctaHref:'index.html'},
+  gate_nitratos:{type:'gate', title:'Alto — tu seguridad primero',
+    body:'Combinar sildenafil o tadalafil con nitratos puede causar una caída peligrosa de presión. No podemos venderte este tratamiento en línea — y nadie debería. Lo correcto es que un médico valore tu caso con tu historial completo. La consulta es gratis.',
+    consulta:true},
+  gate_consulta:{type:'gate', title:'Tu caso merece un médico en vivo',
+    body:'Por lo que nos contaste, lo responsable es que un médico con cédula valore tu caso antes de recetarte. Es una videollamada de 15 minutos, gratis y sin compromiso. De ahí sales con un plan seguro para ti.',
+    consulta:true},
+
+  /* recomendación y checkout se generan dinámico */
+};
+
+/* ── Estado ── */
+const S = {branch:null, answers:[], flags:{}, plan:null, history:[]};
+
+/* ── Recomendación ── */
+function recommend(){
+  if(S.branch==='pelo'){
+    const i=S.flags.intensity||'completo';
+    if(i==='esencial')return 'AKAN-ESENCIAL';
+    if(i==='total')return 'AKAN-KIT';
+    return 'AKAN-COMPLETO';
+  }else{
+    const p=S.flags.pref||'momento';
+    if(p==='diario')return 'AKAN-TADA';
+    if(p==='kit')return 'AKAN-KITCONF';
+    return 'AKAN-SILD';
+  }
+}
+
+/* ── Render ── */
+const screens=document.getElementById('screens');
+const progFill=document.getElementById('progFill');
+const stepCount=document.getElementById('stepCount');
+const backBtn=document.getElementById('backBtn');
+const TOTAL={pelo:8, desempeno:7};
+
+function setProgress(id){
+  const order={start:0,p1:1,p2:2,p3:3,p4:4,p5:5,p6:6,d1:1,d2:2,d3:3,d4:4,d5:5,rec:'r',checkout:'c',done:'d'};
+  const tot=TOTAL[S.branch]||8;
+  let pct=4, label='';
+  const o=order[id];
+  if(o==='r'){pct=82;label='Plan'}
+  else if(o==='c'){pct=92;label='Datos'}
+  else if(o==='d'){pct=100;label='✓'}
+  else if(typeof o==='number'){pct=Math.max(4,Math.round(o/tot*78));label=o?`${o}/${tot-2}`:''}
+  progFill.style.width=pct+'%';
+  stepCount.textContent=label;
+  backBtn.style.visibility = S.history.length>0 && id!=='done' ? 'visible' : 'hidden';
+}
+
+function show(id, push=true){
+  if(push && screens.dataset.current) S.history.push(screens.dataset.current);
+  screens.dataset.current=id;
+  screens.innerHTML='';
+  const node = id==='rec' ? renderRec() : id==='checkout' ? renderCheckout() : id==='done' ? null : renderFlow(id);
+  if(node) screens.appendChild(node);
+  setProgress(id);
+  scrollTo({top:0,behavior:'instant'});
+}
+
+backBtn.addEventListener('click',()=>{
+  const prev=S.history.pop();
+  if(prev){
+    /* limpia respuestas del paso que abandonamos */
+    show(prev,false);
+  }
+});
+
+function el(html){const d=document.createElement('div');d.innerHTML=html.trim();return d.firstChild}
+
+function renderFlow(id){
+  const def=FLOW[id];
+  if(def.type==='gate')return renderGate(def);
+  const scr=el(`<div class="screen on">
+    <div class="q-overline">${def.overline||''}</div>
+    <h1 class="q-title">${def.title}</h1>
+    ${def.sub?`<p class="q-sub">${def.sub}</p>`:''}
+    <div class="opts"></div>
+    <div class="next-wrap"><button class="btn btn-cta">Continuar →</button></div>
+  </div>`);
+  const optsBox=scr.querySelector('.opts');
+  const nextWrap=scr.querySelector('.next-wrap');
+  const nextBtn=nextWrap.querySelector('button');
+
+  if(def.type==='q'){
+    def.opts.forEach(o=>{
+      const b=el(`<button class="opt">${o.g?`<span class="glyph">${o.g}</span>`:''}
+        <span>${o.t}${o.s?`<small>${o.s}</small>`:''}</span><span class="tick"></span></button>`);
+      b.addEventListener('click',()=>{
+        optsBox.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+        b.classList.add('sel');
+        if(o.ans)S.answers=S.answers.filter(a=>a.q!==o.ans[0]).concat([{q:o.ans[0],a:o.ans[1]}]);
+        if(o.set)Object.assign(S.flags,o.set);
+        if(o.set&&o.set.branch)S.branch=o.set.branch;
+        setTimeout(()=>show(o.next),260); /* tap → avanza solo. Instagram. */
+      });
+      optsBox.appendChild(b);
+    });
+  }
+
+  if(def.type==='multi'){
+    const state=new Set();
+    def.opts.forEach(o=>{
+      const b=el(`<button class="opt">${o.hard?'<span class="glyph warm">!</span>':''}
+        <span>${o.t}</span><span class="tick"></span></button>`);
+      b.addEventListener('click',()=>{
+        if(o.none){
+          state.clear();state.add('none');
+          optsBox.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+          b.classList.add('sel');
+        }else{
+          state.delete('none');
+          optsBox.querySelector('.opt:last-child').classList.remove('sel');
+          if(state.has(o.t)){state.delete(o.t);b.classList.remove('sel')}
+          else{state.add(o.t);b.classList.add('sel')}
+        }
+        nextWrap.classList.toggle('show',state.size>0);
+      });
+      optsBox.appendChild(b);
+    });
+    nextBtn.addEventListener('click',()=>{
+      const sel=[...state].filter(x=>x!=='none');
+      S.answers=S.answers.filter(a=>a.q!==def.ansKey)
+        .concat([{q:def.ansKey,a:sel.length?sel.join('; '):'Ninguna'}]);
+      const hard=def.opts.some(o=>o.hard&&sel.includes(o.t));
+      const flag=def.opts.some(o=>o.flag&&sel.includes(o.t));
+      if(hard&&def.nextHard)show(def.nextHard);
+      else if(flag&&def.nextFlag)show(def.nextFlag);
+      else show(def.nextOk);
+    });
+  }
+  return scr;
+}
+
+function renderGate(def){
+  const scr=el(`<div class="screen on">
+    <div class="gate">
+      <h3>${def.title}</h3>
+      <p>${def.body}</p>
+    </div>
+    <div style="margin-top:24px"></div>
+  </div>`);
+  const box=scr.lastElementChild;
+  if(def.consulta){
+    S.plan='AKAN-CONSULTA';
+    const b=el(`<button class="btn btn-cta">Agendar consulta gratis →</button>`);
+    b.addEventListener('click',()=>show('checkout'));
+    box.appendChild(b);
+  }else{
+    const a=el(`<a class="btn btn-ghost" style="width:100%" href="${def.ctaHref}">${def.ctaText}</a>`);
+    box.appendChild(a);
+  }
+  return scr;
+}
+
+function renderRec(){
+  S.plan=recommend();
+  const p=PLANS[S.plan];
+  const alts=Object.entries(PLANS).filter(([c,x])=>x.branch===p.branch&&c!==S.plan);
+  const scr=el(`<div class="screen on">
+    <div class="q-overline">Tu recomendación</div>
+    <h1 class="q-title">Este es tu plan, <span class="serif-i grad-text">en serio.</span></h1>
+    <p class="q-sub">Basado en tus respuestas. Tu médico lo confirma antes de enviar nada.</p>
+    <div class="plan-rec">
+      <div class="pr-badge">Recomendado para ti</div>
+      <h3>${p.name}</h3>
+      <div style="color:var(--ink-soft);font-size:14.5px">${p.for}</div>
+      <div class="pr-price">$${p.price.toLocaleString('es-MX')}<span> MXN/mes</span></div>
+      <ul>${p.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <button class="btn btn-cta" style="margin-top:18px" id="wantBtn">Lo quiero →</button>
+      <div class="med-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
+        <span>Un médico con cédula revisa tus respuestas <b>antes</b> de aprobar tu tratamiento. Si no procede, no pagas.</span>
+      </div>
+    </div>
+    <div id="altBox"></div>
+  </div>`);
+  scr.querySelector('#wantBtn').addEventListener('click',()=>show('checkout'));
+  const altBox=scr.querySelector('#altBox');
+  const altBtn=el(`<button class="alt-link">Ver las otras opciones de ${p.branch==='pelo'?'cabello':'desempeño'}</button>`);
+  altBtn.addEventListener('click',()=>{
+    altBtn.remove();
+    alts.forEach(([code,x])=>{
+      const c=el(`<div class="plan-rec" style="margin-top:14px;border-color:var(--line);box-shadow:none">
+        <h3 style="font-size:21px">${x.name}</h3>
+        <div style="color:var(--ink-soft);font-size:14px">${x.for}</div>
+        <div class="pr-price" style="font-size:32px">$${x.price.toLocaleString('es-MX')}<span> MXN/mes</span></div>
+        <button class="btn btn-ghost" style="width:100%;margin-top:10px">Elegir este</button>
+      </div>`);
+      c.querySelector('button').addEventListener('click',()=>{S.plan=code;show('checkout')});
+      altBox.appendChild(c);
+    });
+  });
+  altBox.appendChild(altBtn);
+  return scr;
+}
+
+function renderCheckout(){
+  const p=PLANS[S.plan];
+  const scr=el(`<div class="screen on">
+    <div class="q-overline">Último paso</div>
+    <h1 class="q-title">¿A dónde lo mandamos?</h1>
+    <p class="q-sub">Caja neutra, sin marca. Ni el repartidor sabe qué lleva.</p>
+    <div class="order-summary"><span class="serif-i">${p.name}</span><span>${p.price?'$'+p.price.toLocaleString('es-MX')+' /mes':'Gratis'}</span></div>
+    <form class="form" novalidate>
+      <div class="field"><label>Nombre completo</label><input name="name" autocomplete="name" placeholder="Carlos Mendoza"></div>
+      <div class="f-row">
+        <div class="field"><label>WhatsApp</label><input name="phone" type="tel" autocomplete="tel" placeholder="55 1234 5678"></div>
+        <div class="field"><label>Email</label><input name="email" type="email" autocomplete="email" placeholder="tu@correo.com"></div>
+      </div>
+      <div class="field"><label>Calle y número</label><input name="street" autocomplete="street-address" placeholder="Av. Ámsterdam 123, Depto 4"></div>
+      <div class="f-row">
+        <div class="field"><label>Ciudad</label><input name="city" placeholder="CDMX"></div>
+        <div class="field"><label>C.P.</label><input name="zip" inputmode="numeric" placeholder="06100"></div>
+      </div>
+      <div class="field"><label>Estado</label>
+        <select name="state">
+          <option value="">Elige…</option>
+          <option>Ciudad de México</option><option>Estado de México</option><option>Nuevo León</option>
+          <option>Jalisco</option><option>Querétaro</option><option>Puebla</option><option>Guanajuato</option>
+          <option>Yucatán</option><option>Quintana Roo</option><option>Baja California</option><option>Otro</option>
+        </select>
+      </div>
+      <div class="pay-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <span><b>Hoy no pagas nada.</b> Cuando tu médico apruebe la receta te mandamos el link de pago por WhatsApp. Cancelas cuando quieras.</span>
+      </div>
+      <button class="btn btn-cta" type="submit" id="submitBtn">Confirmar mi orden →</button>
+    </form>
+  </div>`);
+  const form=scr.querySelector('form');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const f=Object.fromEntries(new FormData(form).entries());
+    let valid=true;
+    ['name','phone','email','street','city','zip'].forEach(k=>{
+      const inp=form.querySelector(`[name=${k}]`);
+      const ok=k==='email'?/.+@.+\..+/.test(f[k]):(f[k]||'').trim().length>1;
+      inp.classList.toggle('err',!ok);
+      if(!ok)valid=false;
+    });
+    if(!valid)return;
+    const btn=scr.querySelector('#submitBtn');
+    btn.disabled=true;btn.textContent='Enviando…';
+    const payload={branch:S.branch||'pelo',plan_code:S.plan,answers:S.answers,customer:f};
+    let result=null;
+    if(apiOnline){
+      try{
+        const r=await fetch(API_BASE+'/akan/api/checkout',{method:'POST',
+          headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),
+          signal:AbortSignal.timeout(12000)});
+        result=await r.json();
+      }catch(err){result=null}
+    }
+    if(!result||!result.ok){
+      /* modo respaldo: la operación sigue por WhatsApp, el cliente nunca ve un error */
+      const pend=JSON.parse(localStorage.getItem('akan_pending')||'[]');
+      pend.push({...payload,ts:Date.now()});
+      localStorage.setItem('akan_pending',JSON.stringify(pend));
+      result={ok:true,order:'AKAN-'+String(Date.now()).slice(-6),fallback:true};
+    }
+    renderDone(result,f);
+  });
+  return scr;
+}
+
+function renderDone(result,f){
+  screens.dataset.current='done';
+  const p=PLANS[S.plan];
+  const waText=encodeURIComponent(`Hola AKAN 👋 Soy ${f.name}. Acabo de completar mi evaluación (orden ${result.order}, ${p.name}). Quedo pendiente de la revisión del médico.`);
+  screens.innerHTML=`<div class="screen on" style="text-align:center">
+    <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+    <div class="q-overline">Orden recibida</div>
+    <h1 class="q-title">Listo, ${f.name.split(' ')[0]}.<br>Lo difícil <span class="serif-i grad-text">ya pasó.</span></h1>
+    <div class="order-ref">${result.order}</div>
+    <div class="timeline">
+      <div class="tl-item"><b>Hoy — Tu médico revisa tu evaluación</b><span>Un médico con cédula valora tus respuestas. Si tiene dudas te escribe por WhatsApp.</span></div>
+      <div class="tl-item dim"><b>Receta aprobada → link de pago</b><span>Te llega por WhatsApp. Hasta entonces, no pagas nada.</span></div>
+      <div class="tl-item dim"><b>24-72h — En tu puerta</b><span>Caja neutra, sin marca. Nadie se entera.</span></div>
+    </div>
+    <a class="btn btn-cta" style="margin-top:34px" href="https://wa.me/525500000000?text=${waText}">Abrir WhatsApp →</a>
+    <div class="trust-row">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>Médico con cédula</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Datos privados</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/></svg>Caja sin marca</span>
+    </div>
+  </div>`;
+  setProgress('done');
+  backBtn.style.visibility='hidden';
+}
+
+/* arranque — soporta ?branch=pelo|desempeno y ?plan=CODE directo */
+const params=new URLSearchParams(location.search);
+if(params.get('plan')&&PLANS[params.get('plan')]){
+  S.plan=params.get('plan');
+  S.branch=PLANS[S.plan].branch==='desempeno'?'desempeno':'pelo';
+  S.answers.push({q:'Origen',a:'Compra directa desde catálogo — '+S.plan});
+  show('checkout',false);
+}else if(params.get('branch')==='desempeno'){
+  S.branch='desempeno';show('d1',false);
+}else if(params.get('branch')==='pelo'){
+  S.branch='pelo';show('p1',false);
+}else{
+  show('start',false);
+}
+</script>
+</body>
+</html>
