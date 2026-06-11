@@ -257,7 +257,7 @@ img{max-width:100%;display:block}
 <div class="stage"><div id="screens"></div></div>
 
 <script>
-const API_BASE = localStorage.getItem('AKAN_API') || 'http://localhost:8070';
+const API_BASE = localStorage.getItem('AKAN_API') || 'https://odoo-production-3a20.up.railway.app';
 let apiOnline = false;
 fetch(API_BASE + '/akan/api/health', {signal: AbortSignal.timeout(3500)})
   .then(r=>r.json()).then(j=>{apiOnline = !!j.ok}).catch(()=>{apiOnline=false});
