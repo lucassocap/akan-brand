@@ -116,6 +116,11 @@ html.noanim .t-fill{width:var(--w)}
 html.noanim .hero{min-height:auto;padding-top:150px;padding-bottom:110px}
 html.noanim .parallax{height:640px;min-height:0}
 html.noanim .parallax-img{inset:0}
+html.noanim .sc-step{min-height:auto;opacity:1;padding:30px 0}
+html.noanim .scrolly-steps{gap:10px;padding:20px 0}
+html.noanim .scrolly-fig{position:static;height:420px}
+html.noanim .mcta{display:none!important}
+html.noanim .fol-dht circle{opacity:.9}
 
 /* ── Sprites Leonardo (elementos vivos) ── */
 .sprite{position:absolute;pointer-events:none;will-change:transform;z-index:1;
@@ -434,7 +439,177 @@ footer ul a:hover{color:var(--paper)}
 .in .pt-row:nth-child(2){transition-delay:.1s}.in .pt-row:nth-child(3){transition-delay:.25s}
 .in .pt-row:nth-child(4){transition-delay:.4s}.in .pt-row:nth-child(5){transition-delay:.55s}
 
+
+/* ── Palabra rotativa ── */
+.rot-wrap{display:inline-block}
+#rotWord{display:inline-block;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+#rotWord.rot-out{opacity:0;transform:translateY(-14px)}
+
+/* ── Selector de categoría ── */
+.cat-cards{display:grid;gap:18px}
+@media(min-width:760px){.cat-cards{grid-template-columns:1fr 1fr}}
+.cat-card{position:relative;display:block;border-radius:var(--r-lg);overflow:hidden;min-height:240px;
+  box-shadow:0 20px 50px rgba(120,90,50,.16);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.cat-card:hover{transform:translateY(-7px);box-shadow:0 32px 70px rgba(120,90,50,.24)}
+.cat-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.cat-card:hover img{transform:scale(1.05)}
+.cat-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(27,24,18,.72),rgba(27,24,18,.06) 55%)}
+.cc-body{position:absolute;left:26px;right:26px;bottom:22px;z-index:2;color:#FFFEFA}
+.cc-body .overline{color:var(--peach)}
+.cc-body h3{font-family:var(--font-d);font-weight:700;font-size:clamp(24px,2.8vw,34px);letter-spacing:-.02em}
+.cc-arrow{display:inline-flex;margin-top:10px;font-weight:700;font-size:14.5px;color:var(--peach)}
+
+/* ── Marquee credenciales ── */
+.cred-marquee{overflow:hidden;background:var(--paper);border-bottom:1px solid var(--line);padding:16px 0}
+.cred-track{display:flex;gap:34px;align-items:center;white-space:nowrap;width:max-content;
+  animation:marq 30s linear infinite;font-size:13.5px;font-weight:600;color:var(--ink-soft);
+  letter-spacing:.05em;text-transform:uppercase}
+.cred-track i{color:var(--clay);font-style:normal;font-size:9px}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── Scrollytelling folículo ── */
+.scrolly-sec{background:linear-gradient(165deg,#FBF7EE,#F2ECDC)}
+.scrolly{display:grid;gap:30px;padding-bottom:60px}
+@media(min-width:900px){.scrolly{grid-template-columns:1fr 1fr;gap:60px}}
+.scrolly-fig{position:sticky;top:86px;height:62vh;min-height:420px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;z-index:2}
+@media(max-width:899px){.scrolly-fig{height:46vh;min-height:330px;background:linear-gradient(180deg,#FBF7EE 78%,transparent);top:64px}}
+.fol-svg{height:84%;max-height:480px;filter:drop-shadow(0 24px 40px rgba(120,90,50,.18))}
+.fol-cap{font-family:var(--font-d);font-style:italic;font-weight:600;font-size:19px;color:var(--forest);
+  margin-top:8px;transition:opacity .4s}
+.scrolly-steps{display:flex;flex-direction:column;gap:8vh;padding:6vh 0 10vh}
+.sc-step{min-height:56vh;display:flex;flex-direction:column;justify-content:center;max-width:420px;
+  opacity:.25;transition:opacity .5s var(--ease)}
+.sc-step.live{opacity:1}
+.sc-num{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);margin-bottom:10px}
+.sc-step h3{font-family:var(--font-d);font-weight:700;font-size:clamp(24px,2.8vw,34px);letter-spacing:-.02em;margin-bottom:12px}
+.sc-step p{color:var(--ink-soft);font-size:16.5px}
+/* estados del SVG según acto */
+.fol-svg .fol-dht circle{opacity:0;transition:all .9s var(--ease)}
+.fol-svg .fol-shield{opacity:0;transform:translateY(16px);transition:all .7s var(--ease);transform-origin:150px 250px}
+.fol-svg .fol-bulb{transition:transform 1s var(--ease);transform-origin:150px 216px}
+.fol-svg .fol-hair{transition:all 1s var(--ease);transform-origin:150px 146px}
+.fol-svg .fol-hair-new1,.fol-svg .fol-hair-new2{opacity:0;transform:scaleY(0);transform-origin:150px 150px;transition:all 1.1s var(--ease)}
+[data-act="1"] .fol-dht circle{opacity:.9}
+[data-act="1"] .fol-dht circle:nth-child(odd){animation:floaty 5s ease-in-out infinite}
+[data-act="2"] .fol-dht circle{opacity:1;transform:translate(0,0) scale(1.06)}
+[data-act="2"] .fol-dht circle:nth-child(1){transform:translate(34px,28px)}
+[data-act="2"] .fol-dht circle:nth-child(2){transform:translate(48px,-6px)}
+[data-act="2"] .fol-dht circle:nth-child(3){transform:translate(-36px,18px)}
+[data-act="2"] .fol-dht circle:nth-child(4){transform:translate(-48px,-16px)}
+[data-act="2"] .fol-dht circle:nth-child(5){transform:translate(28px,-28px)}
+[data-act="2"] .fol-bulb{transform:scale(.55)}
+[data-act="2"] .fol-hair{transform:scale(.5,.62);opacity:.55}
+[data-act="3"] .fol-bulb{transform:scale(.62)}
+[data-act="3"] .fol-hair{transform:scale(.6,.7);opacity:.7}
+[data-act="3"] .fol-shield{opacity:1;transform:translateY(0)}
+[data-act="3"] .fol-dht circle{opacity:.25;transform:translate(0,0) scale(.7)}
+[data-act="3"] .fol-dht circle:nth-child(1){transform:translate(-26px,-30px) scale(.6)}
+[data-act="3"] .fol-dht circle:nth-child(3){transform:translate(30px,-26px) scale(.6)}
+[data-act="4"] .fol-bulb{transform:scale(1)}
+[data-act="4"] .fol-hair{transform:scale(1);opacity:1}
+[data-act="4"] .fol-shield{opacity:.9;transform:translateY(0)}
+[data-act="4"] .fol-dht circle{opacity:0}
+[data-act="4"] .fol-hair-new1,[data-act="4"] .fol-hair-new2{opacity:1;transform:scaleY(1)}
+
+/* ── Gauge -70% ── */
+.gauge{width:58px;height:58px}
+.in .gauge-fill{stroke-dashoffset:49;transition:stroke-dashoffset 1.6s var(--ease) .3s}
+
+/* ── Resultados: curva + slider ── */
+.results-grid{display:grid;gap:34px;margin-top:64px;align-items:center}
+@media(min-width:1000px){.results-grid{grid-template-columns:1.15fr .85fr}}
+.curve-svg{width:100%}
+.curve-line{stroke-dasharray:760;stroke-dashoffset:760}
+.in .curve-line{stroke-dashoffset:0;transition:stroke-dashoffset 2.2s var(--ease) .2s}
+.curve-area{opacity:0}
+.in .curve-area{opacity:1;transition:opacity 1.4s var(--ease) 1.2s}
+.curve-dot{opacity:0;transform:scale(.4);transform-origin:center;transform-box:fill-box}
+.in .curve-dot{opacity:1;transform:scale(1);transition:all .6s cubic-bezier(.34,1.56,.64,1)}
+.in .curve-dot.d1{transition-delay:.7s}.in .curve-dot.d2{transition-delay:1.3s}.in .curve-dot.d3{transition-delay:2s}
+.ba{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:1;
+  box-shadow:0 26px 60px rgba(0,0,0,.35);user-select:none}
+.ba>img{width:100%;height:100%;object-fit:cover}
+.ba-top{position:absolute;inset:0 auto 0 0;overflow:hidden}
+.ba-top img{height:100%;width:auto;max-width:none;object-fit:cover}
+.ba-handle{position:absolute;top:0;bottom:0;width:4px;background:#FFFEFA;transform:translateX(-2px);
+  box-shadow:0 0 18px rgba(0,0,0,.4);pointer-events:none}
+.ba-handle span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;
+  border-radius:50%;background:#FFFEFA;display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--forest);box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba-tag{position:absolute;top:14px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 14px;border-radius:var(--r-pill);background:rgba(27,24,18,.55);color:#FFFEFA;backdrop-filter:blur(6px)}
+.ba-tag.l{left:14px}.ba-tag.r{right:14px}
+
+/* ── Desempeño: fotos + stat + timing ── */
+.dz-photos{display:grid;gap:16px;margin-top:50px;grid-template-columns:1fr 1fr}
+@media(min-width:900px){.dz-photos{grid-template-columns:1.4fr 1fr 1fr}}
+.dz-ph{border-radius:var(--r-lg);overflow:hidden;min-height:220px;box-shadow:0 18px 44px rgba(154,78,46,.18)}
+.dz-ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.dz-ph:hover img{transform:scale(1.05)}
+.dz-stat{background:linear-gradient(150deg,#9A4E2E,#C5623E);border-radius:var(--r-lg);color:#FFF4E8;
+  display:flex;flex-direction:column;justify-content:center;padding:30px;gap:8px}
+@media(max-width:899px){.dz-stat{grid-column:span 2}}
+.dz-stat b{font-family:var(--font-d);font-size:clamp(40px,4.5vw,58px);line-height:1;letter-spacing:-.02em}
+.dz-stat span{font-size:14.5px;opacity:.9}
+.timing{margin-top:46px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:clamp(24px,3.5vw,40px)}
+.tm-row{margin-bottom:26px}
+.tm-row:last-child{margin-bottom:0}
+.tm-head{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;margin-bottom:12px}
+.tm-head b{font-family:var(--font-d);font-size:18px}
+.tm-head span{font-size:13.5px;color:var(--ink-soft)}
+.tm-track{position:relative;height:46px;background:var(--paper-deep);border-radius:12px;overflow:hidden}
+.tm-fill{position:absolute;inset:0 auto 0 0;width:0;border-radius:12px}
+.tm-sild{background:linear-gradient(90deg,#E07B4C,#F2C9A8)}
+.tm-tada{background:linear-gradient(90deg,#2E6B4D,#6FB890)}
+.in .tm-sild{width:46%;transition:width 1.5s var(--ease) .3s}
+.in .tm-tada{width:100%;transition:width 1.9s var(--ease) .6s}
+.tm-mark{position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;
+  color:var(--ink);background:rgba(255,254,250,.85);padding:4px 10px;border-radius:var(--r-pill);
+  white-space:nowrap;box-shadow:0 4px 12px rgba(120,90,50,.14)}
+
+/* ── FAQ ── */
+.faq{display:flex;flex-direction:column;gap:12px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:0 24px;overflow:hidden;transition:box-shadow .3s}
+.faq details[open]{box-shadow:0 16px 40px rgba(120,90,50,.12)}
+.faq summary{display:flex;justify-content:space-between;align-items:center;gap:16px;cursor:pointer;
+  list-style:none;font-weight:700;font-size:16.5px;padding:20px 0}
+.faq summary::-webkit-details-marker{display:none}
+.faq .fx{width:30px;height:30px;border-radius:50%;background:var(--sage);border:1px solid var(--mint);
+  display:flex;align-items:center;justify-content:center;color:var(--forest);font-weight:700;
+  flex-shrink:0;transition:transform .3s var(--ease)}
+.faq details[open] .fx{transform:rotate(45deg)}
+.faq details p{padding:0 0 20px;color:var(--ink-soft);font-size:15.5px;max-width:680px}
+
+/* ── Sticky CTA móvil ── */
+.mcta{position:fixed;left:14px;right:14px;bottom:14px;z-index:95;display:none;
+  transform:translateY(120%);transition:transform .45s var(--ease)}
+.mcta.show{transform:none}
+.mcta .btn{flex-direction:column;gap:2px;padding:14px;box-shadow:0 18px 44px rgba(197,98,62,.45)}
+@media(max-width:860px){.mcta{display:block}}
+
+/* ── Tilt 3D ── */
+.tilt{transform-style:preserve-3d;will-change:transform}
+
 </style>
+<link rel="preload" as="image" href="assets/premium/hero_light_products.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"AKAN Salud Masculina",
+"url":"https://akan-five.vercel.app","slogan":"Confidencial. Sin filas. A tu puerta.",
+"areaServed":"MX","description":"Telemedicina para salud masculina: caída de cabello y desempeño sexual. Médicos con cédula, entrega discreta."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"¿Es legal comprar finasteride o sildenafil en línea en México?","acceptedAnswer":{"@type":"Answer","text":"Sí, siempre que un médico con cédula profesional emita tu receta — exactamente lo que hace AKAN. Tu evaluación la revisa un médico real antes de aprobar cualquier tratamiento."}},
+{"@type":"Question","name":"¿De verdad nadie se entera?","acceptedAnswer":{"@type":"Answer","text":"Nadie. La caja llega neutra, sin marca ni descripción. Tus respuestas médicas solo las ve tu médico — ni la farmacia tiene acceso a ellas."}},
+{"@type":"Question","name":"¿Qué efectos secundarios tienen los tratamientos?","acceptedAnswer":{"@type":"Answer","text":"La mayoría de los hombres no presenta efectos. Los posibles efectos son poco comunes y reversibles, y tu médico los revisa contigo según tu caso antes de recetar."}},
+{"@type":"Question","name":"¿Cuándo veo resultados?","acceptedAnswer":{"@type":"Answer","text":"En cabello: la caída se reduce desde el mes 1 y el 87% ve resultados visibles al mes 6. En desempeño: desde la primera dosis."}},
+{"@type":"Question","name":"¿Puedo cancelar cuando quiera?","acceptedAnswer":{"@type":"Answer","text":"Sí, sin plazos forzosos ni penalizaciones. Pausas o cancelas desde WhatsApp."}},
+{"@type":"Question","name":"¿Quién es el médico que revisa mi caso?","acceptedAnswer":{"@type":"Answer","text":"Médicos mexicanos con cédula profesional verificada. Su nombre y cédula aparecen en tu receta."}}]}
+</script>
 </head>
 <body>
 
@@ -486,7 +661,7 @@ footer ul a:hover{color:var(--paper)}
     <div class="hero-copy rv-l in-init">
       <div class="overline">Salud masculina · México</div>
       <h1 class="mega" id="heroH">
-        <span class="word">Tu</span> <span class="word">pelo</span> <span class="word">merece</span>
+        <span class="word">Tu</span> <span class="word rot-wrap"><span id="rotWord">pelo</span></span> <span class="word">merece</span>
         <span class="word">un</span> <span class="word serif-i grad-text">médico,</span><br>
         <span class="word">no</span> <span class="word">Google.</span>
       </h1>
@@ -521,6 +696,26 @@ footer ul a:hover{color:var(--paper)}
   <div class="scroll-hint">Desliza</div>
 </section>
 
+<!-- ═══ ELIGE TU BATALLA ═══ -->
+<section style="background:var(--paper);padding:26px 0 64px">
+  <div class="wrap">
+    <div class="cat-cards stagger in-init">
+      <a class="cat-card" href="quiz.html?branch=pelo">
+        <img src="assets/premium/hero_light_products.jpg" alt="Tratamiento capilar AKAN" loading="lazy">
+        <div class="cc-body"><div class="overline" style="margin-bottom:6px">Caída de cabello</div>
+          <h3>Consérvalo. Recupéralo.</h3>
+          <span class="cc-arrow">Empezar evaluación →</span></div>
+      </a>
+      <a class="cat-card" href="quiz.html?branch=desempeno">
+        <img src="assets/premium/hombre_confianza.jpg" alt="Desempeño sexual AKAN" loading="lazy">
+        <div class="cc-body"><div class="overline" style="margin-bottom:6px">Desempeño sexual</div>
+          <h3>Confianza, de vuelta.</h3>
+          <span class="cc-arrow">Empezar evaluación →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ STATS ═══ -->
 <section class="stats" data-nav="dark">
   <div class="wrap stats-grid stagger">
@@ -531,6 +726,16 @@ footer ul a:hover{color:var(--paper)}
   </div>
 </section>
 
+<!-- ═══ MARQUEE CREDENCIALES ═══ -->
+<div class="cred-marquee"><div class="cred-track">
+  <span>Médicos con cédula CONACEM</span><i>◆</i><span>Entrega 24-72h a todo México</span><i>◆</i>
+  <span>Caja neutra sin marca</span><i>◆</i><span>Datos cifrados y confidenciales</span><i>◆</i>
+  <span>+10,000 evaluaciones realizadas</span><i>◆</i><span>Cancela cuando quieras</span><i>◆</i>
+  <span>Médicos con cédula CONACEM</span><i>◆</i><span>Entrega 24-72h a todo México</span><i>◆</i>
+  <span>Caja neutra sin marca</span><i>◆</i><span>Datos cifrados y confidenciales</span><i>◆</i>
+  <span>+10,000 evaluaciones realizadas</span><i>◆</i><span>Cancela cuando quieras</span><i>◆</i>
+</div></div>
+
 <!-- ═══ LA VERDAD ═══ -->
 <section class="section-pad">
   <div class="wrap statement rv">
@@ -538,6 +743,57 @@ footer ul a:hover{color:var(--paper)}
     <h2 class="display"><span class="serif-i grad-text-warm">2 de cada 3</span> hombres pierden cabello antes de los 35.</h2>
     <p class="lead">No estás solo y no es tu culpa. Es genética y una hormona llamada DHT.
       La buena noticia: la ciencia ya la sabe frenar — y entre más pronto empieces, más pelo conservas.</p>
+  </div>
+</section>
+
+<!-- ═══ SCROLLYTELLING FOLÍCULO ═══ -->
+<section class="scrolly-sec" id="historia">
+  <div class="wrap">
+    <div class="rv" style="max-width:680px;padding-top:clamp(70px,9vw,120px)">
+      <div class="overline">La historia de tu pelo</div>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Cuatro actos.<br>Final <span class="serif-i grad-text">feliz.</span></h2>
+    </div>
+    <div class="scrolly">
+      <div class="scrolly-fig" id="folFig" data-act="1">
+        <svg viewBox="0 0 300 340" class="fol-svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="hairG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1B1812"/><stop offset="1" stop-color="#4A443A"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 150 Q150 120 300 150 L300 340 L0 340 Z" fill="#F2C9A8" opacity=".5"/>
+          <path d="M0 150 Q150 120 300 150" fill="none" stroke="#DCCFB4" stroke-width="3"/>
+          <g class="fol-hair"><path d="M150 145 C146 100 158 70 150 28" fill="none" stroke="url(#hairG)" stroke-width="11" stroke-linecap="round"/></g>
+          <g class="fol-hair-new1"><path d="M114 150 C112 118 120 98 114 72" fill="none" stroke="url(#hairG)" stroke-width="7" stroke-linecap="round"/></g>
+          <g class="fol-hair-new2"><path d="M188 150 C190 116 182 96 188 66" fill="none" stroke="url(#hairG)" stroke-width="7" stroke-linecap="round"/></g>
+          <g class="fol-bulb">
+            <path d="M150 146 C128 146 124 188 124 224 C124 262 136 286 150 286 C164 286 176 262 176 224 C176 188 172 146 150 146Z" fill="#FFFEFA" stroke="#C9A876" stroke-width="3"/>
+            <circle cx="150" cy="258" r="15" fill="#3E8E68" opacity=".85"/>
+          </g>
+          <g class="fol-dht">
+            <circle cx="70" cy="200" r="11" fill="#C5623E"/><circle cx="56" cy="252" r="8" fill="#C5623E"/>
+            <circle cx="232" cy="212" r="10" fill="#C5623E"/><circle cx="244" cy="258" r="7" fill="#C5623E"/>
+            <circle cx="92" cy="296" r="8" fill="#C5623E"/>
+          </g>
+          <g class="fol-shield">
+            <path d="M150 196 L186 210 V246 C186 274 168 292 150 300 C132 292 114 274 114 246 V210 Z"
+              fill="#1F3D2E" opacity=".94"/>
+            <path d="M136 248 l10 10 l20 -22" fill="none" stroke="#CFE7D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+        <div class="fol-cap" id="folCap">El folículo sano</div>
+      </div>
+      <div class="scrolly-steps">
+        <div class="sc-step" data-act="1"><div class="sc-num">Acto 1</div><h3>Llega el DHT</h3>
+          <p>La dihidrotestosterona — un derivado de tu propia testosterona — empieza a rodear el folículo. Es genética: no hiciste nada mal.</p></div>
+        <div class="sc-step" data-act="2"><div class="sc-num">Acto 2</div><h3>El folículo se encoge</h3>
+          <p>Con cada ciclo, el DHT lo miniaturiza. El pelo nace más delgado, más corto, más débil… hasta que deja de nacer.</p></div>
+        <div class="sc-step" data-act="3"><div class="sc-num">Acto 3</div><h3>Entra el tratamiento</h3>
+          <p>Finasteride bloquea hasta el 70% del DHT. El ataque se detiene. Lo que tienes, se queda.</p></div>
+        <div class="sc-step" data-act="4"><div class="sc-num">Acto 4</div><h3>El pelo regresa</h3>
+          <p>Minoxidil reactiva la circulación del folículo y la biotina lo fortalece. Mes 6: crecimiento nuevo visible en el 87% de los hombres.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -626,7 +882,7 @@ footer ul a:hover{color:var(--paper)}
         folículos hasta que dejan de producir pelo. Tu tratamiento la ataca por tres frentes:</p>
       <div class="science-list">
         <div class="science-item">
-          <div class="k">01</div>
+          <div class="k"><svg class="gauge" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(31,61,46,.12)" stroke-width="7"/><circle class="gauge-fill" cx="32" cy="32" r="26" fill="none" stroke="#C5623E" stroke-width="7" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="163.4" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle" font-size="14" font-weight="700" fill="#1F3D2E">-70%</text></svg></div>
           <div><h4>Finasteride — bloquea</h4><p>Reduce el DHT hasta 70%. La caída se frena desde la raíz del problema.</p></div>
         </div>
         <div class="science-item">
@@ -746,33 +1002,30 @@ footer ul a:hover{color:var(--paper)}
       <p class="lead" style="color:rgba(250,246,236,.75);margin-top:20px">La constancia gana. Esto es lo que
         reportan los hombres que siguen su tratamiento.</p>
     </div>
-    <div class="timeline rv">
-      <div class="t-row">
-        <div class="t-mes">Mes 1</div>
-        <div class="t-body">
-          <h4>La caída se reduce</h4>
-          <p>Notas menos pelo en la almohada y en la regadera. El DHT está bajando.</p>
-          <div class="t-bar"><div class="t-fill f1" style="--w:30%"></div></div>
-          <span class="t-pct">30%</span>
-        </div>
+    <div class="results-grid rv">
+      <div class="curve-box">
+        <svg viewBox="0 0 600 280" class="curve-svg" aria-hidden="true">
+          <defs><linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F2C9A8" stop-opacity=".55"/><stop offset="1" stop-color="#F2C9A8" stop-opacity="0"/>
+          </linearGradient></defs>
+          <line x1="40" y1="240" x2="580" y2="240" stroke="rgba(250,246,236,.3)" stroke-width="1.5"/>
+          <path class="curve-area" d="M40 238 C140 236 180 230 260 196 C350 158 430 110 560 78 L560 240 L40 240 Z" fill="url(#areaG)"/>
+          <path class="curve-line" d="M40 238 C140 236 180 230 260 196 C350 158 430 110 560 78" fill="none" stroke="#F2C9A8" stroke-width="5" stroke-linecap="round"/>
+          <g class="curve-dot d1"><circle cx="150" cy="232" r="9" fill="#E07B4C"/><text x="150" y="262" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 1</text><text x="150" y="210" text-anchor="middle" font-size="13" fill="#CFE7D6">menos caída</text></g>
+          <g class="curve-dot d2"><circle cx="330" cy="168" r="9" fill="#C9A876"/><text x="330" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 3</text><text x="330" y="146" text-anchor="middle" font-size="13" fill="#CFE7D6">caída detenida</text></g>
+          <g class="curve-dot d3"><circle cx="560" cy="78" r="9" fill="#6FB890"/><text x="548" y="108" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 6</text><text x="544" y="56" text-anchor="middle" font-size="13" fill="#CFE7D6">pelo nuevo · 87%</text></g>
+        </svg>
+        <div style="font-size:13px;color:rgba(250,246,236,.55);text-align:center;margin-top:6px">Densidad capilar reportada siguiendo el tratamiento · resultados varían por persona</div>
       </div>
-      <div class="t-row">
-        <div class="t-mes">Mes 3</div>
-        <div class="t-body">
-          <h4>La caída se detiene</h4>
-          <p>El folículo se estabiliza. Lo que tienes, se queda.</p>
-          <div class="t-bar"><div class="t-fill f2" style="--w:65%"></div></div>
-          <span class="t-pct">65%</span>
+      <div class="ba-box">
+        <div class="ba" id="baSlider">
+          <img src="assets/quiz/crown_2_leve.jpg" alt="Mes 6" loading="lazy">
+          <div class="ba-top" style="width:55%"><img src="assets/quiz/crown_3_moderada.jpg" alt="Hoy" loading="lazy"></div>
+          <div class="ba-handle" style="left:55%"><span>↔</span></div>
+          <input type="range" min="4" max="96" value="55" aria-label="Comparar hoy y mes 6">
+          <div class="ba-tag l">Hoy</div><div class="ba-tag r">Mes 6*</div>
         </div>
-      </div>
-      <div class="t-row">
-        <div class="t-mes">Mes 6</div>
-        <div class="t-body">
-          <h4>Crecimiento nuevo visible</h4>
-          <p>Pelo nuevo, más grueso y más fuerte. El 87% de los hombres lo ve a esta altura.</p>
-          <div class="t-bar"><div class="t-fill f3" style="--w:87%"></div></div>
-          <span class="t-pct">87%</span>
-        </div>
+        <div style="font-size:13px;color:rgba(250,246,236,.55);text-align:center;margin-top:10px">Desliza para comparar · *resultados varían por etapa y constancia</div>
       </div>
     </div>
   </div>
@@ -783,11 +1036,30 @@ footer ul a:hover{color:var(--paper)}
   <div class="sprite s-float" style="top:8%;right:-20px;width:clamp(60px,7vw,110px);opacity:.7"><img src="assets/elements/capsule_green.png" alt="" loading="lazy"></div>
   <div class="sprite s-sway" style="bottom:5%;left:-30px;width:clamp(90px,10vw,160px);opacity:.5"><img src="assets/elements/leaf_agave.png" alt="" loading="lazy"></div>
   <div class="wrap">
-    <div class="rv" style="max-width:720px">
+    <div class="rv" style="max-width:760px">
       <div class="overline">Desempeño sexual</div>
-      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">No solo es el pelo.<br>también <span class="serif-i grad-text-warm">en privado.</span></h2>
-      <p class="lead" style="color:var(--ink-soft);margin-top:20px">A 1 de cada 2 hombres mayores de 40 le pasa —
-        y a muchos antes. Tratamiento médico real, discreto, que funciona.</p>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Lo que pasa en tu cama,<br><span class="serif-i grad-text-warm">se queda ahí.</span></h2>
+      <p class="lead" style="color:var(--ink-soft);margin-top:20px">A <b>1 de cada 2</b> hombres mayores de 40 le pasa — y a muchos antes.
+        Tratamiento médico real que funciona desde la primera dosis. 100% confidencial.</p>
+    </div>
+    <div class="dz-photos stagger">
+      <div class="dz-ph"><img src="assets/premium/pareja_manana.jpg" alt="" loading="lazy"></div>
+      <div class="dz-ph"><img src="assets/premium/hombre_confianza.jpg" alt="" loading="lazy"></div>
+      <div class="dz-stat rv"><b>8/10</b><span>hombres responden al tratamiento desde la primera dosis</span></div>
+    </div>
+    <!-- infografía animada: ¿cuándo actúa? -->
+    <div class="timing rv">
+      <div class="overline" style="margin-bottom:18px">¿Cuándo actúa cada plan?</div>
+      <div class="tm-row">
+        <div class="tm-head"><b>Plan Momento</b><span>Sildenafil 50mg · lo tomas cuando lo vas a usar</span></div>
+        <div class="tm-track"><div class="tm-fill tm-sild"></div>
+          <span class="tm-mark" style="left:4%">Tomas</span><span class="tm-mark" style="left:14%">30-60 min: activo</span><span class="tm-mark" style="left:38%">ventana 4-6 h</span></div>
+      </div>
+      <div class="tm-row">
+        <div class="tm-head"><b>Plan Diario</b><span>Tadalafil 5mg · dosis baja cada mañana</span></div>
+        <div class="tm-track"><div class="tm-fill tm-tada"></div>
+          <span class="tm-mark" style="left:4%">Una dosis al día</span><span class="tm-mark" style="left:55%">siempre listo · 24/7, sin planear</span></div>
+      </div>
     </div>
     <div class="plans stagger">
       <div class="plan">
@@ -907,6 +1179,48 @@ footer ul a:hover{color:var(--paper)}
           <div><div class="n">Diego, 36</div><div class="c">Guadalajara · Plan Esencial</div></div>
         </div>
       </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>Pensé que era el único de mis amigos con este tema. Resulta que no, solo era el único haciendo algo. Funciona desde la primera vez y nadie en mi vida lo sabe.</p>
+        <div class="testi-who">
+          <img src="assets/photography/testimonials/avatar_02.jpg" alt="Andrés" loading="lazy">
+          <div><div class="n">Andrés, 41</div><div class="c">CDMX · Plan Diario</div></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>Lo del plan diario me cambió todo: cero planear, cero presión. Mi relación está en otro nivel y el trámite fue de 3 minutos en el cel.</p>
+        <div class="testi-who">
+          <img src="assets/photography/testimonials/avatar_04.jpg" alt="Memo" loading="lazy">
+          <div><div class="n">Memo, 38</div><div class="c">Querétaro · Kit Confianza</div></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>Empecé por prevención a los 26 — mi papá y mis tíos están calvos. Dos años después tengo más pelo que en la universidad.</p>
+        <div class="testi-who">
+          <img src="assets/photography/testimonials/avatar_06.jpg" alt="Santiago" loading="lazy">
+          <div><div class="n">Santiago, 28</div><div class="c">Mérida · Plan Esencial</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="section-pad" id="faq" style="background:var(--paper-deep)">
+  <div class="wrap" style="max-width:880px">
+    <div class="rv" style="text-align:center;margin-bottom:50px">
+      <div class="overline">Preguntas directas</div>
+      <h2 class="display" style="font-size:clamp(32px,4.2vw,56px)">Lo que todos preguntan<br>(y nadie se atreve).</h2>
+    </div>
+    <div class="faq stagger">
+      <details><summary>¿Es legal comprar esto en línea en México?<span class="fx">+</span></summary><p>Sí — siempre que un médico con cédula emita tu receta, que es exactamente como funciona AKAN. Tu evaluación la revisa un médico real, con nombre y cédula, antes de aprobar cualquier tratamiento.</p></details>
+      <details><summary>¿De verdad nadie se entera?<span class="fx">+</span></summary><p>Nadie. La caja llega neutra, sin marca ni descripción del contenido. Tus respuestas médicas solo las ve tu médico — ni la farmacia que despacha tiene acceso a ellas.</p></details>
+      <details><summary>¿Qué efectos secundarios tienen?<span class="fx">+</span></summary><p>La mayoría de los hombres no presenta ninguno. Los posibles efectos son poco comunes y reversibles al suspender, y tu médico los revisa contigo según tu historial antes de recetar. Por eso la evaluación pregunta lo que pregunta.</p></details>
+      <details><summary>¿Cuándo veo resultados?<span class="fx">+</span></summary><p>En cabello: menos caída desde el mes 1, caída detenida al mes 3, y el 87% ve pelo nuevo al mes 6. En desempeño: desde la primera dosis.</p></details>
+      <details><summary>¿Puedo cancelar cuando quiera?<span class="fx">+</span></summary><p>Sí. Sin plazos forzosos, sin penalización, sin llamadas incómodas. Pausas o cancelas por WhatsApp.</p></details>
+      <details><summary>¿Quién es el médico que revisa mi caso?<span class="fx">+</span></summary><p>Médicos mexicanos con cédula profesional verificada ante CONACEM. Su nombre y cédula aparecen en tu receta — puedes verificarla tú mismo en el registro público.</p></details>
     </div>
   </div>
 </section>
@@ -1063,5 +1377,6 @@ if(!reduced){
   });
 }
 </script>
+<div class="mcta" id="mcta"><a href="quiz.html" class="btn btn-cta" style="width:100%">Comenzar evaluación → <span style="font-weight:400;font-size:13px">2 min · confidencial</span></a></div>
 </body>
 </html>
