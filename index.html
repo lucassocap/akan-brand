@@ -479,7 +479,7 @@ footer ul a:hover{color:var(--paper)}
   margin-top:8px;transition:opacity .4s}
 .scrolly-steps{display:flex;flex-direction:column;gap:8vh;padding:6vh 0 10vh}
 .sc-step{min-height:56vh;display:flex;flex-direction:column;justify-content:center;max-width:420px;
-  opacity:.25;transition:opacity .5s var(--ease)}
+  opacity:.45;transition:opacity .5s var(--ease)}
 .sc-step.live{opacity:1}
 .sc-num{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);margin-bottom:10px}
 .sc-step h3{font-family:var(--font-d);font-weight:700;font-size:clamp(24px,2.8vw,34px);letter-spacing:-.02em;margin-bottom:12px}
@@ -1378,5 +1378,65 @@ if(!reduced){
 }
 </script>
 <div class="mcta" id="mcta"><a href="quiz.html" class="btn btn-cta" style="width:100%">Comenzar evaluación → <span style="font-weight:400;font-size:13px">2 min · confidencial</span></a></div>
+<script>
+/* ── Paquete impacto: JS (reparado — la 1ª inyección falló en silencio) ── */
+const reduced2=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* palabra rotativa del hero */
+(function(){
+  const w=document.getElementById('rotWord');if(!w||reduced2)return;
+  const words=['pelo','desempeño','confianza'];let i=0;
+  setInterval(()=>{
+    w.classList.add('rot-out');
+    setTimeout(()=>{i=(i+1)%words.length;w.textContent=words[i];w.classList.remove('rot-out')},320);
+  },2800);
+})();
+/* scrollytelling del folículo */
+(function(){
+  const fig=document.getElementById('folFig');if(!fig)return;
+  const cap=document.getElementById('folCap');
+  const caps={1:'El DHT aparece',2:'El folículo se encoge',3:'Finasteride lo protege',4:'El pelo regresa'};
+  const stepIO=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const act=e.target.dataset.act;
+        fig.dataset.act=act;cap.textContent=caps[act];
+        document.querySelectorAll('.sc-step').forEach(st=>st.classList.toggle('live',st===e.target));
+      }
+    });
+  },{rootMargin:'-40% 0px -40% 0px'});
+  document.querySelectorAll('.sc-step').forEach(st=>stepIO.observe(st));
+})();
+/* slider hoy vs mes 6 */
+(function(){
+  const ba=document.getElementById('baSlider');if(!ba)return;
+  const top=ba.querySelector('.ba-top'),handle=ba.querySelector('.ba-handle'),
+        range=ba.querySelector('input'),img=top.querySelector('img');
+  function size(){img.style.width=ba.offsetWidth+'px'}
+  size();addEventListener('resize',size);
+  range.addEventListener('input',()=>{
+    top.style.width=range.value+'%';handle.style.left=range.value+'%';
+  });
+})();
+/* sticky CTA móvil */
+(function(){
+  const m=document.getElementById('mcta');if(!m)return;
+  const foot=document.querySelector('footer');
+  addEventListener('scroll',()=>{
+    const nearFoot=foot.getBoundingClientRect().top<innerHeight+80;
+    m.classList.toggle('show',scrollY>innerHeight*0.85&&!nearFoot);
+  },{passive:true});
+})();
+/* tilt 3D en cards (desktop) */
+if(matchMedia('(pointer:fine) and (min-width:1024px)').matches&&!reduced2){
+  document.querySelectorAll('.plan,.step-card,.cat-card,.quiz-card').forEach(c=>{
+    c.addEventListener('mousemove',e=>{
+      const r=c.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.transform=`translateY(-7px) perspective(900px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`;
+    });
+    c.addEventListener('mouseleave',()=>{c.style.transform=''});
+  });
+}
+</script>
 </body>
 </html>
