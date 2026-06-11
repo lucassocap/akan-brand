@@ -618,6 +618,25 @@ footer ul a:hover{color:var(--paper)}
 .qc-warm .arrow{color:var(--clay)}
 @media(min-width:1100px){.quiz-cards{grid-template-columns:repeat(4,1fr)}}
 
+
+/* menú móvil */
+.burger{display:flex;flex-direction:column;gap:5px;width:42px;height:42px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--card);align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s var(--ease)}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(min-width:1024px){.burger{display:none}}
+.mnav{position:fixed;top:0;left:0;right:0;z-index:99;background:var(--paper);
+  border-bottom:1px solid var(--line);box-shadow:0 30px 60px rgba(27,24,18,.14);
+  padding:86px 26px 26px;transform:translateY(-105%);transition:transform .45s var(--ease)}
+.mnav.open{transform:none}
+.mnav a{display:flex;justify-content:space-between;align-items:center;padding:15px 4px;
+  font-weight:700;font-size:17px;border-bottom:1px solid var(--line)}
+.mnav a small{font-weight:500;font-size:13px;color:var(--ink-soft)}
+.mnav a:last-child{border-bottom:none}
+.mnav .hl{color:var(--clay)}
 </style>
 <link rel="preload" as="image" href="assets/premium/hero_light_products.jpg">
 <script type="application/ld+json">
@@ -640,6 +659,7 @@ footer ul a:hover{color:var(--paper)}
 <!-- ═══ NAV ═══ -->
 <nav id="nav">
   <div class="bar">
+    <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
     <a href="#" class="logo">AKAN</a>
     <div class="nav-links">
       <div class="nav-dd">
@@ -675,6 +695,15 @@ footer ul a:hover{color:var(--paper)}
     <a href="quiz.html" class="btn btn-cta btn-nav">Comenzar</a>
   </div>
 </nav>
+<div class="mnav" id="mnav">
+  <a href="quiz.html" class="hl">Hacer mi evaluación <small>2 min · confidencial</small></a>
+  <a href="tienda.html">Tienda <small>planes y productos</small></a>
+  <a href="perfil.html">Mi cuenta <small>el estado de tu tratamiento</small></a>
+  <a href="#planes">Cabello</a>
+  <a href="#desempeno">Desempeño</a>
+  <a href="#como">Cómo funciona</a>
+  <a href="#medicos">Médicos</a>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="hero">
@@ -1483,6 +1512,14 @@ if(matchMedia('(pointer:fine) and (min-width:1024px)').matches&&!reduced2){
     c.addEventListener('mouseleave',()=>{c.style.transform=''});
   });
 }
+
+/* menú móvil */
+(function(){
+  const b=document.getElementById('burger'),m=document.getElementById('mnav');
+  if(!b||!m)return;
+  b.addEventListener('click',()=>{b.classList.toggle('open');m.classList.toggle('open')});
+  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{b.classList.remove('open');m.classList.remove('open')}));
+})();
 </script>
 </body>
 </html>
