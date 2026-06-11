@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AKAN — Tratamiento Médico para Caída de Cabello | México</title>
-<meta name="description" content="Tratamiento médico real para caída de cabello. Evaluación en 3 minutos. Médicos mexicanos con cédula. Entrega discreta a tu puerta. Sin pena. Sin filas.">
-<meta property="og:title" content="AKAN — Sin pena. Sin filas. A tu puerta.">
+<meta name="description" content="Tratamiento médico real para caída de cabello. Evaluación en 3 minutos. Médicos mexicanos con cédula. Entrega discreta a tu puerta. Confidencial. Sin filas.">
+<meta property="og:title" content="AKAN — Confidencial. Sin filas. A tu puerta.">
 <meta property="og:description" content="Tratamiento médico para caída de cabello. Evaluación gratuita en 3 minutos. Médicos con cédula. Entrega discreta a todo México.">
 <meta property="og:image" content="assets/premium/og_akan_light.jpg">
 <meta property="og:type" content="website">
@@ -381,6 +381,59 @@ footer ul a{transition:color .2s}
 footer ul a:hover{color:var(--paper)}
 .foot-bottom{margin-top:70px;padding-top:30px;border-top:1px solid rgba(250,246,236,.14);
   display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:13px;color:rgba(250,246,236,.45)}
+
+/* ── Nav dropdowns (Keeps style) ── */
+.nav-dd{position:relative}
+.nav-dd .caret{font-size:10px;opacity:.6}
+.nav-dd .dd{position:absolute;top:calc(100% + 14px);left:-20px;min-width:300px;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r-md);box-shadow:0 26px 64px rgba(120,90,50,.18);
+  padding:12px;display:none;flex-direction:column;gap:2px;z-index:120}
+.nav-dd:hover .dd,.nav-dd:focus-within .dd{display:flex}
+.nav-dd .dd::before{content:"";position:absolute;top:-14px;left:0;right:0;height:14px}
+.dd a{display:flex;justify-content:space-between;gap:14px;padding:10px 14px;border-radius:10px;
+  font-size:14.5px;font-weight:600;opacity:1!important}
+.dd a:hover{background:var(--sage)}
+.dd a em{font-style:normal;color:var(--ink-soft);font-weight:500}
+.dd .dd-quiz{flex-direction:column;align-items:flex-start;gap:3px;background:var(--paper-deep);
+  border:1px solid var(--sand);margin-bottom:8px}
+.dd .dd-quiz b{color:var(--clay)}
+.dd .dd-quiz span{font-size:12.5px;font-weight:400;color:var(--ink-soft)}
+.dd .dd-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-soft);padding:8px 14px 4px}
+
+/* ── Infografía callouts (ciencia) ── */
+.annot-fig{position:relative}
+.callout{position:absolute;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(14px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.in .callout{opacity:1;transform:none}
+.in .callout.c1{transition-delay:.3s}.in .callout.c2{transition-delay:.7s}.in .callout.c3{transition-delay:1.1s}
+.callout .dot{width:14px;height:14px;border-radius:50%;background:var(--clay);
+  box-shadow:0 0 0 5px rgba(197,98,62,.25);flex-shrink:0;animation:dotPulse 2.6s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 5px rgba(197,98,62,.25)}50%{box-shadow:0 0 0 10px rgba(197,98,62,.1)}}
+.callout .chip{background:rgba(255,254,250,.92);backdrop-filter:blur(8px);border:1px solid var(--line);
+  border-radius:12px;padding:9px 14px;font-size:12.5px;color:var(--ink-soft);
+  box-shadow:0 10px 26px rgba(120,90,50,.16);line-height:1.35}
+.callout .chip b{display:block;font-size:13.5px;color:var(--ink)}
+.callout.c1{top:12%;left:6%}
+.callout.c2{top:42%;right:4%;flex-direction:row-reverse}
+.callout.c3{bottom:10%;left:10%}
+@media(max-width:700px){.callout .chip{font-size:11px;padding:7px 10px}.callout .chip b{font-size:12px}}
+
+/* ── Tabla comparativa de precios ── */
+.price-table{margin-top:54px;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--paper)}
+.pt-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;padding:18px 24px;
+  border-bottom:1px solid var(--line);font-size:15.5px;align-items:center}
+.pt-row:last-child{border-bottom:none}
+.pt-head{background:var(--paper-deep);font-size:12px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.pt-other{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:rgba(197,98,62,.55)}
+.pt-akan{font-family:var(--font-d);font-weight:700;font-size:19px;color:var(--emerald)}
+.price-table .pt-row:not(.pt-head){opacity:0;transform:translateX(-22px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.in .pt-row:not(.pt-head){opacity:1;transform:none}
+.in .pt-row:nth-child(2){transition-delay:.1s}.in .pt-row:nth-child(3){transition-delay:.25s}
+.in .pt-row:nth-child(4){transition-delay:.4s}.in .pt-row:nth-child(5){transition-delay:.55s}
+
 </style>
 </head>
 <body>
@@ -390,10 +443,30 @@ footer ul a:hover{color:var(--paper)}
   <div class="bar">
     <a href="#" class="logo">AKAN</a>
     <div class="nav-links">
-      <a href="#planes">Cabello</a>
-      <a href="#desempeno">Desempeño</a>
+      <div class="nav-dd">
+        <a href="#planes">Cabello <span class="caret">▾</span></a>
+        <div class="dd">
+          <a class="dd-quiz" href="quiz.html?branch=pelo"><b>Hazte la evaluación →</b><span>Tu plan a la medida en 2 minutos. Confidencial.</span></a>
+          <div class="dd-label">Tratamientos</div>
+          <a href="quiz.html?plan=AKAN-ESENCIAL">Plan Esencial <em>$549</em></a>
+          <a href="quiz.html?plan=AKAN-COMPLETO">Plan Completo <em>$849</em></a>
+          <a href="quiz.html?plan=AKAN-KIT">Kit AKAN Total <em>$1,199</em></a>
+          <a href="quiz.html?plan=AKAN-SHAMPOO">Shampoo Ketoconazol <em>$349</em></a>
+          <a href="quiz.html?plan=AKAN-SUPL">Suplemento Capilar <em>$399</em></a>
+          <a href="quiz.html?plan=AKAN-MINOX">Minoxidil 5% <em>$449</em></a>
+        </div>
+      </div>
+      <div class="nav-dd">
+        <a href="#desempeno">Desempeño <span class="caret">▾</span></a>
+        <div class="dd">
+          <a class="dd-quiz" href="quiz.html?branch=desempeno"><b>Hazte la evaluación →</b><span>5 preguntas, 100% confidencial.</span></a>
+          <div class="dd-label">Tratamientos</div>
+          <a href="quiz.html?plan=AKAN-SILD">Plan Momento — Sildenafil <em>$449</em></a>
+          <a href="quiz.html?plan=AKAN-TADA">Plan Diario — Tadalafil <em>$649</em></a>
+          <a href="quiz.html?plan=AKAN-KITCONF">Kit Confianza <em>$899</em></a>
+        </div>
+      </div>
       <a href="#como">Cómo funciona</a>
-      <a href="#ciencia">La ciencia</a>
       <a href="#medicos">Médicos</a>
     </div>
     <a href="quiz.html" class="btn btn-cta btn-nav">Comenzar</a>
@@ -540,7 +613,12 @@ footer ul a:hover{color:var(--paper)}
   <div class="sprite s-sway" style="top:-30px;right:-44px;width:clamp(130px,15vw,240px);opacity:.55;transform:rotate(165deg)"><img src="assets/elements/leaf_monstera.png" alt="" loading="lazy"></div>
   <div class="sprite s-float" style="bottom:6%;left:-36px;width:clamp(90px,10vw,170px);opacity:.5"><img src="assets/elements/leaf_eucalyptus.png" alt="" loading="lazy"></div>
   <div class="wrap science-grid">
-    <div class="science-img rv-l"><img src="assets/premium/follicle_light.jpg" alt="Folículo capilar" loading="lazy"></div>
+    <div class="science-img rv-l annot-fig">
+      <img src="assets/premium/hero_light_products.jpg" alt="Tratamiento AKAN" loading="lazy">
+      <div class="callout c1"><span class="dot"></span><div class="chip"><b>Finasteride</b>Bloquea el DHT hasta 70%</div></div>
+      <div class="callout c2"><span class="dot"></span><div class="chip"><b>Minoxidil 5%</b>Reactiva el folículo</div></div>
+      <div class="callout c3"><span class="dot"></span><div class="chip"><b>Biotina + Zinc</b>Pelo más grueso y fuerte</div></div>
+    </div>
     <div class="rv-r">
       <div class="overline">La ciencia</div>
       <h2 class="display" style="font-size:clamp(32px,4.2vw,58px);color:var(--forest)">El enemigo se llama <span class="serif-i grad-text-warm">DHT.</span></h2>
@@ -561,6 +639,25 @@ footer ul a:hover{color:var(--paper)}
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ MITAD DE PRECIO ═══ -->
+<section class="section-pad" style="background:var(--card);padding-top:clamp(70px,9vw,120px);padding-bottom:clamp(70px,9vw,120px)">
+  <div class="wrap">
+    <div class="rv" style="max-width:640px">
+      <div class="overline">Precios sin sorpresas</div>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">La mitad que<br>la <span class="serif-i grad-text-warm">farmacia.</span></h2>
+      <p class="lead" style="color:var(--ink-soft);margin-top:18px">Vendemos directo, sin intermediarios. Mismo principio activo, la mitad del precio — y la consulta va por nuestra cuenta.</p>
+    </div>
+    <div class="price-table rv">
+      <div class="pt-row pt-head"><span>Tratamiento</span><span>Farmacia / privado</span><span>AKAN</span></div>
+      <div class="pt-row"><span>Finasteride 1mg (mes)</span><span class="pt-other">$1,100</span><span class="pt-akan">$549</span></div>
+      <div class="pt-row"><span>Finasteride + Minoxidil (mes)</span><span class="pt-other">$1,700</span><span class="pt-akan">$849</span></div>
+      <div class="pt-row"><span>Consulta médica</span><span class="pt-other">$800+ por visita</span><span class="pt-akan">GRATIS</span></div>
+      <div class="pt-row"><span>Envío discreto</span><span class="pt-other">—</span><span class="pt-akan">GRATIS</span></div>
+    </div>
+    <p class="plan-note rv">¿Ya sabes lo que quieres? Elige tu plan abajo y listo — el médico confirma antes de enviar.</p>
   </div>
 </section>
 
@@ -688,7 +785,7 @@ footer ul a:hover{color:var(--paper)}
   <div class="wrap">
     <div class="rv" style="max-width:720px">
       <div class="overline">Desempeño sexual</div>
-      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">No solo es el pelo.<br>En la cama también, <span class="serif-i grad-text-warm">sin pena.</span></h2>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">No solo es el pelo.<br>también <span class="serif-i grad-text-warm">en privado.</span></h2>
       <p class="lead" style="color:var(--ink-soft);margin-top:20px">A 1 de cada 2 hombres mayores de 40 le pasa —
         y a muchos antes. Tratamiento médico real, discreto, que funciona.</p>
     </div>
@@ -783,7 +880,7 @@ footer ul a:hover{color:var(--paper)}
   <div class="wrap">
     <div class="rv" style="max-width:680px">
       <div class="overline">Hombres reales</div>
-      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Ellos ya pasaron la pena.</h2>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Ellos ya lo resolvieron.</h2>
     </div>
     <div class="testis stagger">
       <div class="testi">
