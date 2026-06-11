@@ -111,6 +111,43 @@ h1{font-family:var(--font-d);font-weight:700;letter-spacing:-.025em;line-height:
 .h-row .s{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
   padding:5px 12px;border-radius:var(--r-pill);background:var(--paper-deep);color:var(--ink-soft)}
 
+/* chat con el médico */
+.chat-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  margin-top:18px;overflow:hidden}
+.chat-head{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line);
+  background:var(--sage)}
+.chat-head .avatar{width:40px;height:40px;border-radius:50%;background:var(--forest);color:var(--mint);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:700}
+.chat-head b{font-size:15.5px;display:block}
+.chat-head small{font-size:12.5px;color:var(--ink-soft)}
+.chat-body{max-height:380px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;
+  background:var(--paper)}
+.bubble{max-width:82%;padding:12px 16px;border-radius:18px;font-size:15px;line-height:1.45;
+  white-space:pre-wrap;word-break:break-word}
+.bubble.cliente{align-self:flex-end;background:var(--grad-cta);color:#FFF7EC;border-bottom-right-radius:6px}
+.bubble.akan{align-self:flex-start;background:var(--card);border:1px solid var(--line);
+  border-bottom-left-radius:6px}
+.bubble .meta{display:block;font-size:11px;opacity:.7;margin-top:5px}
+.chat-empty{text-align:center;color:var(--ink-soft);font-size:14px;padding:26px 18px}
+.chat-form{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line);background:var(--card)}
+.chat-form input{flex:1;padding:13px 16px;border-radius:var(--r-pill);border:1.5px solid var(--line);
+  background:var(--paper);font-family:var(--font-b);font-size:15px}
+.chat-form input:focus{outline:none;border-color:var(--jade)}
+.chat-form button{width:48px;height:48px;border-radius:50%;border:none;background:var(--grad-cta);
+  color:#fff;font-size:18px;cursor:pointer;flex-shrink:0}
+/* tabs del gate */
+.gate-tabs{display:flex;gap:8px;margin-bottom:20px}
+.gate-tabs button{flex:1;padding:11px;border-radius:var(--r-pill);border:1.5px solid var(--line);
+  background:var(--paper);font-family:var(--font-b);font-weight:700;font-size:13.5px;cursor:pointer}
+.gate-tabs button.on{background:var(--forest);color:var(--paper);border-color:var(--forest)}
+.gate-pane{display:none}.gate-pane.on{display:block}
+.btn-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:14px;border-radius:var(--r-pill);border:1.5px solid var(--line);background:#fff;
+  font-family:var(--font-b);font-weight:700;font-size:15px;cursor:pointer;margin-bottom:14px}
+.gate-err{background:#FBEADF;border:1px solid var(--peach);color:#9A4E2E;border-radius:var(--r-md);
+  padding:12px 16px;font-size:14px;margin-bottom:14px;display:none}
+.gate-err.show{display:block}
+
 /* login por código */
 .gate-box{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
   padding:clamp(26px,4vw,40px);margin-top:30px}
@@ -172,20 +209,64 @@ const wa = t => 'https://wa.me/523398001614?text='+encodeURIComponent(t);
 function renderGate(notFound){
   app.innerHTML='';
   app.appendChild(el(`<div class="screen">
-    <h1>Tu tratamiento,<br><span class="serif-i grad-text">a un código.</span></h1>
-    <p class="sub">Tu código personal va en cada mensaje de WhatsApp de AKAN y en tu pantalla de confirmación. Sin contraseñas que olvidar.</p>
+    <h1>Tu espacio<br><span class="serif-i grad-text">en AKAN.</span></h1>
+    <p class="sub">Tu tratamiento, tus envíos y el chat directo con tu médico. Confidencial.</p>
     <div class="gate-box">
-      ${notFound?'<div class="st-msg warn" style="margin:0 0 18px"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span>No encontramos ese código. Revísalo o pídenos uno nuevo por WhatsApp.</span></div>':''}
-      <div class="field"><label>Tu código de acceso</label><input id="tok" placeholder="AKAN-XXXX-XXXX" autocomplete="off"></div>
-      <button class="btn btn-cta" style="width:100%" id="go">Ver mi tratamiento →</button>
-      <a class="btn btn-ghost" style="width:100%;margin-top:10px" href="${wa('Hola AKAN 👋 quiero el código de acceso a mi perfil.')}">Pedir mi código por WhatsApp</a>
+      <div class="gate-err ${notFound?'show':''}" id="gErr">${notFound||''}</div>
+      <div id="googleSlot"></div>
+      <div class="gate-tabs">
+        <button class="on" data-pane="email">Con mi email</button>
+        <button data-pane="code">Con mi código</button>
+      </div>
+      <div class="gate-pane on" id="pane-email">
+        <div class="field"><label>Tu email</label><input id="gEmail" type="email" placeholder="tu@correo.com"></div>
+        <div class="field"><label>Tu número de orden</label><input id="gOrder" placeholder="S00020" autocomplete="off"></div>
+        <button class="btn btn-cta" style="width:100%" id="goEmail">Entrar →</button>
+        <p style="font-size:12.5px;color:var(--ink-soft);margin-top:10px">Tu número de orden está en tu pantalla de confirmación y en tus mensajes de WhatsApp con AKAN.</p>
+      </div>
+      <div class="gate-pane" id="pane-code">
+        <div class="field"><label>Tu código de acceso</label><input id="tok" placeholder="AKAN-XXXX-XXXX" autocomplete="off"></div>
+        <button class="btn btn-cta" style="width:100%" id="go">Ver mi tratamiento →</button>
+      </div>
+      <a class="btn btn-ghost" style="width:100%;margin-top:14px" href="${wa('Hola AKAN 👋 no puedo entrar a mi perfil, ¿me ayudan?')}">Necesito ayuda (WhatsApp)</a>
     </div>
     <div class="help-foot"><span>¿Aún no empiezas?</span><a href="quiz.html">Hacer mi evaluación →</a></div>
   </div>`));
+  document.querySelectorAll('.gate-tabs button').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.gate-tabs button').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('.gate-pane').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');document.getElementById('pane-'+b.dataset.pane).classList.add('on');
+    });
+  });
   document.getElementById('go').addEventListener('click',()=>{
     const v=document.getElementById('tok').value.trim();
     if(v){token=v;localStorage.setItem('akan_token',v);load()}
   });
+  document.getElementById('goEmail').addEventListener('click',async ()=>{
+    const email=document.getElementById('gEmail').value.trim();
+    const order=document.getElementById('gOrder').value.trim();
+    const err=document.getElementById('gErr');
+    if(!email||!order){err.textContent='Pon tu email y tu número de orden.';err.classList.add('show');return}
+    try{
+      const r=await fetch(API_BASE+'/akan/api/login',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email,order}),signal:AbortSignal.timeout(10000)});
+      const d=await r.json();
+      if(d.ok){token=d.profile_token;localStorage.setItem('akan_token',token);load()}
+      else{err.textContent=d.error||'No pudimos entrar.';err.classList.add('show')}
+    }catch(e){err.textContent='No alcanzamos la plataforma. Intenta de nuevo.';err.classList.add('show')}
+  });
+  /* Google: aparece solo si está configurado en la plataforma */
+  fetch(API_BASE+'/akan/api/config',{signal:AbortSignal.timeout(5000)}).then(r=>r.json()).then(c=>{
+    if(c.google_login){
+      const slot=document.getElementById('googleSlot');
+      slot.innerHTML=`<button class="btn-google" onclick="location.href='${API_BASE}/auth_oauth/signin'">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.7 33.4 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 5.8 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 19.6-8 19.6-20c0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 5.8 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.7 13.4-4.7l-6.2-5.2C29.2 35.4 26.7 36 24 36c-5.3 0-9.6-2.6-11.3-7l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.7l6.2 5.2C41 35.4 43.6 30.2 43.6 24c0-1.3-.1-2.7-.4-4z"/></svg>
+        Continuar con Google</button>
+        <div style="text-align:center;font-size:12px;color:var(--ink-soft);margin-bottom:14px">— o —</div>`;
+    }
+  }).catch(()=>{});
 }
 
 function renderProfile(d){
@@ -225,6 +306,15 @@ function renderProfile(d){
         <small><a href="${wa('Hola AKAN 👋 quiero hacer un cambio en mi suscripción.')}" style="text-decoration:underline">Pausar o cambiar →</a></small></div>
     </div>`;
   }
+  html+=`<div class="chat-card">
+    <div class="chat-head"><div class="avatar">Dr</div>
+      <div><b>Tu espacio con tu médico</b><small>Confidencial — solo tú y tu médico lo leen</small></div></div>
+    <div class="chat-body" id="chatBody"><div class="chat-empty">Cargando conversación…</div></div>
+    <form class="chat-form" id="chatForm">
+      <input id="chatInput" placeholder="Escríbele a tu médico…" maxlength="2000" autocomplete="off">
+      <button type="submit" aria-label="Enviar">➤</button>
+    </form>
+  </div>`;
   if(d.orders&&d.orders.length>1){
     html+=`<div class="hist"><h2>Historial</h2>${d.orders.slice(1).map(x=>{
       const st=STATUS[x.status]||{pill:['','—']};
@@ -237,7 +327,51 @@ function renderProfile(d){
   </div></div>`;
   app.appendChild(el(html));
   document.getElementById('logout').addEventListener('click',e=>{
-    e.preventDefault();localStorage.removeItem('akan_token');token='';renderGate(false);
+    e.preventDefault();localStorage.removeItem('akan_token');token='';renderGate('');
+  });
+  initChat();
+}
+
+/* ── chat con el médico ── */
+let chatTimer=null;
+async function loadMessages(){
+  const box=document.getElementById('chatBody');if(!box)return;
+  try{
+    const r=await fetch(API_BASE+'/akan/api/messages?token='+encodeURIComponent(token),
+      {signal:AbortSignal.timeout(9000)});
+    const d=await r.json();
+    if(!d.ok)return;
+    if(!d.messages.length){
+      box.innerHTML='<div class="chat-empty">Aún no hay mensajes. Escríbele a tu médico — te responde aquí mismo.</div>';
+      return;
+    }
+    const atBottom=box.scrollHeight-box.scrollTop-box.clientHeight<60;
+    box.innerHTML=d.messages.map(m=>`<div class="bubble ${m.from}">${m.body.replace(/</g,'&lt;')}
+      <span class="meta">${m.from==='cliente'?'Tú':m.name} · ${m.date.slice(5,16).replace('T',' ')}</span></div>`).join('');
+    if(atBottom)box.scrollTop=box.scrollHeight;
+  }catch(e){}
+}
+function initChat(){
+  loadMessages();
+  const box=document.getElementById('chatBody');
+  if(box)setTimeout(()=>{box.scrollTop=box.scrollHeight},600);
+  if(chatTimer)clearInterval(chatTimer);
+  chatTimer=setInterval(loadMessages,30000);
+  const form=document.getElementById('chatForm');
+  if(!form)return;
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const inp=document.getElementById('chatInput');
+    const body=inp.value.trim();if(!body)return;
+    inp.value='';inp.disabled=true;
+    try{
+      await fetch(API_BASE+'/akan/api/messages',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({token,body}),signal:AbortSignal.timeout(10000)});
+      await loadMessages();
+      const box=document.getElementById('chatBody');box.scrollTop=box.scrollHeight;
+    }catch(err){}
+    inp.disabled=false;inp.focus();
   });
 }
 
@@ -254,7 +388,7 @@ function renderOffline(){
 }
 
 async function load(){
-  if(!token){renderGate(false);return}
+  if(!token){renderGate('');return}
   try{
     const h=await fetch(API_BASE+'/akan/api/health',{signal:AbortSignal.timeout(3500)}).then(r=>r.json());
     if(!h.ok){renderOffline();return}
@@ -263,7 +397,7 @@ async function load(){
     const r=await fetch(API_BASE+'/akan/api/me?token='+encodeURIComponent(token),{signal:AbortSignal.timeout(8000)});
     const d=await r.json();
     if(d.ok)renderProfile(d);
-    else renderGate(true);
+    else renderGate('No encontramos ese código. Revísalo o entra con tu email y número de orden.');
   }catch(e){renderOffline()}
 }
 load();
