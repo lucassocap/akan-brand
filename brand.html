@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKAN — Manual de Marca v2</title>
+<meta name="description" content="Manual de identidad de marca AKAN — logotipo, color, tipografía, voz, fotografía, elementos vivos y aplicaciones.">
+<meta property="og:title" content="AKAN — Manual de Marca v2">
+<meta property="og:image" content="assets/premium/og_akan_light.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════
+   AKAN — MANUAL DE MARCA v2.1 "Verde Vivo"
+   Brand book cinematográfico · claro · vivo
+   ════════════════════════════════════════════════════════════ */
+:root{
+  --paper:#FAF6EC; --paper-deep:#F1EADA; --card:#FFFEFA; --sand:#DCCFB4;
+  --sage:#E7F0E6; --mint:#CFE7D6;
+  --forest:#1F3D2E; --emerald:#2E6B4D; --jade:#3E8E68; --jade-soft:#6FB890;
+  --ink:#1B1812; --ink-soft:#57503F;
+  --clay:#C5623E; --copper:#E07B4C; --gold:#C9A876; --peach:#F2C9A8;
+  --grad-cta:linear-gradient(135deg,#C5623E 0%,#E07B4C 100%);
+  --grad-text:linear-gradient(110deg,#1F3D2E 0%,#3E8E68 55%,#C9A876 110%);
+  --grad-text-warm:linear-gradient(110deg,#C5623E 0%,#E07B4C 60%,#C9A876 110%);
+  --grad-green:linear-gradient(150deg,#1F3D2E 0%,#2E6B4D 70%,#3E8E68 115%);
+  --line:rgba(27,24,18,.12);
+  --glass:rgba(250,246,236,.6);
+  --r-sm:12px; --r-md:18px; --r-lg:28px; --r-pill:100px;
+  --font-d:'Fraunces',serif; --font-b:'Hanken Grotesk',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:17px;line-height:1.6}
+::selection{background:var(--clay);color:var(--paper)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+.mega{font-family:var(--font-d);font-weight:700;font-size:clamp(56px,10vw,160px);
+  line-height:.98;letter-spacing:-.045em}
+.display{font-family:var(--font-d);font-weight:700;font-size:clamp(36px,5.2vw,76px);
+  line-height:1.05;letter-spacing:-.03em}
+.h3{font-family:var(--font-d);font-weight:600;font-size:clamp(22px,2.6vw,32px);letter-spacing:-.015em}
+.lead{font-size:clamp(18px,1.9vw,22px);line-height:1.55}
+.overline{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+.grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.grad-text-warm{background:var(--grad-text-warm);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.serif-i{font-family:var(--font-d);font-style:italic;font-weight:600}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+@media(min-width:768px){.wrap{padding:0 48px}}
+section{position:relative}
+.chapter{padding:clamp(100px,13vw,190px) 0;border-top:1px solid var(--line)}
+.ch-head{display:flex;align-items:baseline;gap:22px;margin-bottom:18px}
+.ch-num{font-family:var(--font-d);font-style:italic;font-weight:600;
+  font-size:clamp(40px,5vw,70px);color:transparent;-webkit-text-stroke:1.6px var(--clay);line-height:1}
+.ch-body{max-width:760px;color:var(--ink-soft);margin-top:18px}
+
+/* reveals */
+.rv,.rv-l,.rv-r{opacity:0;transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.rv{transform:translateY(44px)}
+.rv-l{transform:translateX(-56px)}
+.rv-r{transform:translateX(56px)}
+.rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:none}
+.stagger>*{opacity:0;transform:translateY(36px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.stagger.in>*{opacity:1;transform:none}
+.stagger.in>*:nth-child(1){transition-delay:.04s}.stagger.in>*:nth-child(2){transition-delay:.12s}
+.stagger.in>*:nth-child(3){transition-delay:.2s}.stagger.in>*:nth-child(4){transition-delay:.28s}
+.stagger.in>*:nth-child(5){transition-delay:.36s}.stagger.in>*:nth-child(6){transition-delay:.44s}
+.stagger.in>*:nth-child(7){transition-delay:.52s}.stagger.in>*:nth-child(8){transition-delay:.6s}
+.word{display:inline-block;opacity:0;filter:blur(8px);transform:translateY(26px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease),filter .6s var(--ease)}
+.in .word{opacity:1;filter:blur(0);transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv,.rv-l,.rv-r,.stagger>*,.word{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
+}
+html.noanim .rv,html.noanim .rv-l,html.noanim .rv-r,html.noanim .stagger>*,html.noanim .word{
+  opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
+html.noanim{scroll-behavior:auto}
+html.noanim .cover{min-height:auto;padding:180px 0 140px}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--glass);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
+nav .bar{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;max-width:1280px;margin:0 auto}
+@media(min-width:768px){nav .bar{padding:15px 48px}}
+.logo{font-family:var(--font-d);font-weight:700;font-size:24px;letter-spacing:.04em;color:var(--forest)}
+.logo small{font-family:var(--font-b);font-weight:600;font-size:11px;letter-spacing:.18em;
+  color:var(--clay);display:block;margin-top:-2px;text-transform:uppercase}
+.nav-links{display:none;gap:26px;font-weight:600;font-size:14px}
+.nav-links a{opacity:.72;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+@media(min-width:1100px){.nav-links{display:flex}}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;
+  padding:11px 24px;border-radius:var(--r-pill);border:none;cursor:pointer;
+  transition:all .3s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn-cta{background:var(--grad-cta);color:#FFF7EC;box-shadow:0 10px 28px rgba(197,98,62,.3)}
+
+/* sprites vivos */
+.sprite{position:absolute;pointer-events:none;will-change:transform;z-index:1;
+  filter:drop-shadow(0 16px 26px rgba(120,90,50,.16))}
+.sprite img{width:100%;height:auto}
+.s-float{animation:sFloat 12s ease-in-out infinite}
+.s-float2{animation:sFloat2 15s ease-in-out infinite}
+.s-sway{animation:sSway 14s ease-in-out infinite;transform-origin:bottom center}
+@keyframes sFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-26px) rotate(4deg)}}
+@keyframes sFloat2{0%,100%{transform:translateY(0) rotate(5deg)}50%{transform:translateY(-18px) rotate(-4deg)}}
+@keyframes sSway{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(6deg)}}
+.blob,.blob2{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;will-change:transform}
+.blob{width:54vw;height:54vw;max-width:740px;max-height:740px;top:-16%;right:-10%;
+  background:radial-gradient(circle at 35% 35%,#CFE7D6 0%,#A8D4BA 45%,transparent 72%);
+  animation:blobFloat 22s ease-in-out infinite}
+.blob2{width:42vw;height:42vw;max-width:580px;max-height:580px;bottom:-20%;left:-8%;
+  background:radial-gradient(circle at 60% 40%,#F2C9A8 0%,#E8B591 40%,transparent 72%);
+  animation:blobFloat 26s ease-in-out infinite reverse}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-4%,5%) scale(1.07)}
+  66%{transform:translate(3%,-4%) scale(.95)}}
+
+/* cover */
+.cover{min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  text-align:center;overflow:hidden;padding:140px 0 100px;
+  background:linear-gradient(165deg,#FBF7EE 0%,#F4EDDC 100%)}
+.cover .wrap{position:relative;z-index:2}
+.cover .overline{display:flex;align-items:center;justify-content:center;gap:14px}
+.cover .overline::before,.cover .overline::after{content:"";width:38px;height:1px;background:var(--clay)}
+.cover .mega{margin:26px 0 8px}
+.cover .tagline{font-family:var(--font-d);font-style:italic;font-size:clamp(19px,2.4vw,28px);
+  color:var(--ink-soft);margin-top:18px}
+.cover-meta{margin-top:54px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap;
+  font-size:13.5px;font-weight:600;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase}
+.cover-meta span{display:flex;align-items:center;gap:8px}
+.cover-meta svg{width:14px;height:14px;stroke:var(--jade)}
+
+/* índice */
+.toc{display:grid;gap:14px;margin-top:60px}
+@media(min-width:800px){.toc{grid-template-columns:repeat(2,1fr)}}
+.toc a{display:flex;align-items:center;gap:18px;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r-md);padding:20px 26px;
+  transition:all .35s var(--ease);font-weight:600}
+.toc a:hover{transform:translateX(8px);border-color:var(--jade);box-shadow:0 14px 36px rgba(120,90,50,.12)}
+.toc .n{font-family:var(--font-d);font-style:italic;color:var(--clay);font-size:19px;min-width:38px}
+.toc .arr{margin-left:auto;color:var(--jade)}
+
+/* la marca */
+.attrs{display:grid;gap:18px;margin-top:54px}
+@media(min-width:900px){.attrs{grid-template-columns:repeat(4,1fr)}}
+.attr{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:30px 26px}
+.attr .serif-i{font-size:21px;color:var(--forest);display:block;margin-bottom:10px}
+.attr p{font-size:14.5px;color:var(--ink-soft)}
+.essence{margin-top:64px;background:var(--grad-green);color:var(--paper);border-radius:var(--r-lg);
+  padding:clamp(44px,6vw,80px);text-align:center;position:relative;overflow:hidden}
+.essence .serif-i{font-size:clamp(26px,3.6vw,44px);line-height:1.25;display:block;max-width:820px;margin:0 auto}
+.essence .overline{color:var(--peach);margin-bottom:20px}
+
+/* logo */
+.logo-grid{display:grid;gap:18px;margin-top:54px}
+@media(min-width:900px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
+.logo-cell{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.logo-cell:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(120,90,50,.14)}
+.logo-cell img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.logo-cell .lab{padding:16px 22px;font-size:13.5px;font-weight:600;color:var(--ink-soft);
+  display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line)}
+.logo-cell .lab b{color:var(--ink)}
+.logo-rules{display:grid;gap:18px;margin-top:40px}
+@media(min-width:900px){.logo-rules{grid-template-columns:repeat(3,1fr)}}
+.rule{border-radius:var(--r-md);padding:26px;border:1px solid var(--line);background:var(--card);font-size:15px}
+.rule .ok{color:var(--jade);font-weight:700}
+.rule .no{color:var(--clay);font-weight:700}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule p{color:var(--ink-soft);font-size:14px}
+
+/* color */
+.swatches{display:grid;gap:16px;margin-top:54px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:800px){.swatches{grid-template-columns:repeat(4,1fr)}}
+.sw{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);cursor:pointer;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);background:var(--card)}
+.sw:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(120,90,50,.16)}
+.sw .chip{height:110px;position:relative}
+.sw .chip span{position:absolute;bottom:10px;right:14px;font-size:11.5px;font-weight:700;
+  letter-spacing:.06em;opacity:.85}
+.sw .meta{padding:14px 16px;font-size:13.5px}
+.sw .meta b{display:block;font-size:14.5px}
+.sw .meta small{color:var(--ink-soft)}
+.sw.copied .chip::after{content:"COPIADO ✓";position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;background:rgba(27,24,18,.55);color:#fff;font-weight:700;font-size:13px;letter-spacing:.1em}
+.prop-bar{display:flex;height:64px;border-radius:var(--r-md);overflow:hidden;margin-top:44px;
+  border:1px solid var(--line)}
+.prop-bar div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+  letter-spacing:.06em}
+.grads{display:grid;gap:16px;margin-top:44px}
+@media(min-width:800px){.grads{grid-template-columns:repeat(3,1fr)}}
+.grad-cell{height:130px;border-radius:var(--r-md);display:flex;align-items:flex-end;padding:16px;
+  color:#FFF7EC;font-weight:700;font-size:13px;letter-spacing:.06em;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+
+/* tipografía */
+.type-spec{margin-top:54px;display:grid;gap:18px}
+@media(min-width:1000px){.type-spec{grid-template-columns:1.2fr .8fr}}
+.spec-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(30px,4vw,54px)}
+.spec-card .font-name{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+.spec-aa{font-size:clamp(80px,10vw,150px);line-height:1;margin:10px 0}
+.spec-chars{color:var(--ink-soft);font-size:16px;word-break:break-all;line-height:1.8}
+.type-scale{margin-top:44px;border-top:1px solid var(--line)}
+.ts-row{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:baseline;
+  padding:20px 0;border-bottom:1px solid var(--line)}
+@media(min-width:700px){.ts-row{grid-template-columns:180px 1fr}}
+.ts-row .tag{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* voz */
+.voice-grid{display:grid;gap:18px;margin-top:54px}
+@media(min-width:900px){.voice-grid{grid-template-columns:1fr 1fr}}
+.voice-card{border-radius:var(--r-md);padding:30px;border:1px solid var(--line);background:var(--card)}
+.voice-card h4{display:flex;align-items:center;gap:10px;font-size:14px;letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:18px}
+.voice-card.si h4{color:var(--jade)}
+.voice-card.no h4{color:var(--clay)}
+.voice-card ul{list-style:none;display:flex;flex-direction:column;gap:13px}
+.voice-card li{font-family:var(--font-d);font-size:18px;line-height:1.45;padding-left:22px;position:relative}
+.voice-card.si li::before{content:"✓";position:absolute;left:0;color:var(--jade);font-family:var(--font-b);font-weight:700}
+.voice-card.no li::before{content:"✕";position:absolute;left:0;color:var(--clay);font-family:var(--font-b);font-weight:700}
+.headlines{margin-top:44px;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.hl{padding:26px 0;border-bottom:1px solid var(--line);display:grid;gap:6px}
+.hl .ctx{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clay)}
+.hl .t{font-family:var(--font-d);font-weight:600;font-size:clamp(20px,2.6vw,30px);letter-spacing:-.01em}
+
+/* fotografía */
+.photo-grid{display:grid;gap:16px;margin-top:54px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:900px){.photo-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:200px}}
+.ph{border-radius:var(--r-md);overflow:hidden;position:relative;min-height:160px;
+  border:1px solid rgba(255,255,255,.7);box-shadow:0 12px 34px rgba(120,90,50,.12)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.ph:hover img{transform:scale(1.06)}
+.ph .cap{position:absolute;left:14px;bottom:12px;color:#FFFEFA;font-size:12.5px;font-weight:600;
+  text-shadow:0 2px 12px rgba(0,0,0,.6);z-index:2}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(27,24,18,.42),transparent 40%)}
+@media(min-width:900px){.ph-tall{grid-row:span 2}.ph-wide{grid-column:span 2}}
+.photo-rules{display:grid;gap:14px;margin-top:36px}
+@media(min-width:900px){.photo-rules{grid-template-columns:repeat(3,1fr)}}
+
+/* elementos vivos */
+.live-stage{margin-top:54px;background:linear-gradient(165deg,#FBF7EE,#F1E9D6);
+  border:1px solid var(--line);border-radius:var(--r-lg);min-height:380px;position:relative;
+  overflow:hidden;display:flex;align-items:center;justify-content:center}
+.live-stage .hint{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-soft);opacity:.6}
+.elem-row{display:grid;gap:18px;margin-top:36px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:900px){.elem-row{grid-template-columns:repeat(4,1fr)}}
+.elem{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:26px;text-align:center}
+.elem img{width:88px;margin:0 auto 14px}
+.elem b{font-size:14.5px;display:block}
+.elem small{color:var(--ink-soft);font-size:13px}
+
+/* iconografía */
+.icon-grid{display:grid;gap:16px;margin-top:54px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:900px){.icon-grid{grid-template-columns:repeat(4,1fr)}}
+.icon-cell{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.icon-cell img{aspect-ratio:1;object-fit:cover;width:100%}
+.icon-cell .lab{padding:12px 16px;font-size:13px;font-weight:600;color:var(--ink-soft);border-top:1px solid var(--line)}
+.diagrams{display:grid;gap:16px;margin-top:36px}
+@media(min-width:900px){.diagrams{grid-template-columns:repeat(3,1fr)}}
+
+/* aplicaciones */
+.apps-grid{display:grid;gap:16px;margin-top:54px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:900px){.apps-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:210px}}
+
+/* ads */
+.ads-grid{display:grid;gap:16px;margin-top:54px;grid-template-columns:repeat(3,1fr)}
+.ads-grid.stories{grid-template-columns:repeat(3,1fr)}
+.ad{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.ad:hover{transform:translateY(-6px) rotate(-.5deg);box-shadow:0 24px 56px rgba(120,90,50,.18)}
+
+/* sistema digital */
+.ui-demo{display:grid;gap:18px;margin-top:54px}
+@media(min-width:1000px){.ui-demo{grid-template-columns:repeat(3,1fr)}}
+.ui-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:34px}
+.ui-card h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:22px}
+.demo-btns{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.demo-pill{display:inline-flex;align-items:center;gap:8px;background:var(--sage);border:1px solid var(--mint);
+  color:var(--forest);padding:10px 20px;border-radius:var(--r-pill);font-weight:600;font-size:14px}
+.btn-green{background:var(--forest);color:var(--paper)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(27,24,18,.28)}
+
+/* footer */
+footer{background:var(--forest);color:rgba(250,246,236,.72);padding:80px 0 44px;font-size:15px;margin-top:120px}
+.foot-flex{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;align-items:flex-end}
+footer .logo{color:var(--paper);font-size:34px}
+footer .logo small{color:var(--peach)}
+.foot-meta{font-size:13.5px;line-height:1.8;text-align:right}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="bar">
+    <a href="#top" class="logo">AKAN<small>Manual de Marca</small></a>
+    <div class="nav-links">
+      <a href="#marca">La marca</a><a href="#logotipo">Logotipo</a><a href="#color">Color</a>
+      <a href="#tipografia">Tipografía</a><a href="#voz">Voz</a><a href="#fotografia">Fotografía</a>
+      <a href="#vivos">Elementos</a><a href="#apps">Aplicaciones</a><a href="#ads">Ads</a>
+    </div>
+    <a href="index.html" class="btn btn-cta">Ver el sitio →</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="cover" id="top">
+  <div class="blob"></div><div class="blob2"></div>
+  <div class="sprite s-sway" data-depth="16" style="top:10%;left:5%;width:clamp(80px,9vw,150px);opacity:.9"><img src="assets/elements/leaf_eucalyptus.png" alt=""></div>
+  <div class="sprite s-float" data-depth="30" style="top:16%;right:9%;width:clamp(56px,6.5vw,104px)"><img src="assets/elements/bubble_amber.png" alt=""></div>
+  <div class="sprite s-float2" data-depth="44" style="bottom:13%;left:16%;width:clamp(42px,4.6vw,76px)"><img src="assets/elements/drop_gold.png" alt=""></div>
+  <div class="sprite s-float2" data-depth="22" style="bottom:18%;right:14%;width:clamp(70px,8vw,128px);opacity:.85;transform:rotate(130deg)"><img src="assets/elements/leaf_monstera.png" alt=""></div>
+  <div class="wrap">
+    <div class="overline rv in-init">Manual de identidad · v2.1 · Junio 2026</div>
+    <h1 class="mega" id="coverH">
+      <span class="word">A</span><span class="word">K</span><span class="word">A</span><span class="word">N</span>
+    </h1>
+    <div class="display grad-text rv in-init" style="font-size:clamp(22px,3vw,40px)">Verde Vivo</div>
+    <p class="tagline rv in-init">“Sin pena. Sin filas. A tu puerta.”</p>
+    <div class="cover-meta rv in-init">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>Salud masculina</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg>México</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C7 17 4 13.5 4 10a8 8 0 0116 0c0 3.5-3 7-8 11z"/></svg>Telemedicina DTC</span>
+    </div>
+  </div>
+</section>
+
+<!-- ÍNDICE -->
+<section class="chapter" style="border-top:none">
+  <div class="wrap">
+    <div class="overline rv">Contenido</div>
+    <h2 class="display rv" style="margin-top:14px">Once capítulos.<br>Una sola voz.</h2>
+    <div class="toc stagger">
+      <a href="#marca"><span class="n">01</span> La marca <span class="arr">→</span></a>
+      <a href="#logotipo"><span class="n">02</span> Logotipo <span class="arr">→</span></a>
+      <a href="#color"><span class="n">03</span> Color <span class="arr">→</span></a>
+      <a href="#tipografia"><span class="n">04</span> Tipografía <span class="arr">→</span></a>
+      <a href="#voz"><span class="n">05</span> Voz y tono <span class="arr">→</span></a>
+      <a href="#fotografia"><span class="n">06</span> Fotografía <span class="arr">→</span></a>
+      <a href="#vivos"><span class="n">07</span> Elementos vivos <span class="arr">→</span></a>
+      <a href="#iconografia"><span class="n">08</span> Iconografía y diagramas <span class="arr">→</span></a>
+      <a href="#apps"><span class="n">09</span> Aplicaciones <span class="arr">→</span></a>
+      <a href="#ads"><span class="n">10</span> Publicidad <span class="arr">→</span></a>
+      <a href="#digital"><span class="n">11</span> Sistema digital <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 01 LA MARCA -->
+<section class="chapter" id="marca">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">01</div><div class="overline">La marca</div></div>
+    <h2 class="display rv">El dios de la <span class="serif-i grad-text">salvación.</span></h2>
+    <p class="lead ch-body rv">AKAN toma su nombre del dios maya de la salvación. Somos la plataforma de
+      telemedicina que salva al hombre mexicano de la pena, de las filas y de los remedios de Google:
+      tratamiento médico real para caída de cabello, con médicos con cédula y entrega discreta a domicilio.</p>
+    <div class="attrs stagger">
+      <div class="attr"><span class="serif-i">Directo</span><p>Sin rodeos ni eufemismos. “Tu pelo se cae. Hay solución.”</p></div>
+      <div class="attr"><span class="serif-i">Sin pena</span><p>Normalizamos. 2 de cada 3 hombres — no estás solo. Nadie tiene por qué enterarse.</p></div>
+      <div class="attr"><span class="serif-i">Científico</span><p>Medicina real explicada simple. “Finasteride bloquea el DHT”, no jerga de laboratorio.</p></div>
+      <div class="attr"><span class="serif-i">Vivo</span><p>Cálido, luminoso, optimista. Vendemos confianza y mejor versión — nunca miedo.</p></div>
+    </div>
+    <div class="essence rv">
+      <div class="overline">Esencia</div>
+      <span class="serif-i">“Tu pelo merece un médico, no Google.”</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 LOGOTIPO -->
+<section class="chapter" id="logotipo" style="background:var(--paper-deep)">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">02</div><div class="overline">Logotipo</div></div>
+    <h2 class="display rv">Serif con <span class="serif-i grad-text">carácter.</span></h2>
+    <p class="lead ch-body rv">El wordmark AKAN se construye en serif alto contraste (familia Fraunces).
+      La K con su ligadura distintiva es el gesto propietario de la marca. Cuatro versiones oficiales,
+      un isotipo y un ícono de app.</p>
+    <div class="logo-grid stagger">
+      <div class="logo-cell"><img src="assets/branding/wordmark_01_green_on_cream.jpg" alt="Wordmark principal"><div class="lab"><b>Principal</b> Verde sobre crema · uso general</div></div>
+      <div class="logo-cell"><img src="assets/branding/wordmark_03_cream_on_green.jpg" alt="Wordmark invertido"><div class="lab"><b>Invertido</b> Crema sobre verde · fondos de marca</div></div>
+      <div class="logo-cell"><img src="assets/branding/wordmark_04_lowercase.jpg" alt="Wordmark lowercase"><div class="lab"><b>Casual</b> minúsculas · packaging y social</div></div>
+      <div class="logo-cell"><img src="assets/branding/appicon_A_cream_on_green.jpg" alt="App icon"><div class="lab"><b>Ícono</b> “A” · app, favicon, avatar</div></div>
+    </div>
+    <div class="logo-rules stagger">
+      <div class="rule"><h4><span class="ok">✓</span> Aire mínimo</h4><p>Despeje equivalente a la altura de la “A” en todos los lados del wordmark.</p></div>
+      <div class="rule"><h4><span class="ok">✓</span> Tamaño mínimo</h4><p>96px de ancho en digital, 25mm en impreso. Debajo de eso, usar el ícono “A”.</p></div>
+      <div class="rule"><h4><span class="no">✕</span> Prohibido</h4><p>No estirar, no rotar, no cambiar colores fuera de paleta, no agregar sombras ni contornos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 COLOR -->
+<section class="chapter" id="color">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">03</div><div class="overline">Color</div></div>
+    <h2 class="display rv">Luz, verde y <span class="serif-i grad-text-warm">calidez.</span></h2>
+    <p class="lead ch-body rv">La paleta v2.1 es clara y viva: crema luminosa como base, verdes frescos de salud,
+      y un acento cálido clay→copper para la acción. El verde bosque es la firma — se usa con intención,
+      nunca como oscuridad. <b>Click en cualquier color para copiar el HEX.</b></p>
+    <div class="swatches stagger">
+      <div class="sw" data-hex="#FAF6EC"><div class="chip" style="background:#FAF6EC"><span style="color:#57503F">AAA</span></div><div class="meta"><b>Crema Luz</b><small>#FAF6EC · base, fondos</small></div></div>
+      <div class="sw" data-hex="#F1EADA"><div class="chip" style="background:#F1EADA"><span style="color:#57503F">AAA</span></div><div class="meta"><b>Crema Profunda</b><small>#F1EADA · secciones alternas</small></div></div>
+      <div class="sw" data-hex="#1F3D2E"><div class="chip" style="background:#1F3D2E"><span style="color:#CFE7D6">Firma</span></div><div class="meta"><b>Verde Bosque</b><small>#1F3D2E · marca, footer</small></div></div>
+      <div class="sw" data-hex="#3E8E68"><div class="chip" style="background:#3E8E68"><span style="color:#FAF6EC">Vivo</span></div><div class="meta"><b>Jade</b><small>#3E8E68 · acentos, links, hover</small></div></div>
+      <div class="sw" data-hex="#E7F0E6"><div class="chip" style="background:#E7F0E6"><span style="color:#1F3D2E">Suave</span></div><div class="meta"><b>Sage</b><small>#E7F0E6 · fondos de ciencia</small></div></div>
+      <div class="sw" data-hex="#C5623E"><div class="chip" style="background:#C5623E"><span style="color:#FFF7EC">CTA</span></div><div class="meta"><b>Clay</b><small>#C5623E · acción, urgencia</small></div></div>
+      <div class="sw" data-hex="#E07B4C"><div class="chip" style="background:#E07B4C"><span style="color:#FFF7EC">Glow</span></div><div class="meta"><b>Copper</b><small>#E07B4C · gradiente CTA</small></div></div>
+      <div class="sw" data-hex="#F2C9A8"><div class="chip" style="background:#F2C9A8"><span style="color:#9A4E2E">Cálido</span></div><div class="meta"><b>Peach</b><small>#F2C9A8 · detalles sobre verde</small></div></div>
+    </div>
+    <div class="prop-bar rv">
+      <div style="flex:56;background:#FAF6EC;color:#57503F">56%</div>
+      <div style="flex:16;background:#F1EADA;color:#57503F">16%</div>
+      <div style="flex:12;background:#1F3D2E;color:#CFE7D6">12%</div>
+      <div style="flex:8;background:#3E8E68;color:#FAF6EC">8%</div>
+      <div style="flex:8;background:linear-gradient(135deg,#C5623E,#E07B4C);color:#FFF7EC">8%</div>
+    </div>
+    <div class="grads stagger">
+      <div class="grad-cell" style="background:linear-gradient(135deg,#C5623E,#E07B4C)">GRADIENTE CTA</div>
+      <div class="grad-cell" style="background:linear-gradient(150deg,#1F3D2E,#2E6B4D 70%,#3E8E68)">GRADIENTE MARCA</div>
+      <div class="grad-cell" style="background:linear-gradient(110deg,#A8D4BA,#F2C9A8);color:#1F3D2E;text-shadow:none">GRADIENTE AMBIENTE</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 TIPOGRAFÍA -->
+<section class="chapter" id="tipografia" style="background:var(--paper-deep)">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">04</div><div class="overline">Tipografía</div></div>
+    <h2 class="display rv">Dos voces, un <span class="serif-i grad-text">ritmo.</span></h2>
+    <p class="lead ch-body rv">Fraunces habla con carácter editorial — titulares gigantes, itálicas con alma.
+      Hanken Grotesk hace el trabajo silencioso — cuerpo, interfaz, datos. Nunca se mezclan en una misma línea,
+      excepto el gesto firma: una palabra itálica dentro del titular.</p>
+    <div class="type-spec stagger">
+      <div class="spec-card">
+        <div class="font-name">Display · Fraunces</div>
+        <div class="spec-aa" style="font-family:var(--font-d);font-weight:700">Aa</div>
+        <p class="spec-chars" style="font-family:var(--font-d)">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñopqrstuvwxyz 0123456789 ¿?¡!“”—</p>
+      </div>
+      <div class="spec-card">
+        <div class="font-name">Texto · Hanken Grotesk</div>
+        <div class="spec-aa" style="font-family:var(--font-b);font-weight:600">Aa</div>
+        <p class="spec-chars">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñopqrstuvwxyz 0123456789 ¿?¡!“”—</p>
+      </div>
+    </div>
+    <div class="type-scale rv">
+      <div class="ts-row"><div class="tag">Mega · 700</div><div style="font-family:var(--font-d);font-weight:700;font-size:clamp(34px,5vw,66px);letter-spacing:-.04em;line-height:1">Tu pelo no va a esperar.</div></div>
+      <div class="ts-row"><div class="tag">Display · 700</div><div style="font-family:var(--font-d);font-weight:700;font-size:clamp(26px,3.4vw,44px);letter-spacing:-.03em;line-height:1.05">Tres pasos. Cero salas de espera.</div></div>
+      <div class="ts-row"><div class="tag">Itálica firma</div><div class="serif-i" style="font-size:clamp(22px,2.8vw,36px);color:var(--jade)">médico, presumir, tienes</div></div>
+      <div class="ts-row"><div class="tag">Lead · 400</div><div style="font-size:clamp(17px,1.8vw,21px)">Tratamiento médico real para la caída de cabello, sin salir de tu casa.</div></div>
+      <div class="ts-row"><div class="tag">Body · 400</div><div style="font-size:16px;max-width:620px">Un médico con cédula revisa tu caso personalmente y receta tu tratamiento. Lo recibes cada mes en empaque discreto.</div></div>
+      <div class="ts-row"><div class="tag">Overline · 700</div><div class="overline">La verdad, sin rodeos</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 VOZ -->
+<section class="chapter" id="voz">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">05</div><div class="overline">Voz y tono</div></div>
+    <h2 class="display rv">Mexicano. Directo.<br><span class="serif-i grad-text-warm">Sin pena.</span></h2>
+    <p class="lead ch-body rv">Hablamos como un amigo que sabe de medicina, no como un laboratorio.
+      Español mexicano nativo, de tú, nunca de usted. Cero traducciones del inglés.</p>
+    <div class="voice-grid stagger">
+      <div class="voice-card si">
+        <h4>✓ Así sí</h4>
+        <ul>
+          <li>“Tu pelo se cae. Hay solución.”</li>
+          <li>“2 de cada 3 — no estás solo.”</li>
+          <li>“Nadie se entera. Ni el de la farmacia.”</li>
+          <li>“Finasteride bloquea el DHT. Así de simple.”</li>
+        </ul>
+      </div>
+      <div class="voice-card no">
+        <h4>✕ Así no</h4>
+        <ul>
+          <li>“Estimado usuario, su alopecia…”</li>
+          <li>“Inhibidor de la 5-alfa-reductasa”</li>
+          <li>“¡No pierdas tu hombría!” (miedo)</li>
+          <li>“Best-in-class hair solution” (spanglish)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="headlines rv">
+      <div class="hl"><span class="ctx">Hero</span><span class="t">Tu pelo merece un médico, no Google.</span></div>
+      <div class="hl"><span class="ctx">Urgencia</span><span class="t">Tu pelo no va a esperar.</span></div>
+      <div class="hl"><span class="ctx">Privacidad</span><span class="t">Nadie se entera. Ni el de la farmacia.</span></div>
+      <div class="hl"><span class="ctx">Confianza</span><span class="t">Médicos de verdad. Cédula a la vista.</span></div>
+      <div class="hl"><span class="ctx">Producto</span><span class="t">Tan bueno que lo vas a querer presumir.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 FOTOGRAFÍA -->
+<section class="chapter" id="fotografia" style="background:var(--paper-deep)">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">06</div><div class="overline">Fotografía</div></div>
+    <h2 class="display rv">Luz de mañana,<br>vida <span class="serif-i grad-text">real.</span></h2>
+    <p class="lead ch-body rv">Tres familias: lifestyle aspiracional (CDMX — Polanco, Condesa, Roma),
+      producto cálido sobre materiales nobles, y médicos reales que dan confianza. Siempre luz natural
+      cálida, nunca clínico, nunca oscuro.</p>
+    <div class="photo-grid stagger">
+      <div class="ph ph-tall"><img src="assets/photography/hero_v2/hero_polanco_portrait.jpg" alt="" loading="lazy"><div class="cap">Lifestyle · Polanco</div></div>
+      <div class="ph ph-wide"><img src="assets/premium/rooftop_morning.jpg" alt="" loading="lazy"><div class="cap">Lifestyle · Rooftop mañana</div></div>
+      <div class="ph"><img src="assets/premium/hero_light_products.jpg" alt="" loading="lazy"><div class="cap">Producto · Travertino</div></div>
+      <div class="ph"><img src="assets/photography/lifestyle_v2/grooming_mirror_fresa.jpg" alt="" loading="lazy"><div class="cap">Ritual · Grooming</div></div>
+      <div class="ph"><img src="assets/photography/hero_v2/hero_coffee_roma.jpg" alt="" loading="lazy"><div class="cap">Lifestyle · Roma Norte</div></div>
+      <div class="ph"><img src="assets/photography/product/akan_bathroom_shelf.jpg" alt="" loading="lazy"><div class="cap">Producto · En contexto</div></div>
+      <div class="ph ph-wide"><img src="assets/photography/lifestyle_v2/pareja_polanco.jpg" alt="" loading="lazy"><div class="cap">Conexión · Pareja</div></div>
+    </div>
+    <div class="photo-rules stagger">
+      <div class="rule"><h4><span class="ok">✓</span> Luz natural cálida</h4><p>Mañana dorada, ventanas, exteriores. La luz es optimismo.</p></div>
+      <div class="rule"><h4><span class="ok">✓</span> México reconocible</h4><p>Arquitectura, plantas y texturas de CDMX. Nunca stock gringo.</p></div>
+      <div class="rule"><h4><span class="no">✕</span> Nada clínico ni oscuro</h4><p>Sin batas, sin hospitales, sin fondos negros, sin dramatismo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 ELEMENTOS VIVOS -->
+<section class="chapter" id="vivos">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">07</div><div class="overline">Elementos vivos</div></div>
+    <h2 class="display rv">La marca <span class="serif-i grad-text">respira.</span></h2>
+    <p class="lead ch-body rv">Piezas generadas con Leonardo AI y recortadas a transparencia. Flotan, se mecen
+      y reaccionan al cursor en cualquier superficie digital. Son el gesto de motion propietario de AKAN:
+      orgánicos, lentos, vivos — nunca frenéticos.</p>
+    <div class="live-stage rv" id="liveStage">
+      <span class="hint">Mueve el cursor — los elementos te siguen</span>
+      <div class="sprite s-float" data-depth="34" style="top:14%;left:12%;width:84px"><img src="assets/elements/bubble_amber.png" alt=""></div>
+      <div class="sprite s-sway" data-depth="18" style="top:8%;right:14%;width:120px"><img src="assets/elements/leaf_eucalyptus.png" alt=""></div>
+      <div class="sprite s-float2" data-depth="48" style="bottom:12%;left:30%;width:62px"><img src="assets/elements/drop_gold.png" alt=""></div>
+      <div class="sprite s-float2" data-depth="26" style="bottom:16%;right:24%;width:110px;transform:rotate(120deg)"><img src="assets/elements/leaf_monstera.png" alt=""></div>
+      <div class="sprite s-float" data-depth="40" style="top:46%;left:48%;width:46px;opacity:.85"><img src="assets/elements/bubble_amber.png" alt=""></div>
+    </div>
+    <div class="elem-row stagger">
+      <div class="elem"><img src="assets/elements/bubble_amber.png" alt=""><b>Burbuja ámbar</b><small>Flotación 12s · profundidad alta</small></div>
+      <div class="elem"><img src="assets/elements/drop_gold.png" alt=""><b>Gota de oro</b><small>Flotación 15s · el activo, la fórmula</small></div>
+      <div class="elem"><img src="assets/elements/leaf_monstera.png" alt=""><b>Monstera</b><small>Rotada como acento · vida</small></div>
+      <div class="elem"><img src="assets/elements/leaf_eucalyptus.png" alt=""><b>Eucalipto</b><small>Mecido 14s · frescura natural</small></div>
+    </div>
+    <div class="photo-rules stagger" style="margin-top:30px">
+      <div class="rule"><h4><span class="ok">✓</span> Máximo 4-5 por vista</h4><p>Acentos, no confeti. Cada elemento respira con aire alrededor.</p></div>
+      <div class="rule"><h4><span class="ok">✓</span> Lento y orgánico</h4><p>Ciclos de 12-26s, easing suave, parallax sutil al cursor.</p></div>
+      <div class="rule"><h4><span class="no">✕</span> Nunca sobre texto</h4><p>Los elementos viven en márgenes y espacios negativos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 ICONOGRAFÍA -->
+<section class="chapter" id="iconografia" style="background:var(--paper-deep)">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">08</div><div class="overline">Iconografía y diagramas</div></div>
+    <h2 class="display rv">Ciencia que se <span class="serif-i grad-text">entiende.</span></h2>
+    <p class="lead ch-body rv">Ilustración editorial en paleta de marca para explicar lo complejo,
+      e íconos de línea (Lucide, stroke 2px) para la interfaz. Los diagramas ya producidos son
+      assets oficiales — se usan tal cual.</p>
+    <div class="icon-grid stagger">
+      <div class="icon-cell"><img src="assets/illustrations/icon_foliculo.jpg" alt="" loading="lazy"><div class="lab">Folículo · ciencia</div></div>
+      <div class="icon-cell"><img src="assets/illustrations/icon_telemedicina.jpg" alt="" loading="lazy"><div class="lab">Telemedicina · consulta</div></div>
+      <div class="icon-cell"><img src="assets/illustrations/icon_paquete_discreto.jpg" alt="" loading="lazy"><div class="lab">Paquete · discreción</div></div>
+      <div class="icon-cell"><img src="assets/illustrations/icon_shield_trust.jpg" alt="" loading="lazy"><div class="lab">Escudo · confianza</div></div>
+    </div>
+    <div class="diagrams stagger">
+      <div class="icon-cell"><img src="assets/marketing/diagrams/diagram_como_funciona_foliculo.jpg" alt="" loading="lazy" style="aspect-ratio:4/3"><div class="lab">Cómo funciona el tratamiento</div></div>
+      <div class="icon-cell"><img src="assets/marketing/diagrams/diagram_3_pasos.jpg" alt="" loading="lazy" style="aspect-ratio:4/3"><div class="lab">Los 3 pasos</div></div>
+      <div class="icon-cell"><img src="assets/marketing/diagrams/diagram_por_que_akan.jpg" alt="" loading="lazy" style="aspect-ratio:4/3"><div class="lab">Por qué AKAN</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 APLICACIONES -->
+<section class="chapter" id="apps">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">09</div><div class="overline">Aplicaciones</div></div>
+    <h2 class="display rv">La marca en el <span class="serif-i grad-text-warm">mundo.</span></h2>
+    <p class="lead ch-body rv">Del sello de cera al ícono de app: la identidad se sostiene en cualquier
+      material. Papeles texturizados, vidrio ámbar, kraft neutro para el envío discreto.</p>
+    <div class="photo-grid stagger" style="grid-auto-rows:210px">
+      <div class="ph ph-wide"><img src="assets/photography/brand_application/flatlay_identity.jpg" alt="" loading="lazy"><div class="cap">Sistema completo</div></div>
+      <div class="ph"><img src="assets/photography/brand_application/business_card_detail.jpg" alt="" loading="lazy"><div class="cap">Tarjetas · embossed</div></div>
+      <div class="ph"><img src="assets/photography/brand_application/app_mockup_iphone.jpg" alt="" loading="lazy"><div class="cap">App móvil</div></div>
+      <div class="ph"><img src="assets/photography/brand_application/product_bottles.jpg" alt="" loading="lazy"><div class="cap">Etiquetas producto</div></div>
+      <div class="ph"><img src="assets/photography/brand_application/mailer_wax_seal.jpg" alt="" loading="lazy"><div class="cap">Mailer · sello de cera</div></div>
+      <div class="ph"><img src="assets/photography/brand_application/tote_bags.jpg" alt="" loading="lazy"><div class="cap">Totes</div></div>
+      <div class="ph"><img src="assets/premium/unboxing_neutral.jpg" alt="" loading="lazy"><div class="cap">Envío neutro discreto</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 ADS -->
+<section class="chapter" id="ads" style="background:var(--paper-deep)">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">10</div><div class="overline">Publicidad</div></div>
+    <h2 class="display rv">Para el feed y la <span class="serif-i grad-text">calle.</span></h2>
+    <p class="lead ch-body rv">Tres conceptos para arrancar: el dato que sacude (“2 de cada 3”),
+      el viaje en el tiempo (Hoy → Mes 6) y la promesa de la marca (“Sin pena”). Formatos feed 1:1
+      y stories 9:16.</p>
+    <div class="ads-grid stagger">
+      <div class="ad"><img src="assets/marketing/instagram_ads/ad_01_el_numero.jpg" alt="" loading="lazy"></div>
+      <div class="ad"><img src="assets/marketing/instagram_ads/ad_02_tu_timeline.jpg" alt="" loading="lazy"></div>
+      <div class="ad"><img src="assets/marketing/instagram_ads/ad_03_sin_pena.jpg" alt="" loading="lazy"></div>
+    </div>
+    <div class="ads-grid stories stagger">
+      <div class="ad"><img src="assets/marketing/instagram_ads/story_01_el_numero.jpg" alt="" loading="lazy"></div>
+      <div class="ad"><img src="assets/marketing/instagram_ads/story_02_tu_timeline.jpg" alt="" loading="lazy"></div>
+      <div class="ad"><img src="assets/marketing/instagram_ads/story_03_sin_pena.jpg" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 SISTEMA DIGITAL -->
+<section class="chapter" id="digital">
+  <div class="wrap">
+    <div class="ch-head rv"><div class="ch-num">11</div><div class="overline">Sistema digital</div></div>
+    <h2 class="display rv">Componentes <span class="serif-i grad-text">vivos.</span></h2>
+    <p class="lead ch-body rv">Los componentes del sitio son la referencia viva del sistema:
+      pills de radio completo, cards con hover elevado, glass nav y CTA con gradiente cálido.
+      Todo documentado en <code style="background:var(--sage);padding:2px 10px;border-radius:6px;font-size:15px">docs/design_direction_v2.md</code>.</p>
+    <div class="ui-demo stagger">
+      <div class="ui-card">
+        <h4>Botones</h4>
+        <div class="demo-btns">
+          <button class="btn btn-cta">Comenzar evaluación →</button>
+          <button class="btn btn-green">Acción de marca</button>
+          <button class="btn btn-ghost">Secundario</button>
+        </div>
+      </div>
+      <div class="ui-card">
+        <h4>Pills y badges</h4>
+        <div class="demo-btns">
+          <span class="demo-pill">✓ Cédula verificada</span>
+          <span class="demo-pill" style="background:var(--paper);border-color:var(--sand)">Empaque discreto</span>
+          <span class="demo-pill" style="background:var(--grad-cta);color:#FFF7EC;border:none">El más elegido</span>
+        </div>
+      </div>
+      <div class="ui-card">
+        <h4>Radios y sombras</h4>
+        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;color:var(--ink-soft)">
+          <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 16px">r-sm · 12px · inputs</div>
+          <div style="background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px 16px">r-md · 18px · cards</div>
+          <div style="background:var(--paper);border-radius:28px;padding:12px 16px;box-shadow:0 18px 44px rgba(120,90,50,.16)">r-lg · 28px · héroes + sombra cálida</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-flex">
+    <div>
+      <div class="logo">AKAN<small>Manual de Marca</small></div>
+      <p style="margin-top:14px;max-width:320px;font-size:14px">Verde Vivo v2.1 · Junio 2026<br>
+        Identidad generada con Claude Code + Leonardo AI.</p>
+    </div>
+    <div class="foot-meta">
+      © 2026 AKAN Salud Masculina S.A. de C.V.<br>
+      <a href="index.html" style="color:var(--peach)">akan — el sitio →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+if(location.search.includes('noanim'))document.documentElement.classList.add('noanim');
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+  });
+},{threshold:.14});
+document.querySelectorAll('.rv,.rv-l,.rv-r,.stagger').forEach(el=>io.observe(el));
+
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.in-init').forEach(el=>el.classList.add('in'));
+  const h=document.getElementById('coverH');
+  h.querySelectorAll('.word').forEach((w,i)=>{w.style.transitionDelay=(.15+i*.12)+'s'});
+  h.classList.add('in');
+});
+
+/* copiar HEX al click */
+document.querySelectorAll('.sw').forEach(sw=>{
+  sw.addEventListener('click',()=>{
+    navigator.clipboard&&navigator.clipboard.writeText(sw.dataset.hex);
+    sw.classList.add('copied');
+    setTimeout(()=>sw.classList.remove('copied'),900);
+  });
+});
+
+/* parallax al mouse — cover y stage de elementos vivos */
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduced){
+  [document.querySelector('.cover'),document.getElementById('liveStage')].forEach(zone=>{
+    if(!zone)return;
+    const sprites=[...zone.querySelectorAll('[data-depth]')];
+    let mx=0,my=0,cx=0,cy=0;
+    zone.addEventListener('mousemove',e=>{
+      const r=zone.getBoundingClientRect();
+      mx=(e.clientX-r.left)/r.width-.5; my=(e.clientY-r.top)/r.height-.5;
+    });
+    (function loop(){
+      cx+=(mx-cx)*.06; cy+=(my-cy)*.06;
+      sprites.forEach(s=>{const d=+s.dataset.depth;s.style.translate=`${-cx*d}px ${-cy*d}px`});
+      requestAnimationFrame(loop);
+    })();
+  });
+}
+</script>
+</body>
+</html>
