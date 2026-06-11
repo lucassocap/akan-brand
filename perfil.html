@@ -158,10 +158,10 @@ if(params.get('t')) localStorage.setItem('akan_token', params.get('t'));
 const STATUS = {
   revision_medica:{step:1,pill:['warn','Médico revisando'],msg:'Tu médico está revisando tu evaluación hoy mismo. Si tiene dudas te escribe por WhatsApp.'},
   pago_pendiente:{step:2,pill:['go','Receta aprobada — pagar'],msg:'¡Tu médico aprobó tu tratamiento! Paga cuando quieras — tu plan está apartado.'},
-  pagada:{step:3,pill:['ok','Pago confirmado'],msg:'Pago recibido. Tu paquete se está preparando en caja neutra, sin marca.'},
-  preparando:{step:3,pill:['ok','Preparando tu caja'],msg:'Tu paquete se prepara en caja neutra, sin marca. Pronto tendrás tu guía.'},
+  pagada:{step:4,pill:['ok','Pago confirmado'],msg:'Pago recibido ✓ Tu paquete se está preparando en caja neutra, sin marca.'},
+  preparando:{step:4,pill:['ok','Preparando tu caja'],msg:'Pago recibido ✓ Tu paquete se prepara en caja neutra, sin marca. Pronto tendrás tu guía.'},
   enviada:{step:4,pill:['ok','En camino'],msg:'Tu paquete va en camino. Ni el repartidor sabe qué lleva.'},
-  entregada:{step:5,pill:['ok','Entregado'],msg:'Entregado. La constancia es todo — los resultados llegan con los meses. Aquí seguimos.'},
+  entregada:{step:6,pill:['ok','Entregado'],msg:'Entregado. La constancia es todo — los resultados llegan con los meses. Aquí seguimos.'},
   cancelada:{step:0,pill:['warn','Cancelada'],msg:'Esta orden fue cancelada. ¿Quieres retomarla? Escríbenos por WhatsApp.'}
 };
 const STEPS=['Evaluación','Médico','Pago','En camino','En tu puerta'];
@@ -196,7 +196,7 @@ function renderProfile(d){
     <h1>Hola, ${first}.<br><span class="serif-i grad-text">Aquí va tu tratamiento.</span></h1>`;
   if(o){
     const st=STATUS[o.status]||STATUS.revision_medica;
-    const fillPct=Math.max(0,(st.step-1))/(STEPS.length-1)*82;
+    const fillPct=Math.min(82,Math.max(0,(st.step-1))/(STEPS.length-1)*82);
     html+=`<div class="status-card">
       <div class="st-top">
         <div><div class="plan">${o.plan}</div><div class="ref">Orden ${o.ref}${o.cadence==='3m'?' · plan 3 meses':''}</div></div>
