@@ -36,8 +36,16 @@ img{max-width:100%;display:block}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--glass);
   backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
-nav .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:760px;margin:0 auto}
+nav .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;max-width:760px;margin:0 auto}
 .logo{font-family:var(--font-d);font-weight:700;font-size:23px;letter-spacing:.04em;color:var(--forest)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.akan-cart-btn{position:relative;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--ease)}
+.akan-cart-btn:hover{border-color:var(--jade)}
+.akan-cart-btn svg{width:19px;height:19px;stroke:var(--ink)}
+.akan-cart-count{position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;padding:0 5px;border-radius:100px;
+  background:var(--grad-cta);color:#FFF7EC;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.akan-cart-count[hidden]{display:none}
 .logo small{font-family:var(--font-b);font-weight:600;font-size:10.5px;letter-spacing:.16em;
   color:var(--clay);display:block;margin-top:-2px;text-transform:uppercase}
 .conf-chip{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--jade);
@@ -101,15 +109,61 @@ h1{font-family:var(--font-d);font-weight:700;letter-spacing:-.025em;line-height:
 .sub-card .v{font-family:var(--font-d);font-weight:700;font-size:21px;margin-top:4px}
 .sub-card small{display:block;font-size:13px;color:rgba(250,246,236,.7);margin-top:2px}
 
-/* historial */
-.hist{margin-top:34px}
-.hist h2{font-family:var(--font-d);font-weight:700;font-size:22px;margin-bottom:14px}
-.h-row{display:flex;justify-content:space-between;gap:14px;background:var(--card);
-  border:1px solid var(--line);border-radius:var(--r-md);padding:16px 20px;margin-bottom:10px;
-  font-size:14.5px;align-items:center;flex-wrap:wrap}
-.h-row .r{font-weight:700}
-.h-row .s{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+/* ── secciones Amazon (Mis pedidos, despachos, suscripción) ── */
+.sec-block{margin-top:34px}
+.sec-title{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec-title h2{font-family:var(--font-d);font-weight:700;font-size:22px;letter-spacing:-.01em}
+.sec-title svg{width:20px;height:20px;stroke:var(--jade)}
+.sec-title .cnt{font-size:13px;color:var(--ink-soft);font-weight:600;margin-left:auto}
+
+/* tarjeta de pedido (Your Orders) */
+.order-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  margin-bottom:14px;overflow:hidden}
+.oc-head{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;
+  background:var(--paper-deep);padding:14px 20px;font-size:13px}
+.oc-head .meta{display:flex;gap:22px;flex-wrap:wrap}
+.oc-head .meta div .l{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.oc-head .meta div .v{font-weight:700;font-size:14px;margin-top:1px}
+.oc-status{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:6px 14px;border-radius:var(--r-pill)}
+.oc-status.warn{background:#F7E8B8;color:#7A5B17}
+.oc-status.ok{background:var(--sage);color:var(--forest)}
+.oc-status.go{background:var(--grad-cta);color:#FFF7EC}
+.oc-status.neutral{background:var(--card);color:var(--ink-soft);border:1px solid var(--line)}
+.oc-body{padding:18px 20px}
+.oc-line{display:flex;gap:14px;align-items:center;padding:8px 0}
+.oc-line .thumb{width:54px;height:54px;border-radius:11px;object-fit:cover;background:var(--paper-deep);flex-shrink:0}
+.oc-line .nm{flex:1;font-weight:600;font-size:15px}
+.oc-line .nm small{display:block;font-weight:400;color:var(--ink-soft);font-size:13px}
+.oc-line .amt{font-weight:700;white-space:nowrap}
+.oc-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.oc-btn{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;
+  padding:9px 18px;border-radius:var(--r-pill);border:1.5px solid var(--line);background:var(--paper);
+  cursor:pointer;font-family:var(--font-b);transition:all .25s var(--ease)}
+.oc-btn:hover{border-color:var(--jade)}
+.oc-btn.pay{background:var(--grad-cta);color:#FFF7EC;border:none}
+.oc-btn svg{width:15px;height:15px}
+.oc-detail{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+.oc-detail.open{max-height:600px;padding:0 20px 18px}
+.oc-detail .drow{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;
+  border-bottom:1px solid var(--line);color:var(--ink-soft)}
+.oc-detail .drow b{color:var(--ink)}
+
+/* despachos */
+.ship-row{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:14px 18px;margin-bottom:10px;font-size:14px}
+.ship-row .ic{width:40px;height:40px;border-radius:10px;background:var(--sage);display:flex;
+  align-items:center;justify-content:center;flex-shrink:0}
+.ship-row .ic svg{width:20px;height:20px;stroke:var(--jade)}
+.ship-row .d{flex:1}
+.ship-row .d b{display:block;font-size:14.5px}
+.ship-row .d span{font-size:13px;color:var(--ink-soft)}
+.ship-row .st{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
   padding:5px 12px;border-radius:var(--r-pill);background:var(--paper-deep);color:var(--ink-soft)}
+.ship-row .st.done{background:var(--sage);color:var(--forest)}
+
+.empty-note{text-align:center;color:var(--ink-soft);font-size:14px;background:var(--card);
+  border:1px dashed var(--line);border-radius:var(--r-md);padding:22px}
 
 /* chat con el médico */
 .chat-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
@@ -179,33 +233,42 @@ h1{font-family:var(--font-d);font-weight:700;letter-spacing:-.025em;line-height:
 <nav>
   <div class="bar">
     <a href="index.html" class="logo">AKAN<small>Mi tratamiento</small></a>
-    <div class="conf-chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Confidencial</div>
+    <div class="nav-right">
+      <div class="conf-chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Confidencial</div>
+      <span id="cartSlot"></span>
+    </div>
   </div>
 </nav>
 
 <div class="stage"><div class="wrap" id="app"></div></div>
 
+<script src="assets/cart.js"></script>
 <script>
-const API_BASE = localStorage.getItem('AKAN_API') || 'https://odoo-production-3a20.up.railway.app';
+const API_BASE = AkanCart.API_BASE;
+AkanCart.mountBadge(document.getElementById('cartSlot'));
 const app = document.getElementById('app');
 const params = new URLSearchParams(location.search);
 let token = params.get('t') || localStorage.getItem('akan_token') || '';
 if(params.get('t')) localStorage.setItem('akan_token', params.get('t'));
 
 const STATUS = {
-  revision_medica:{step:1,pill:['warn','Médico revisando'],msg:'Tu médico está revisando tu evaluación hoy mismo. Si tiene dudas te escribe por WhatsApp.'},
-  pago_pendiente:{step:2,pill:['go','Receta aprobada — pagar'],msg:'¡Tu médico aprobó tu tratamiento! Paga cuando quieras — tu plan está apartado.'},
-  pagada:{step:4,pill:['ok','Pago confirmado'],msg:'Pago recibido ✓ Tu paquete se está preparando en caja neutra, sin marca.'},
+  /* COBRO DE UNA: el pago ocurre al confirmar, antes del médico. Por eso
+     "pagada/revisión" es el estado típico recién creado. */
+  revision_medica:{step:3,pill:['ok','Pagado · médico revisa hoy'],msg:'Pagado ✓ Tu médico está revisando tu evaluación hoy mismo. Si no aprueba, te devolvemos todo — sin preguntas.'},
+  pago_pendiente:{step:2,pill:['go','Pagar ahora'],msg:'Tu tratamiento está apartado. Termina tu pago para que tu médico lo revise hoy.'},
+  pagada:{step:4,pill:['ok','Pagado · preparando'],msg:'Pago recibido ✓ Tu médico aprobó y tu paquete se prepara en caja neutra, sin marca.'},
   preparando:{step:4,pill:['ok','Preparando tu caja'],msg:'Pago recibido ✓ Tu paquete se prepara en caja neutra, sin marca. Pronto tendrás tu guía.'},
-  enviada:{step:4,pill:['ok','En camino'],msg:'Tu paquete va en camino. Ni el repartidor sabe qué lleva.'},
+  enviada:{step:5,pill:['ok','En camino'],msg:'Tu paquete va en camino. Ni el repartidor sabe qué lleva.'},
   entregada:{step:6,pill:['ok','Entregado'],msg:'Entregado. La constancia es todo — los resultados llegan con los meses. Aquí seguimos.'},
-  cancelada:{step:0,pill:['warn','Cancelada'],msg:'Esta orden fue cancelada. ¿Quieres retomarla? Escríbenos por WhatsApp.'}
+  cancelada:{step:0,pill:['warn','Cancelada'],msg:'Esta orden fue cancelada. Si fue un error, te devolvemos todo. Escríbenos por WhatsApp.'}
 };
 const STEPS=['Evaluación','Médico','Pago','En camino','En tu puerta'];
+const SHIP_LABEL={delivered:['Entregado','done'],in_transit:['En camino',''],ready:['Listo para envío',''],done:['Entregado','done']};
 
 function el(h){const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild}
 const wa = t => 'https://wa.me/523398001614?text='+encodeURIComponent(t);
-const esc = s => String(s).replace(/</g,'&lt;');
+const esc = s => String(s==null?'':s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+const fmtMx = n => Number(n||0).toLocaleString('es-MX',{minimumFractionDigits:Number.isInteger(Number(n))?0:2,maximumFractionDigits:2});
 /* Odoo manda datetimes en UTC ("2026-06-12 02:18") → convertir a hora local
    del cliente y formatear es-MX ("11 jun, 20:18") */
 function fmtFecha(s){
@@ -318,14 +381,55 @@ function renderProfile(d){
     </div>`;
   }
   if(d.subscription){
+    const sub=d.subscription;
     html+=`<div class="sub-card">
-      <div><div class="t">Tu suscripción</div><div class="v">${d.subscription.template||'AKAN'}</div>
-        <small>Estado: ${d.subscription.state||'activa'}</small></div>
-      <div><div class="t">Próximo envío</div><div class="v">${d.subscription.next_date||'por definir'}</div>
-        <small><a href="${wa('Hola AKAN 👋 quiero hacer un cambio en mi suscripción.')}" style="text-decoration:underline">Pausar o cambiar →</a></small></div>
+      <div><div class="t">Mi suscripción</div><div class="v">${esc(sub.template||sub.plan||'AKAN')}</div>
+        <small>Activa desde ${sub.since||sub.start_date||'—'} · ${esc(sub.state||'activa')}</small></div>
+      <div><div class="t">Próximo cobro</div><div class="v">${sub.next_date||sub.next_invoice||'por definir'}</div>
+        <small><a href="${wa('Hola AKAN 👋 quiero pausar o cambiar mi suscripción.')}" style="text-decoration:underline">Pausar o cambiar →</a></small></div>
     </div>`;
   }
-  html+=`<div class="chat-card">
+
+  /* ── MIS PEDIDOS (histórico tipo Your Orders) ── */
+  html+=`<div class="sec-block">
+    <div class="sec-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+      <h2>Mis pedidos</h2><span class="cnt">${orders.length} ${orders.length===1?'pedido':'pedidos'}</span>
+    </div>`;
+  if(!orders.length){
+    html+=`<div class="empty-note">Aún no tienes pedidos. <a href="tienda.html" style="color:var(--clay);text-decoration:underline">Ir a la tienda →</a></div>`;
+  }else{
+    html+=orders.map((x,idx)=>orderCard(x,idx,d.customer)).join('');
+  }
+  html+=`</div>`;
+
+  /* ── HISTORIAL DE DESPACHOS ── */
+  const shipments=[];
+  orders.forEach(x=>(x.shipments||[]).forEach(s=>shipments.push({...s,ref:x.ref,plan:x.plan})));
+  html+=`<div class="sec-block">
+    <div class="sec-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8zM5.5 18.5a2.5 2.5 0 1 0 0 .01M18.5 18.5a2.5 2.5 0 1 0 0 .01"/></svg>
+      <h2>Historial de despachos</h2>
+    </div>`;
+  if(!shipments.length){
+    html+=`<div class="empty-note">Cuando salga tu primera caja, su guía y fecha aparecen aquí.</div>`;
+  }else{
+    html+=shipments.map(s=>{
+      const lab=SHIP_LABEL[s.state]||[s.state||'En proceso',''];
+      return `<div class="ship-row">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/></svg></div>
+        <div class="d"><b>${esc(s.carrier||'Paquetería')} · ${esc(s.tracking||'Guía por asignar')}</b>
+          <span>Pedido ${esc(s.ref)} · ${s.date?fmtFecha(s.date):'fecha por confirmar'}</span></div>
+        <span class="st ${lab[1]}">${esc(lab[0])}</span>
+      </div>`;
+    }).join('');
+  }
+  html+=`</div>`;
+
+  html+=`<div class="sec-block"><div class="sec-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <h2>Mi chat con el médico</h2></div>
+    <div class="chat-card">
     <div class="chat-head"><div class="avatar">Dr</div>
       <div><b>Tu espacio con tu médico</b><small>Confidencial — solo tú y tu médico lo leen</small></div></div>
     <div class="chat-body" id="chatBody"><div class="chat-empty">Cargando conversación…</div></div>
@@ -333,24 +437,78 @@ function renderProfile(d){
       <input id="chatInput" placeholder="Escríbele a tu médico…" maxlength="2000" autocomplete="off">
       <button type="submit" aria-label="Enviar">➤</button>
     </form>
-  </div>`;
-  if(orders.length>1){
-    html+=`<div class="hist"><h2>Historial</h2>${orders.slice(1).map(x=>{
-      const st=STATUS[x.status]||{pill:['','—']};
-      const pagar=x.status==='pago_pendiente'&&x.payment_link
-        ?`<a class="btn btn-cta" style="padding:9px 22px;font-size:13.5px" href="${x.payment_link}">Pagar →</a>`:'';
-      return `<div class="h-row"><span class="r">${x.ref}</span><span>${x.plan}</span><span class="s">${st.pill[1]}</span>${pagar}</div>`;
-    }).join('')}</div>`;
-  }
+  </div></div>`;
   html+=`<div class="help-foot">
-    <a href="tienda.html">Tienda</a><a href="quiz.html">Nueva evaluación</a>
+    <a href="tienda.html">Tienda</a><a href="carrito.html">Mi carrito</a><a href="quiz.html">Nueva evaluación</a>
     <a href="#" id="logout">Salir</a>
   </div></div>`;
   app.appendChild(el(html));
   document.getElementById('logout').addEventListener('click',e=>{
     e.preventDefault();localStorage.removeItem('akan_token');localStorage.removeItem('akan_order');token='';renderGate('');
   });
+  /* expandir/colapsar detalle de cada pedido */
+  app.querySelectorAll('[data-toggle]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const det=document.getElementById('det-'+b.dataset.toggle);
+      if(det)det.classList.toggle('open');
+    });
+  });
+  /* re-order: agrega las líneas del pedido al carrito y va al carrito */
+  app.querySelectorAll('[data-reorder]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      let lines=[];try{lines=JSON.parse(decodeURIComponent(b.dataset.reorder))}catch(e){}
+      lines.forEach(l=>AkanCart.add({code:l.code,name:l.name,price:l.price,
+        image_url:l.image_url||(AkanCart.OTC_FALLBACK[l.code]&&AkanCart.OTC_FALLBACK[l.code].image_url)||'',
+        description:l.description||''},l.qty||1));
+      location.href='carrito.html';
+    });
+  });
   initChat();
+}
+
+/* ── tarjeta de pedido (Your Orders) ── */
+function orderCard(x,idx,customer){
+  const st=STATUS[x.status]||{pill:['neutral',x.status||'—']};
+  const lines=x.lines||[];
+  const reorderData=encodeURIComponent(JSON.stringify(lines.map(l=>({
+    code:l.code||l.plan_code||'',name:l.name,price:l.price,qty:l.qty||1,image_url:l.image_url,description:l.description
+  }))));
+  const showReorder=lines.length>0;
+  const lineHtml=lines.length?lines.map(l=>`<div class="oc-line">
+    <img class="thumb" src="${esc(l.image_url||(AkanCart.OTC_FALLBACK[l.code]&&AkanCart.OTC_FALLBACK[l.code].image_url)||'assets/photography/product/akan_product_family.jpg')}" alt="" onerror="this.style.visibility='hidden'">
+    <div class="nm">${esc(l.name)}${l.qty>1?`<small>Cantidad: ${l.qty}</small>`:''}</div>
+    <div class="amt">$${fmtMx(l.price*(l.qty||1))}</div>
+  </div>`).join(''):`<div class="oc-line"><div class="nm">${esc(x.plan||'Tratamiento AKAN')}</div>
+    <div class="amt">${x.amount?'$'+fmtMx(x.amount):''}</div></div>`;
+  const pagar=x.status==='pago_pendiente'&&x.payment_link
+    ?`<a class="oc-btn pay" href="${x.payment_link}">Pagar ahora →</a>`:'';
+  const recibo=x.receipt_url
+    ?`<a class="oc-btn" href="${x.receipt_url}" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Descargar recibo</a>`:'';
+  const reorder=showReorder
+    ?`<button class="oc-btn" data-reorder="${reorderData}"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>Volver a pedir</button>`:'';
+  return `<div class="order-card">
+    <div class="oc-head">
+      <div class="meta">
+        <div><div class="l">Pedido</div><div class="v">${esc(x.ref)}</div></div>
+        <div><div class="l">Fecha</div><div class="v">${x.date?fmtFecha(x.date):'—'}</div></div>
+        <div><div class="l">Total</div><div class="v">${x.amount!=null?'$'+fmtMx(x.amount):'—'}</div></div>
+      </div>
+      <span class="oc-status ${st.pill[0]}">${esc(st.pill[1])}</span>
+    </div>
+    <div class="oc-body">
+      ${lineHtml}
+      <div class="oc-actions">
+        ${pagar}
+        <button class="oc-btn" data-toggle="${idx}"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Ver detalle</button>
+        ${recibo}${reorder}
+      </div>
+    </div>
+    <div class="oc-detail" id="det-${idx}">
+      ${lines.map(l=>`<div class="drow"><span>${esc(l.name)} ×${l.qty||1}</span><b>$${fmtMx(l.price*(l.qty||1))}</b></div>`).join('')}
+      ${x.amount!=null?`<div class="drow"><span>Total del pedido</span><b>$${fmtMx(x.amount)} MXN</b></div>`:''}
+      ${(x.shipments||[]).map(s=>`<div class="drow"><span>Guía ${esc(s.carrier||'')} ${esc(s.tracking||'')}</span><b>${SHIP_LABEL[s.state]?SHIP_LABEL[s.state][0]:(s.state||'')}</b></div>`).join('')}
+    </div>
+  </div>`;
 }
 
 /* ── chat con el médico ── */

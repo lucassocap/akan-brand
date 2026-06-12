@@ -756,8 +756,8 @@ function renderCheckout(){
   const guaranteeTxt=isConsulta
     ?'Garantía AKAN: la consulta es 100% gratis. No te enviamos nada ni te cobramos nada — sales de la videollamada con un plan seguro para ti.'
     :isOtc
-    ?'Hoy no pagas nada en línea: confirmamos tu orden y coordinamos el pago contra entrega por WhatsApp.'
-    :'Garantía AKAN: hoy no pagas nada. El cobro llega por WhatsApp solo si tu médico aprueba la receta.';
+    ?'Pago seguro hoy. Recibes en 24-72h en caja neutra, sin marca.'
+    :'Pagas hoy. Si el médico no aprueba, te devolvemos todo — sin preguntas.';
   const summary=`<div class="order-summary">
     <div class="os-head"><div><div class="n">${p.name}</div>
       <div style="font-size:13px;color:var(--ink-soft)">${subLabel}</div></div>
@@ -791,7 +791,7 @@ function renderCheckout(){
       ${haveLead?'':`<div class="field"><label>Estado</label>
         <select name="state"><option value="">Elige…</option><option>Ciudad de México</option><option>Estado de México</option>
         <option>Nuevo León</option><option>Jalisco</option><option>Querétaro</option><option>Puebla</option><option>Otro</option></select></div>`}
-      <button class="btn btn-cta" type="submit" id="submitBtn">${isConsulta?'Confirmar mi consulta gratis →':'Confirmar mi orden →'}</button>
+      <button class="btn btn-cta" type="submit" id="submitBtn">${isConsulta?'Confirmar mi consulta gratis →':(isOtc?'Pagar mi orden →':'Pagar mi tratamiento →')}</button>
       <p style="font-size:12px;color:var(--ink-soft);text-align:center;margin-top:4px">Al confirmar aceptas el <a href="legal.html#consentimiento" target="_blank" style="text-decoration:underline">consentimiento informado</a> y el <a href="legal.html#privacidad" target="_blank" style="text-decoration:underline">aviso de privacidad</a>.</p>
     </form>
   </div>`);
@@ -810,7 +810,7 @@ function renderCheckout(){
       inp.classList.toggle('err',!ok);if(!ok)valid=false;
     });
     if(!valid)return;
-    const btn=scr.querySelector('#submitBtn');btn.disabled=true;btn.textContent='Enviando…';
+    const btn=scr.querySelector('#submitBtn');btn.disabled=true;btn.textContent=isConsulta?'Enviando…':'Procesando tu pago…';
     const payload={branch:S.branch||'pelo',plan_code:S.plan,answers:S.answers,customer:cust,
       cadence:S.cadence,lead_id:S.leadId};
     let result=null;
@@ -839,24 +839,34 @@ function renderDone(result,cust){
   const p=PLANS[S.plan];
   const isConsulta=S.plan==='AKAN-CONSULTA';
   const isOtc=!!p.otc;
+  /* COBRO DE UNA: si hay link de pago y NO es consulta gratis → al pago YA.
+     Mismo funnel, no espera al médico. */
+  if(!isConsulta && result.payment_link){
+    if(cust)localStorage.setItem('akan_customer',JSON.stringify(cust));
+    screens.innerHTML=`<div class="screen on" style="text-align:center">
+      <div class="success-icon" style="border-color:var(--peach);background:#FBEADF"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--clay)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+      <div class="q-overline">Orden ${result.order}</div>
+      <h1 class="q-title">Te llevamos al <span class="serif-i grad-text">pago seguro.</span></h1>
+      <p class="q-sub" style="max-width:460px;margin:10px auto 0">Pagas hoy. <b>Si el médico no aprueba, te devolvemos todo — sin preguntas.</b> Tu tratamiento queda apartado.</p>
+      <a class="btn btn-cta" style="margin-top:28px;max-width:380px;margin-left:auto;margin-right:auto" href="${result.payment_link}">Continuar al pago →</a>
+      <p style="font-size:12.5px;color:var(--ink-soft);margin-top:14px">Te redirigimos en un momento…</p>
+    </div>`;
+    setProgress('done');scrollTo({top:0,behavior:'instant'});
+    setTimeout(()=>{location.href=result.payment_link},1100);
+    return;
+  }
   const waText=encodeURIComponent(isConsulta
     ?`Hola AKAN 👋 Soy ${cust.name}. Pedí mi Consulta Médica de Valoración gratuita (orden ${result.order}). Quedo pendiente para agendar la videollamada.`
-    :`Hola AKAN 👋 Soy ${cust.name}. Completé mi evaluación (orden ${result.order}, ${p.name}). Quedo pendiente de la revisión del médico.`);
+    :`Hola AKAN 👋 Soy ${cust.name}. Completé mi evaluación y pagué mi orden ${result.order} (${p.name}). Quedo pendiente de la revisión del médico.`);
   const payPill=isConsulta
     ?'<span style="display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:var(--forest);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Sin costo — no hay nada que pagar</span>'
-    :isOtc
-    ?'<span style="display:inline-flex;align-items:center;gap:7px;background:#F7E8B8;color:#7A5B17;font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pago: contra entrega, por WhatsApp</span>'
-    :'<span style="display:inline-flex;align-items:center;gap:7px;background:#F7E8B8;color:#7A5B17;font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pago: pendiente de aprobación médica</span>';
+    :'<span style="display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:var(--forest);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pagado · tu médico revisa hoy</span>';
   const timeline=isConsulta
     ?`<div class="tl-item"><b>Hoy — Te escribimos por WhatsApp</b><span>Para coordinar el día y la hora de tu videollamada con el médico.</span></div>
       <div class="tl-item dim"><b>Videollamada de valoración (15 min)</b><span>Confidencial. El médico revisa tu caso completo, con calma.</span></div>
       <div class="tl-item dim"><b>Sales con un plan seguro para ti</b><span>Sin costo y sin compromiso. Nada se envía ni se cobra sin tu ok.</span></div>`
-    :isOtc
-    ?`<div class="tl-item"><b>Hoy — Confirmamos tu orden por WhatsApp</b><span>Coordinamos contigo la entrega y el pago contra entrega.</span></div>
-      <div class="tl-item dim"><b>Pago contra entrega</b><span>Hoy no pagas nada en línea.</span></div>
-      <div class="tl-item dim"><b>24-72h — En tu puerta</b><span>Caja neutra, sin marca. Confidencial de inicio a fin.</span></div>`
-    :`<div class="tl-item"><b>Hoy — Tu médico revisa tu evaluación</b><span>Un médico con cédula valora tus respuestas. Si tiene dudas te escribe por WhatsApp.</span></div>
-      <div class="tl-item dim"><b>Receta aprobada → link de pago</b><span>Te llega por WhatsApp. Hasta entonces, no pagas nada.</span></div>
+    :`<div class="tl-item"><b>Hoy — Pagado ✓ Tu médico revisa tu evaluación</b><span>Un médico con cédula valora tu caso hoy mismo. Si no aprueba, te devolvemos todo — sin preguntas.</span></div>
+      <div class="tl-item dim"><b>Aprobado → preparamos tu caja</b><span>En cuanto el médico aprueba, tu paquete se arma en caja neutra.</span></div>
       <div class="tl-item dim"><b>24-72h — En tu puerta</b><span>Caja neutra, sin marca. Confidencial de inicio a fin.</span></div>`;
   screens.innerHTML=`<div class="screen on" style="text-align:center">
     <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>

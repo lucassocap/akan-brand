@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+<title>Tu carrito — AKAN</title>
+<meta name="description" content="Tu carrito AKAN. Cuidado diario sin receta, a tu puerta en caja neutra.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF6EC; --paper-deep:#F1EADA; --card:#FFFEFA; --sand:#DCCFB4;
+  --sage:#E7F0E6; --mint:#CFE7D6;
+  --forest:#1F3D2E; --emerald:#2E6B4D; --jade:#3E8E68;
+  --ink:#1B1812; --ink-soft:#57503F;
+  --clay:#C5623E; --copper:#E07B4C; --gold:#C9A876; --peach:#F2C9A8;
+  --grad-cta:linear-gradient(135deg,#C5623E 0%,#E07B4C 100%);
+  --grad-text:linear-gradient(110deg,#1F3D2E 0%,#3E8E68 55%,#C9A876 110%);
+  --line:rgba(27,24,18,.12); --glass:rgba(250,246,236,.6);
+  --r-md:18px; --r-lg:26px; --r-pill:100px;
+  --font-d:'Fraunces',serif; --font-b:'Hanken Grotesk',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-b);background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;font-size:17px;line-height:1.55;min-height:100svh}
+::selection{background:var(--clay);color:var(--paper)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.serif-i{font-family:var(--font-d);font-style:italic;font-weight:600}
+.grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--glass);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
+nav .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;max-width:760px;margin:0 auto}
+.logo{font-family:var(--font-d);font-weight:700;font-size:23px;letter-spacing:.04em;color:var(--forest)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-right a.txt{font-weight:600;font-size:14.5px;opacity:.82}
+.nav-right a.txt:hover{opacity:1}
+@media(max-width:520px){.nav-right a.txt{display:none}}
+/* ícono de carrito */
+.akan-cart-btn{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--ease)}
+.akan-cart-btn:hover{border-color:var(--jade)}
+.akan-cart-btn svg{width:20px;height:20px;stroke:var(--ink)}
+.akan-cart-count{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:100px;
+  background:var(--grad-cta);color:#FFF7EC;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.akan-cart-count[hidden]{display:none}
+
+.stage{padding:96px 0 70px}
+.screen{animation:enter .5s var(--ease)}
+@keyframes enter{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+h1{font-family:var(--font-d);font-weight:700;letter-spacing:-.025em;line-height:1.08;font-size:clamp(28px,6vw,42px)}
+.sub{color:var(--ink-soft);font-size:16px;margin-top:8px}
+.q-overline{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);margin-bottom:12px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:16px;
+  padding:15px 30px;border-radius:var(--r-pill);border:none;cursor:pointer;transition:all .3s var(--ease);
+  font-family:var(--font-b);-webkit-tap-highlight-color:transparent}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.98)}
+.btn-cta{background:var(--grad-cta);color:#FFF7EC;box-shadow:0 10px 28px rgba(197,98,62,.3);width:100%}
+.btn-cta:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(27,24,18,.25);width:100%}
+
+/* líneas del carrito */
+.lines{display:flex;flex-direction:column;gap:14px;margin-top:26px}
+.line{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:16px;align-items:center}
+.line .ph{width:84px;height:84px;border-radius:14px;overflow:hidden;flex-shrink:0;background:var(--paper-deep)}
+.line .ph img{width:100%;height:100%;object-fit:cover}
+.line .info{flex:1;min-width:0}
+.line .info h3{font-family:var(--font-d);font-weight:700;font-size:18px;letter-spacing:-.01em}
+.line .info .desc{font-size:13px;color:var(--ink-soft);margin-top:2px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.line .info .unit{font-size:13px;color:var(--ink-soft);margin-top:4px}
+.line .ctrl{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0}
+.line .price{font-family:var(--font-d);font-weight:700;font-size:19px;white-space:nowrap}
+.qty{display:flex;align-items:center;gap:0;border:1.5px solid var(--line);border-radius:var(--r-pill);overflow:hidden;background:var(--paper)}
+.qty button{width:34px;height:34px;border:none;background:transparent;font-size:18px;font-weight:600;
+  cursor:pointer;color:var(--forest);display:flex;align-items:center;justify-content:center}
+.qty button:active{background:var(--sage)}
+.qty span{min-width:28px;text-align:center;font-weight:700;font-size:15px}
+.line .rm{font-size:12.5px;color:var(--ink-soft);text-decoration:underline;text-underline-offset:2px;
+  background:none;border:none;cursor:pointer;font-family:var(--font-b)}
+.line .rm:hover{color:var(--clay)}
+
+/* resumen */
+.summary{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;margin-top:22px}
+.sm-row{display:flex;justify-content:space-between;gap:14px;padding:10px 0;font-size:14.5px;border-bottom:1px solid var(--line)}
+.sm-row .free{color:#1F6B40;font-weight:700}
+.sm-total{display:flex;justify-content:space-between;padding-top:14px;margin-top:6px;border-top:2px solid var(--ink);font-weight:700;font-size:18px}
+.guarantee{display:flex;gap:12px;background:var(--sage);border:1px solid var(--mint);border-radius:var(--r-md);
+  padding:14px 16px;font-size:13.5px;color:var(--forest);font-weight:600;margin-top:16px;align-items:center}
+.guarantee svg{width:20px;height:20px;stroke:var(--jade);flex-shrink:0}
+
+/* vacío */
+.empty{text-align:center;padding:30px 0 10px}
+.empty .ic{width:96px;height:96px;border-radius:50%;background:var(--sage);border:1.5px solid var(--mint);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
+.empty .ic svg{width:42px;height:42px;stroke:var(--jade)}
+.empty h1{margin-bottom:8px}
+.empty .btn{max-width:340px;margin:26px auto 0}
+
+/* checkout form */
+.form{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field label{display:block;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:7px;text-transform:uppercase}
+.field input,.field select{width:100%;padding:15px 16px;border-radius:14px;border:1.5px solid var(--line);
+  background:var(--card);font-family:var(--font-b);font-size:16px;color:var(--ink);-webkit-appearance:none;appearance:none}
+.field input:focus,.field select:focus{outline:none;border-color:var(--jade)}
+.field input.err{border-color:var(--clay);background:#FDF1EA}
+.priv-note{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);
+  background:var(--sage);border:1px solid var(--mint);border-radius:var(--r-md);padding:14px 16px}
+.priv-note svg{width:16px;height:16px;stroke:var(--jade);flex-shrink:0;margin-top:2px}
+.stage.kb{padding-bottom:46vh}
+.mini-summary{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;margin-bottom:6px}
+.mini-summary .r{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;color:var(--ink-soft)}
+.mini-summary .r b{color:var(--ink)}
+.mini-summary .tot{display:flex;justify-content:space-between;font-weight:700;font-size:16px;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ink-soft);
+  background:none;border:none;cursor:pointer;font-family:var(--font-b);margin-bottom:6px}
+.back-link:hover{color:var(--clay)}
+
+/* éxito redirigiendo a pago */
+.pay-wait{text-align:center;padding:40px 0}
+.pay-wait .spin{width:54px;height:54px;border:4px solid var(--paper-deep);border-top-color:var(--clay);
+  border-radius:50%;margin:0 auto 24px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+footer{background:var(--forest);color:rgba(250,246,236,.72);padding:38px 0;font-size:14px;margin-top:46px;text-align:center}
+footer a{text-decoration:underline;text-underline-offset:3px}
+@media(prefers-reduced-motion:reduce){.screen,.spin{animation:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="bar">
+    <a href="index.html" class="logo">AKAN</a>
+    <div class="nav-right">
+      <a href="tienda.html" class="txt">Tienda</a>
+      <a href="perfil.html" class="txt">Mi cuenta</a>
+      <span id="cartSlot"></span>
+    </div>
+  </div>
+</nav>
+
+<div class="stage"><div class="wrap" id="app"></div></div>
+
+<footer>
+  <div class="wrap">© 2026 AKAN Salud Masculina S.A. de C.V. · Confidencial. Sin filas. A tu puerta.<br>
+  <a href="tienda.html">Tienda</a> · <a href="legal.html">Legales</a> · <a href="perfil.html">Mi cuenta</a></div>
+</footer>
+
+<script src="assets/cart.js"></script>
+<script>
+const API_BASE = AkanCart.API_BASE;
+const app = document.getElementById('app');
+let apiOnline = false;
+fetch(API_BASE+'/akan/api/health',{signal:AbortSignal.timeout(3500)})
+  .then(r=>r.json()).then(j=>{apiOnline=!!j.ok}).catch(()=>{apiOnline=false});
+
+AkanCart.mountBadge(document.getElementById('cartSlot'));
+
+function el(h){const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild}
+const fmtMx=n=>Number(n).toLocaleString('es-MX',{minimumFractionDigits:Number.isInteger(n)?0:2,maximumFractionDigits:2});
+const wa = t => 'https://wa.me/523398001614?text='+encodeURIComponent(t);
+const esc = s => String(s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+
+let view='cart'; /* cart | checkout | paying */
+
+/* ── carrito ── */
+function renderCart(){
+  const items=AkanCart.read();
+  app.innerHTML='';
+  if(!items.length){
+    app.appendChild(el(`<div class="screen empty">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></div>
+      <div class="q-overline">Tu carrito</div>
+      <h1>Tu carrito está <span class="serif-i grad-text">vacío.</span></h1>
+      <p class="sub">El cuidado diario AKAN —shampoo, suplemento, minoxidil— llega a tu puerta en caja neutra.</p>
+      <a class="btn btn-cta" href="tienda.html#cuidado">Ver la tienda →</a>
+      <a class="btn btn-ghost" style="margin-top:12px;max-width:340px;margin-left:auto;margin-right:auto" href="quiz.html">¿Buscas un plan médico? Evaluación 2 min →</a>
+    </div>`));
+    return;
+  }
+  const total=AkanCart.total();
+  let html=`<div class="screen">
+    <div class="q-overline">Tu carrito · ${AkanCart.count()} ${AkanCart.count()===1?'producto':'productos'}</div>
+    <h1>Tu <span class="serif-i grad-text">carrito.</span></h1>
+    <p class="sub">Cuidado diario sin receta. Edita lo que quieras antes de pagar.</p>
+    <div class="lines">`;
+  items.forEach(l=>{
+    html+=`<div class="line" data-code="${l.code}">
+      <div class="ph">${l.image_url?`<img src="${esc(l.image_url)}" alt="${esc(l.name)}">`:''}</div>
+      <div class="info">
+        <h3>${esc(l.name)}</h3>
+        ${l.description?`<div class="desc">${esc(l.description)}</div>`:''}
+        <div class="unit">$${fmtMx(l.price)} c/u</div>
+      </div>
+      <div class="ctrl">
+        <div class="price">$${fmtMx(l.price*l.qty)}</div>
+        <div class="qty"><button data-act="dec" aria-label="Quitar uno">−</button><span>${l.qty}</span><button data-act="inc" aria-label="Agregar uno">+</button></div>
+        <button class="rm" data-act="rm">Quitar</button>
+      </div>
+    </div>`;
+  });
+  html+=`</div>
+    <div class="summary">
+      <div class="sm-row"><span>Subtotal</span><span>$${fmtMx(total)} MXN</span></div>
+      <div class="sm-row"><span>Envío discreto (caja neutra)</span><span class="free">GRATIS</span></div>
+      <div class="sm-total"><span>Total</span><span>$${fmtMx(total)} MXN</span></div>
+      <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
+        Pago seguro · Envío en caja neutra, sin marca · 24-72h a tu puerta</div>
+    </div>
+    <button class="btn btn-cta" style="margin-top:20px" id="toCheckout">Proceder al pago →</button>
+    <a class="btn btn-ghost" style="margin-top:12px" href="tienda.html#cuidado">Seguir comprando</a>
+  </div>`;
+  app.appendChild(el(html));
+  app.querySelectorAll('.line').forEach(row=>{
+    const code=row.dataset.code;
+    row.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('click',()=>{
+      const act=b.dataset.act;
+      const cur=AkanCart.read().find(x=>x.code===code);
+      if(!cur)return;
+      if(act==='inc')AkanCart.setQty(code,cur.qty+1);
+      else if(act==='dec')AkanCart.setQty(code,cur.qty-1);
+      else if(act==='rm')AkanCart.remove(code);
+      renderCart();
+    }));
+  });
+  document.getElementById('toCheckout').addEventListener('click',()=>{view='checkout';renderCheckout()});
+}
+
+/* ── checkout OTC ── */
+function renderCheckout(){
+  const items=AkanCart.read();
+  if(!items.length){view='cart';return renderCart()}
+  const total=AkanCart.total();
+  const saved=JSON.parse(localStorage.getItem('akan_customer')||'{}');
+  app.innerHTML='';
+  let html=`<div class="screen">
+    <button class="back-link" id="back">← Volver al carrito</button>
+    <div class="q-overline">Último paso</div>
+    <h1>¿A dónde lo <span class="serif-i grad-text">mandamos?</span></h1>
+    <p class="sub">Caja neutra, sin marca. Ni el repartidor sabe qué lleva.</p>
+    <div class="mini-summary">
+      ${items.map(l=>`<div class="r"><span>${esc(l.name)} ×${l.qty}</span><b>$${fmtMx(l.price*l.qty)}</b></div>`).join('')}
+      <div class="r"><span>Envío</span><b style="color:#1F6B40">GRATIS</b></div>
+      <div class="tot"><span>Total a pagar hoy</span><span>$${fmtMx(total)} MXN</span></div>
+    </div>
+    <form class="form" novalidate>
+      <div class="field"><label>Nombre completo</label><input name="name" autocomplete="name" placeholder="Carlos Mendoza" value="${esc(saved.name||'')}"></div>
+      <div class="f-row">
+        <div class="field"><label>WhatsApp</label><input name="phone" type="tel" autocomplete="tel" placeholder="55 1234 5678" value="${esc(saved.phone||'')}"></div>
+        <div class="field"><label>Email</label><input name="email" type="email" autocomplete="email" placeholder="tu@correo.com" value="${esc(saved.email||'')}"></div>
+      </div>
+      <div class="field"><label>Calle y número</label><input name="street" autocomplete="street-address" placeholder="Av. Ámsterdam 123, Depto 4" value="${esc(saved.street||'')}"></div>
+      <div class="f-row">
+        <div class="field"><label>Ciudad</label><input name="city" placeholder="CDMX" value="${esc(saved.city||'')}"></div>
+        <div class="field"><label>C.P.</label><input name="zip" inputmode="numeric" placeholder="06100" value="${esc(saved.zip||'')}"></div>
+      </div>
+      <div class="field"><label>Estado</label>
+        <select name="state"><option value="">Elige…</option>
+        <option>Ciudad de México</option><option>Estado de México</option><option>Nuevo León</option>
+        <option>Jalisco</option><option>Querétaro</option><option>Puebla</option><option>Guanajuato</option>
+        <option>Yucatán</option><option>Quintana Roo</option><option>Baja California</option><option>Otro</option></select>
+      </div>
+      <div class="priv-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <span><b>Pago seguro.</b> Pagas hoy y recibes en 24-72h. Caja neutra, confidencial de inicio a fin.</span>
+      </div>
+      <button class="btn btn-cta" type="submit" id="payBtn">Pagar $${fmtMx(total)} →</button>
+      <p style="font-size:12px;color:var(--ink-soft);text-align:center;margin-top:4px">Al pagar aceptas el <a href="legal.html#privacidad" target="_blank" style="text-decoration:underline">aviso de privacidad</a>.</p>
+    </form>
+  </div>`;
+  app.appendChild(el(html));
+  if(saved.state){const sel=app.querySelector('[name=state]');if(sel)sel.value=saved.state}
+  document.getElementById('back').addEventListener('click',()=>{view='cart';renderCart()});
+  app.querySelector('form').addEventListener('submit',submitCheckout);
+}
+
+async function submitCheckout(e){
+  e.preventDefault();
+  const form=e.target;
+  const f=Object.fromEntries(new FormData(form).entries());
+  let valid=true;
+  ['name','phone','email','street','city','zip','state'].forEach(k=>{
+    const inp=form.querySelector(`[name=${k}]`);if(!inp)return;
+    const ok=k==='email'?/.+@.+\..+/.test(f[k]):(f[k]||'').trim().length>1;
+    inp.classList.toggle('err',!ok);if(!ok)valid=false;
+  });
+  if(!valid)return;
+  const cust={name:f.name,email:f.email,phone:f.phone,street:f.street,city:f.city,zip:f.zip,state:f.state};
+  localStorage.setItem('akan_customer',JSON.stringify(cust));
+  const btn=document.getElementById('payBtn');btn.disabled=true;btn.textContent='Procesando…';
+  const payload={branch:'otc',items:AkanCart.checkoutItems(),answers:[{q:'Origen',a:'Carrito OTC headless'}],
+    customer:cust,cadence:'monthly'};
+  let result=null;
+  if(apiOnline){
+    try{
+      const r=await fetch(API_BASE+'/akan/api/checkout',{method:'POST',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),
+        signal:AbortSignal.timeout(15000)});
+      result=await r.json();
+    }catch(err){result=null}
+  }
+  if(!result||!result.ok){
+    /* sin plataforma: guardamos pendiente y coordinamos por WhatsApp */
+    const pend=JSON.parse(localStorage.getItem('akan_pending')||'[]');
+    pend.push({...payload,ts:Date.now()});localStorage.setItem('akan_pending',JSON.stringify(pend));
+    result={ok:true,order:'AKAN-'+String(Date.now()).slice(-6),fallback:true};
+  }
+  if(result.profile_token)localStorage.setItem('akan_token',result.profile_token);
+  finishCheckout(result,cust);
+}
+
+function finishCheckout(result,cust){
+  view='paying';
+  /* AHORA /checkout SIEMPRE devuelve payment_link (cobro de una) → al pago */
+  if(result.payment_link){
+    app.innerHTML='';
+    app.appendChild(el(`<div class="screen pay-wait">
+      <div class="spin"></div>
+      <div class="q-overline">Orden ${esc(result.order||'')}</div>
+      <h1>Te llevamos al <span class="serif-i grad-text">pago seguro.</span></h1>
+      <p class="sub" style="max-width:440px;margin:10px auto 0">Tu carrito quedó apartado. Al terminar regresas a Mi AKAN con tu pedido listo.</p>
+      <a class="btn btn-cta" style="margin-top:26px;max-width:360px;margin-left:auto;margin-right:auto" href="${result.payment_link}">Continuar al pago →</a>
+    </div>`));
+    AkanCart.clear();
+    setTimeout(()=>{location.href=result.payment_link},900);
+    return;
+  }
+  /* degradado: la plataforma aún no manda payment_link → confirmamos por WhatsApp */
+  AkanCart.clear();
+  const waTxt=`Hola AKAN 👋 Soy ${cust.name}. Acabo de hacer mi pedido de tienda (orden ${result.order}). Quiero coordinar el pago y la entrega.`;
+  app.innerHTML='';
+  app.appendChild(el(`<div class="screen" style="text-align:center">
+    <div class="empty"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div></div>
+    <div class="q-overline">Pedido recibido</div>
+    <h1>Listo, ${esc(cust.name.split(' ')[0])}.<br><span class="serif-i grad-text">Tu pedido va en marcha.</span></h1>
+    <div style="font-family:var(--font-d);font-weight:700;font-size:20px;color:var(--forest);background:var(--sage);border:1px solid var(--mint);border-radius:100px;display:inline-flex;padding:10px 26px;margin-top:14px">${esc(result.order)}</div>
+    <p class="sub" style="max-width:440px;margin:18px auto 0">Te confirmamos el pago y la entrega por WhatsApp. Caja neutra, 24-72h a tu puerta.</p>
+    <a class="btn btn-cta" style="margin-top:26px;max-width:360px;margin-left:auto;margin-right:auto" href="${wa(waTxt)}">Abrir WhatsApp →</a>
+    <a class="btn btn-ghost" style="margin-top:12px;max-width:360px;margin-left:auto;margin-right:auto" href="perfil.html">Ver mi cuenta (Mi AKAN) →</a>
+  </div>`));
+  scrollTo({top:0,behavior:'instant'});
+}
+
+/* teclado móvil: centra el campo enfocado */
+const FORM_CTRL='.form input, .form select';let kbTimer=null;
+document.addEventListener('focusin',e=>{if(!e.target.matches(FORM_CTRL))return;clearTimeout(kbTimer);
+  const st=document.querySelector('.stage');if(st)st.classList.add('kb');
+  setTimeout(()=>e.target.scrollIntoView({block:'center',behavior:'smooth'}),250);});
+document.addEventListener('focusout',e=>{if(!e.target.matches(FORM_CTRL))return;clearTimeout(kbTimer);
+  kbTimer=setTimeout(()=>{const a=document.activeElement;if(a&&a.matches&&a.matches(FORM_CTRL))return;
+    const st=document.querySelector('.stage');if(st)st.classList.remove('kb')},400);});
+
+renderCart();
+</script>
+</body>
+</html>

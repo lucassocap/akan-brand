@@ -46,6 +46,22 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;padding:1
 .nav-links{display:none;gap:30px;font-weight:600;font-size:15px}
 .nav-links a{opacity:.8}.nav-links a:hover{opacity:1}
 @media(min-width:900px){.nav-links{display:flex}}
+.nav-right{display:flex;align-items:center;gap:16px}
+/* ícono de carrito persistente */
+.akan-cart-btn{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--ease)}
+.akan-cart-btn:hover{border-color:var(--jade)}
+.akan-cart-btn svg{width:20px;height:20px;stroke:var(--ink)}
+.akan-cart-count{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:100px;
+  background:var(--grad-cta);color:#FFF7EC;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.akan-cart-count[hidden]{display:none}
+/* toast al agregar al carrito */
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(120%);z-index:200;
+  background:var(--forest);color:var(--paper);padding:14px 22px;border-radius:var(--r-pill);font-weight:600;font-size:14.5px;
+  box-shadow:0 18px 40px rgba(27,24,18,.28);display:flex;align-items:center;gap:12px;transition:transform .4s var(--ease);max-width:90vw}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast a{color:var(--copper);font-weight:700;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.toast svg{width:18px;height:18px;stroke:var(--mint)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15.5px;
   padding:13px 28px;border-radius:var(--r-pill);border:none;cursor:pointer;transition:all .3s var(--ease)}
 .btn:hover{transform:translateY(-2px)}
@@ -166,7 +182,10 @@ section,header,.how-band{position:relative;z-index:2}
       <a href="index.html">Inicio</a>
       <a href="perfil.html">Mi cuenta</a>
     </div>
-    <a href="quiz.html" class="btn btn-cta">Hacer mi evaluación</a>
+    <div class="nav-right">
+      <span id="cartSlot"></span>
+      <a href="quiz.html" class="btn btn-cta">Comenzar evaluación</a>
+    </div>
   </div>
 </nav>
 <div class="mnav" id="mnav">
@@ -174,6 +193,7 @@ section,header,.how-band{position:relative;z-index:2}
   <a href="#cabello">Cabello</a>
   <a href="#desempeno">Desempeño</a>
   <a href="#cuidado">Cuidado diario</a>
+  <a href="carrito.html">Mi carrito <small>cuidado diario sin receta</small></a>
   <a href="perfil.html">Mi cuenta <small>el estado de tu tratamiento</small></a>
   <a href="index.html">Inicio</a>
 </div>
@@ -299,9 +319,9 @@ section,header,.how-band{position:relative;z-index:2}
         <div class="body">
           <h3>Shampoo Ketoconazol 2%</h3>
           <div class="for">Limpia el exceso de DHT del cuero cabelludo y controla la caspa. 3 veces por semana.</div>
-          <div class="price">$349</div>
-          <a class="btn btn-green otc-buy" data-code="AKAN-SHAMPOO" href="quiz.html?plan=AKAN-SHAMPOO">Comprar ahora →</a>
-          <div class="micro">Hoy: confirmas y pagas contra entrega coordinada por WhatsApp</div>
+          <div class="price" data-price>$349</div>
+          <button class="btn btn-green otc-add" data-code="AKAN-SHAMPOO" data-name="Shampoo Ketoconazol 2%" data-price="349" data-img="assets/photography/product/akan_bathroom_shelf.jpg" data-desc="Limpia el exceso de DHT del cuero cabelludo y controla la caspa.">Agregar al carrito →</button>
+          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
         </div>
       </div>
       <div class="prod rv">
@@ -309,9 +329,9 @@ section,header,.how-band{position:relative;z-index:2}
         <div class="body">
           <h3>Suplemento Capilar</h3>
           <div class="for">Biotina + Zinc. El pelo nuevo nace más grueso y fuerte. 1 cápsula al día.</div>
-          <div class="price">$399</div>
-          <a class="btn btn-green otc-buy" data-code="AKAN-SUPL" href="quiz.html?plan=AKAN-SUPL">Comprar ahora →</a>
-          <div class="micro">Hoy: confirmas y pagas contra entrega coordinada por WhatsApp</div>
+          <div class="price" data-price>$399</div>
+          <button class="btn btn-green otc-add" data-code="AKAN-SUPL" data-name="Suplemento Capilar" data-price="399" data-img="assets/photography/product/akan_product_family.jpg" data-desc="Biotina + Zinc. El pelo nuevo nace más grueso y fuerte.">Agregar al carrito →</button>
+          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
         </div>
       </div>
       <div class="prod rv">
@@ -319,9 +339,9 @@ section,header,.how-band{position:relative;z-index:2}
         <div class="body">
           <h3>Minoxidil Tópico 5%</h3>
           <div class="for">Reactiva el folículo y la circulación. Aplicación diaria en zonas con caída.</div>
-          <div class="price">$449</div>
-          <a class="btn btn-green otc-buy" data-code="AKAN-MINOX" href="quiz.html?plan=AKAN-MINOX">Comprar ahora →</a>
-          <div class="micro">*Tu primera compra incluye una validación rápida del médico</div>
+          <div class="price" data-price>$449</div>
+          <button class="btn btn-green otc-add" data-code="AKAN-MINOX" data-name="Minoxidil Tópico 5%" data-price="449" data-img="assets/premium/hero_light_products.jpg" data-desc="Reactiva el folículo y la circulación. Aplicación diaria en zonas con caída.">Agregar al carrito →</button>
+          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
         </div>
       </div>
     </div>
@@ -339,10 +359,13 @@ section,header,.how-band{position:relative;z-index:2}
 <footer>
   <div class="wrap">
     <span>© 2026 AKAN Salud Masculina S.A. de C.V. · Confidencial. Sin filas. A tu puerta.</span>
-    <span><a href="index.html">Inicio</a> · <a href="quiz.html">Evaluación</a> · <a href="legal.html">Legales</a> · <a href="perfil.html">Mi cuenta</a></span>
+    <span><a href="index.html">Inicio</a> · <a href="quiz.html">Evaluación</a> · <a href="carrito.html">Carrito</a> · <a href="legal.html">Legales</a> · <a href="perfil.html">Mi cuenta</a></span>
   </div>
 </footer>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/cart.js"></script>
 <script>
 /* reveals */
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
@@ -355,25 +378,47 @@ const secIO=new IntersectionObserver(es=>{es.forEach(e=>{
 })},{rootMargin:'-30% 0px -60% 0px'});
 ['cabello','desempeno','cuidado'].forEach(id=>{const el=document.getElementById(id);if(el)secIO.observe(el)});
 
-/* Plataforma Odoo disponible → OTC compra directo en el PDP real de /shop,
-   "Mi cuenta" → portal. Sin plataforma → deep-links al checkout propio. */
-const API_BASE = localStorage.getItem('AKAN_API') || 'https://odoo-production-3a20.up.railway.app';
-fetch(API_BASE + '/akan/api/health', {signal: AbortSignal.timeout(3500)})
-  .then(r=>r.json()).then(j=>{
-    if(!j.ok) return;
-    /* mapear cada botón OTC a su página de producto exacta */
-    fetch(API_BASE + '/akan/api/products', {signal: AbortSignal.timeout(4000)})
-      .then(r=>r.json()).then(p=>{
-        const items=p.products||p;
-        if(!Array.isArray(items))return;
-        const byCode={};items.forEach(x=>{byCode[x.code]=x});
-        document.querySelectorAll('.otc-buy').forEach(a=>{
-          const it=byCode[a.dataset.code];
-          if(it&&it.shop_url)a.href=it.shop_url.startsWith('http')?it.shop_url:API_BASE+it.shop_url;
-          else a.href=API_BASE+'/shop';
-        });
-      }).catch(()=>{document.querySelectorAll('.otc-buy').forEach(a=>{a.href=API_BASE+'/shop'})});
+/* HEADLESS: el carrito vive en el navegador. La tienda NUNCA manda a /shop.
+   OTC → "Agregar al carrito"; Rx → "Hacer evaluación" (quiz). */
+const API_BASE = AkanCart.API_BASE;
+AkanCart.mountBadge(document.getElementById('cartSlot'));
+
+const esc = s => String(s||'').replace(/"/g,'&quot;');
+/* enriquecer precios/datos OTC desde la API si está disponible (degrada al
+   fallback embebido en los data-attrs si la API aún no responde) */
+fetch(API_BASE+'/akan/api/products',{signal:AbortSignal.timeout(5000)})
+  .then(r=>r.json()).then(p=>{
+    const items=p.products||p;if(!Array.isArray(items))return;
+    const byCode={};items.forEach(x=>{byCode[x.code]=x});
+    document.querySelectorAll('.otc-add').forEach(btn=>{
+      const it=byCode[btn.dataset.code];if(!it)return;
+      if(it.price!=null){
+        btn.dataset.price=it.price;
+        const card=btn.closest('.prod');const pr=card&&card.querySelector('[data-price]');
+        if(pr)pr.textContent='$'+Number(it.price).toLocaleString('es-MX');
+      }
+      if(it.name)btn.dataset.name=it.name;
+      if(it.image_url)btn.dataset.img=it.image_url;
+      if(it.description)btn.dataset.desc=it.description;
+    });
   }).catch(()=>{});
+
+/* toast */
+const toast=document.getElementById('toast');let toastT=null;
+function showToast(name){
+  toast.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'+
+    '<span>'+esc(name)+' agregado</span><a href="carrito.html">Ver carrito →</a>';
+  toast.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>toast.classList.remove('show'),3200);
+}
+
+/* Agregar al carrito (OTC) */
+document.querySelectorAll('.otc-add').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    AkanCart.add({code:btn.dataset.code,name:btn.dataset.name,price:Number(btn.dataset.price),
+      image_url:btn.dataset.img,description:btn.dataset.desc,category:'Cuidado Diario'},1);
+    showToast(btn.dataset.name);
+  });
+});
 
 /* menú móvil */
 (function(){
