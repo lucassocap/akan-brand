@@ -631,17 +631,18 @@ function renderLead(){
       return;
     }
     S.lead=f;
-    /* lead a Odoo ANTES de revelar el plan (remarketing si abandona) */
-    if(apiOnline){
-      try{
-        const r=await fetch(API_BASE+'/akan/api/lead',{method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({branch:S.branch||'pelo',name:f.name,email:f.email,phone:f.phone,
-            state:f.state,birthdate:f.birthdate,profile:S.answers}),
-          signal:AbortSignal.timeout(8000)});
-        const j=await r.json();if(j.ok)S.leadId=j.lead_id;
-      }catch(e){}
-    }
+    /* lead a Odoo ANTES de revelar el plan (remarketing si abandona).
+       Siempre intentamos la llamada real — NO gateamos en un pre-probe de
+       salud (que con Odoo frío daba falso-offline). El timeout cubre el peor
+       caso y si falla, simplemente seguimos sin lead_id. */
+    try{
+      const r=await fetch(API_BASE+'/akan/api/lead',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({branch:S.branch||'pelo',name:f.name,email:f.email,phone:f.phone,
+          state:f.state,birthdate:f.birthdate,profile:S.answers}),
+        signal:AbortSignal.timeout(12000)});
+      const j=await r.json();if(j.ok)S.leadId=j.lead_id;
+    }catch(e){}
     show(S.flags.gated?'checkout':'match');
   });
   return scr;
@@ -814,14 +815,17 @@ function renderCheckout(){
     const payload={branch:S.branch||'pelo',plan_code:S.plan,answers:S.answers,customer:cust,
       cadence:S.cadence,lead_id:S.leadId};
     let result=null;
-    if(apiOnline){
-      try{
-        const r=await fetch(API_BASE+'/akan/api/checkout',{method:'POST',
-          headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),
-          signal:AbortSignal.timeout(12000)});
-        result=await r.json();
-      }catch(err){result=null}
-    }
+    /* SIEMPRE intentamos el cobro real — el flujo debe ser lineal hasta el
+       pago. NO gateamos en apiOnline: con Odoo frío ese pre-probe daba
+       falso-offline y mandaba al cliente a WhatsApp en vez de al pago. El
+       timeout de 15s cubre el arranque en frío de Railway; solo si la llamada
+       real falla caemos al fallback de abajo. */
+    try{
+      const r=await fetch(API_BASE+'/akan/api/checkout',{method:'POST',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),
+        signal:AbortSignal.timeout(15000)});
+      result=await r.json();
+    }catch(err){result=null}
     if(!result||!result.ok){
       const pend=JSON.parse(localStorage.getItem('akan_pending')||'[]');
       pend.push({...payload,ts:Date.now()});

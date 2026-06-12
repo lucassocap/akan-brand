@@ -299,14 +299,16 @@ async function submitCheckout(e){
   const payload={branch:'otc',items:AkanCart.checkoutItems(),answers:[{q:'Origen',a:'Carrito OTC headless'}],
     customer:cust,cadence:'monthly'};
   let result=null;
-  if(apiOnline){
-    try{
-      const r=await fetch(API_BASE+'/akan/api/checkout',{method:'POST',
-        headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),
-        signal:AbortSignal.timeout(15000)});
-      result=await r.json();
-    }catch(err){result=null}
-  }
+  /* SIEMPRE intentamos el cobro real — flujo lineal hasta el pago. NO gateamos
+     en apiOnline: con Odoo frío ese pre-probe daba falso-offline y mandaba al
+     cliente a WhatsApp en vez de al pago. El timeout de 15s cubre el arranque
+     en frío; solo si la llamada real falla caemos al fallback de abajo. */
+  try{
+    const r=await fetch(API_BASE+'/akan/api/checkout',{method:'POST',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),
+      signal:AbortSignal.timeout(15000)});
+    result=await r.json();
+  }catch(err){result=null}
   if(!result||!result.ok){
     /* sin plataforma: guardamos pendiente y coordinamos por WhatsApp */
     const pend=JSON.parse(localStorage.getItem('akan_pending')||'[]');
