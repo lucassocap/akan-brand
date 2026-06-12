@@ -96,6 +96,24 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;
 .nav-links a{opacity:.72;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
 @media(min-width:1100px){.nav-links{display:flex}}
+/* menú móvil (mismo patrón burger que index/tienda) */
+.burger{display:flex;flex-direction:column;gap:5px;width:42px;height:42px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--card);align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s var(--ease)}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(min-width:1100px){.burger{display:none}}
+.mnav{position:fixed;top:0;left:0;right:0;z-index:99;background:var(--paper);
+  border-bottom:1px solid var(--line);box-shadow:0 30px 60px rgba(27,24,18,.14);
+  padding:86px 26px 26px;transform:translateY(-105%);transition:transform .45s var(--ease);
+  max-height:100svh;overflow-y:auto}
+.mnav.open{transform:none}
+.mnav a{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;
+  font-weight:700;font-size:16px;border-bottom:1px solid var(--line)}
+.mnav a:last-child{border-bottom:none}
+.mnav .hl{color:var(--clay)}
 .btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;
   padding:11px 24px;border-radius:var(--r-pill);border:none;cursor:pointer;
   transition:all .3s var(--ease)}
@@ -301,6 +319,7 @@ footer .logo small{color:var(--peach)}
 <!-- NAV -->
 <nav>
   <div class="bar">
+    <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
     <a href="#top" class="logo">AKAN<small>Manual de Marca</small></a>
     <div class="nav-links">
       <a href="#marca">La marca</a><a href="#logotipo">Logotipo</a><a href="#color">Color</a>
@@ -310,6 +329,18 @@ footer .logo small{color:var(--peach)}
     <a href="index.html" class="btn btn-cta">Ver el sitio →</a>
   </div>
 </nav>
+<div class="mnav" id="mnav">
+  <a href="#marca">La marca</a>
+  <a href="#logotipo">Logotipo</a>
+  <a href="#color">Color</a>
+  <a href="#tipografia">Tipografía</a>
+  <a href="#voz">Voz</a>
+  <a href="#fotografia">Fotografía</a>
+  <a href="#vivos">Elementos</a>
+  <a href="#apps">Aplicaciones</a>
+  <a href="#ads">Ads</a>
+  <a href="index.html" class="hl">Ver el sitio →</a>
+</div>
 
 <!-- COVER -->
 <section class="cover" id="top">
@@ -711,6 +742,14 @@ if(!reduced){
     })();
   });
 }
+
+/* menú móvil */
+(function(){
+  const b=document.getElementById('burger'),m=document.getElementById('mnav');
+  if(!b||!m)return;
+  b.addEventListener('click',()=>{b.classList.toggle('open');m.classList.toggle('open')});
+  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{b.classList.remove('open');m.classList.remove('open')}));
+})();
 </script>
 </body>
 </html>

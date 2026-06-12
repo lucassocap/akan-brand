@@ -2,7 +2,7 @@
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
 <title>Evaluación AKAN — 2 minutos, confidencial</title>
 <meta name="description" content="Evaluación médica confidencial en 2 minutos. Un médico con cédula revisa tu caso y recibes tu tratamiento en tu puerta.">
 <meta property="og:title" content="Evaluación AKAN — 2 minutos, confidencial">
@@ -128,6 +128,11 @@ img{max-width:100%;display:block}
 .priv-note{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);
   background:var(--sage);border:1px solid var(--mint);border-radius:var(--r-md);padding:14px 16px}
 .priv-note svg{width:16px;height:16px;stroke:var(--jade);flex-shrink:0;margin-top:2px}
+/* con teclado abierto: espacio extra para que el último campo y el CTA
+   puedan scrollear por encima del teclado (MOV-KB-LEAD-BIRTHDATE).
+   La clase .kb se maneja por JS con retiro retrasado para no mover el CTA
+   justo entre el blur del campo y el tap del usuario. */
+.stage.kb{padding-bottom:46vh}
 
 /* loader matching */
 .match-bar{height:12px;background:var(--paper-deep);border-radius:8px;overflow:hidden;margin:30px 0 10px}
@@ -283,7 +288,18 @@ const PLANS = {
     for:'El paquete completo de desempeño', tags:['Protocolo completo','Energía']},
   'AKAN-CONSULTA': {name:'Consulta Médica de Valoración', price:0, branch:'ambas',
     items:['Videollamada con médico con cédula','Valoración completa y confidencial','Plan personalizado seguro','Sin costo, sin compromiso'],
-    for:'Tu caso necesita valoración personalizada', tags:['Gratis','Recomendado para ti']}
+    for:'Tu caso necesita valoración personalizada', tags:['Gratis','Recomendado para ti']},
+  /* OTC — compra directa sin evaluación (fallback del catálogo cuando
+     el comprador llega antes de que tienda.html resuelva el link de /shop) */
+  'AKAN-SHAMPOO': {name:'Shampoo Ketoconazol 2%', price:349, branch:'pelo', otc:true,
+    items:['Limpia el exceso de DHT del cuero cabelludo','Controla la caspa','Uso 3 veces por semana','Envío discreto en caja neutra'],
+    for:'Cuidado diario, sin receta', tags:['Sin receta','Compra directa']},
+  'AKAN-SUPL': {name:'Suplemento Capilar', price:399, branch:'pelo', otc:true,
+    items:['Biotina + Zinc','El pelo nuevo nace más grueso y fuerte','1 cápsula al día','Envío discreto en caja neutra'],
+    for:'Cuidado diario, sin receta', tags:['Sin receta','Compra directa']},
+  'AKAN-MINOX': {name:'Minoxidil Tópico 5%', price:449, branch:'pelo', otc:true,
+    items:['Reactiva el folículo y la circulación','Aplicación diaria en zonas con caída','Tu primera compra incluye validación rápida del médico','Envío discreto en caja neutra'],
+    for:'Cuidado diario, sin receta*', tags:['Sin receta*','Compra directa']}
 };
 const CONSULTA_PRECIO = 350;
 
@@ -427,8 +443,10 @@ function recommend(){
     return ['AKAN-SILD','AKAN-TADA'];
   }
 }
-const fmtMx=n=>n.toLocaleString('es-MX');
-const price3m=p=>Math.round(p*0.85);
+const fmtMx=n=>n.toLocaleString('es-MX',{minimumFractionDigits:Number.isInteger(n)?0:2,maximumFractionDigits:2});
+/* precio 3 meses EXACTO a centavos (igual al que cobra la plataforma):
+   849 → 721.65, no 722 — así el monto del pago nunca sorprende */
+const price3m=p=>Math.round(p*0.85*100)/100;
 
 /* ── Motor de render ── */
 const screens=document.getElementById('screens');
@@ -564,10 +582,12 @@ function renderProfile(){
 
 /* ── Lead capture (antes del resultado) ── */
 function renderLead(){
+  /* si vienes del gate de seguridad NO se vende nada: el copy es de consulta */
+  const gated=!!S.flags.gated;
   const scr=el(`<div class="screen on">
-    <div class="q-overline">Último paso antes de tu plan</div>
-    <h1 class="q-title">¿A nombre de quién lo preparamos?</h1>
-    <p class="q-sub">Tu plan personalizado queda listo en segundos.</p>
+    <div class="q-overline">${gated?'Último paso para tu consulta':'Último paso antes de tu plan'}</div>
+    <h1 class="q-title">${gated?'¿A nombre de quién agendamos tu consulta?':'¿A nombre de quién lo preparamos?'}</h1>
+    <p class="q-sub">${gated?'Tu médico te contacta para coordinar la videollamada. Gratis, confidencial y sin compromiso — no es una compra.':'Tu plan personalizado queda listo en segundos.'}</p>
     <form class="form" novalidate>
       <div class="field"><label>Nombre completo</label><input name="name" autocomplete="name" placeholder="Carlos Mendoza"></div>
       <div class="f-row">
@@ -587,7 +607,7 @@ function renderLead(){
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
         <span><b>Confidencial de verdad:</b> tus respuestas solo las ve tu médico. Ni la farmacia, ni nadie más, tiene acceso.</span>
       </div>
-      <button class="btn btn-cta" type="submit">Ver mi plan →</button>
+      <button class="btn btn-cta" type="submit">${gated?'Agendar mi consulta gratis →':'Ver mi plan →'}</button>
     </form>
   </div>`);
   scr.querySelector('form').addEventListener('submit',async e=>{
@@ -607,6 +627,7 @@ function renderLead(){
         <h3>Necesitas ser mayor de edad</h3>
         <p>Por regulación sanitaria solo podemos tratar mayores de 18 años. Si esto te preocupa, habla con un médico de confianza.</p></div>
         <a class="btn btn-ghost" style="margin-top:24px" href="index.html">Volver al inicio</a></div>`));
+      scrollTo({top:0,behavior:'instant'});
       return;
     }
     S.lead=f;
@@ -643,10 +664,16 @@ function renderMatch(){
   let p=0;
   const iv=setInterval(()=>{
     p+=Math.random()*7+3;
-    if(p>=100){p=100;clearInterval(iv);setTimeout(()=>show('result'),500)}
+    if(p>100)p=100;
     scr.querySelector('#mBar').style.width=p+'%';
     scr.querySelector('#mPct').textContent=Math.round(p)+'%';
     [25,50,75,96].forEach((th,i)=>{if(p>=th)scr.querySelector('#mi'+i).classList.add('done')});
+    if(p>=100){
+      clearInterval(iv);
+      /* nunca dejar el 100% "clavado": estado de cierre + transición inmediata */
+      scr.querySelector('#mPct').textContent='¡Listo! Abriendo tu plan…';
+      setTimeout(()=>show('result'),350);
+    }
   },130);
   return scr;
 }
@@ -678,7 +705,7 @@ function renderResult(){
       <ul>${p.items.map(i=>`<li>${i}</li>`).join('')}</ul>
       <div class="cadence">
         <div class="cad sel" data-cad="3m"><span class="radio"></span>
-          <span class="cl">Plan 3 meses<small>Un envío, tres meses cubiertos</small></span>
+          <span class="cl">Plan 3 meses<small>Un solo pago de $${fmtMx(Math.round(price3m(p.price)*3*100)/100)} (3 × $${fmtMx(price3m(p.price))})</small></span>
           <span class="pr"><s>$${fmtMx(p.price)}</s>$${fmtMx(price3m(p.price))}/mes<br><span class="save">Ahorras 15%</span></span></div>
         <div class="cad" data-cad="monthly"><span class="radio"></span>
           <span class="cl">Plan mensual<small>Mes a mes, sin compromiso</small></span>
@@ -715,26 +742,40 @@ function renderResult(){
 /* ── Checkout (dirección + resumen estilo Keeps) ── */
 function renderCheckout(){
   const p=PLANS[S.plan];
-  const is3m=S.cadence==='3m'&&p.price>0;
+  const isConsulta=S.plan==='AKAN-CONSULTA';
+  const isOtc=!!p.otc;
+  const is3m=S.cadence==='3m'&&p.price>0&&!isOtc;
   const mensual=is3m?price3m(p.price):p.price;
-  const totalHoy=is3m?mensual*3:mensual;
-  const perDay=p.price>0?Math.ceil(mensual/30):0;
+  const totalHoy=is3m?Math.round(mensual*3*100)/100:mensual;
+  /* "desde" exige redondear hacia ABAJO — nunca prometer un piso más alto */
+  const perDay=p.price>0?Math.floor(mensual/30):0;
   const haveLead=!!S.lead.name;
+  const subLabel=isConsulta?'Valoración médica en línea — sin costo'
+    :isOtc?'Compra única · sin evaluación'
+    :(is3m?'Plan 3 meses · -15%':'Plan mensual');
+  const guaranteeTxt=isConsulta
+    ?'Garantía AKAN: la consulta es 100% gratis. No te enviamos nada ni te cobramos nada — sales de la videollamada con un plan seguro para ti.'
+    :isOtc
+    ?'Hoy no pagas nada en línea: confirmamos tu orden y coordinamos el pago contra entrega por WhatsApp.'
+    :'Garantía AKAN: hoy no pagas nada. El cobro llega por WhatsApp solo si tu médico aprueba la receta.';
   const summary=`<div class="order-summary">
     <div class="os-head"><div><div class="n">${p.name}</div>
-      <div style="font-size:13px;color:var(--ink-soft)">${p.price>0?(is3m?'Plan 3 meses · -15%':'Plan mensual'):'Valoración médica'}</div></div>
-      ${p.price>0?`<div class="day">desde<b>$${perDay}/día</b></div>`:''}</div>
-    <div class="os-row"><span>Consulta médica en línea</span><span class="free"><s>$${fmtMx(CONSULTA_PRECIO)}</s>GRATIS</span></div>
-    <div class="os-row"><span>Envío discreto (caja neutra)</span><span class="free">GRATIS</span></div>
-    ${is3m?`<div class="os-row"><span>Descuento plan 3 meses</span><span class="free">−15%</span></div>`:''}
-    <div class="os-total"><span>${p.price>0?(is3m?'Total cada 3 meses':'Total mensual'):'Total'}</span><span>${p.price>0?'$'+fmtMx(totalHoy)+' MXN':'$0'}</span></div>
+      <div style="font-size:13px;color:var(--ink-soft)">${subLabel}</div></div>
+      ${p.price>0&&!isOtc?`<div class="day">desde<b>$${perDay}/día</b></div>`:''}</div>
+    ${isOtc?'':`<div class="os-row"><span>Consulta médica en línea${isConsulta?' (videollamada 15 min)':''}</span><span class="free"><s>$${fmtMx(CONSULTA_PRECIO)}</s>GRATIS</span></div>`}
+    ${isConsulta?'':`<div class="os-row"><span>Envío discreto (caja neutra)</span><span class="free">GRATIS</span></div>`}
+    ${is3m?`<div class="os-row"><span>Descuento plan 3 meses</span><span class="free">−15%</span></div>
+    <div class="os-row"><span>3 meses × $${fmtMx(mensual)}/mes</span><span>$${fmtMx(totalHoy)}</span></div>`:''}
+    <div class="os-total"><span>${p.price>0?(is3m?'Total cada 3 meses':(isOtc?'Total (contra entrega)':'Total mensual')):'Total'}</span><span>${p.price>0?'$'+fmtMx(totalHoy)+' MXN':'$0 — gratis'}</span></div>
     <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
-      Garantía AKAN: hoy no pagas nada. El cobro llega por WhatsApp solo si tu médico aprueba la receta.</div>
+      ${guaranteeTxt}</div>
   </div>`;
   const scr=el(`<div class="screen on">
-    <div class="q-overline">Último paso</div>
-    <h1 class="q-title">¿A dónde lo mandamos?</h1>
-    <p class="q-sub">Caja neutra, sin marca. Ni el repartidor sabe qué lleva.</p>
+    <div class="q-overline">${isConsulta?'Confirma tu consulta':'Último paso'}</div>
+    <h1 class="q-title">${isConsulta?'Tu consulta es en línea.':'¿A dónde lo mandamos?'}</h1>
+    <p class="q-sub">${isConsulta
+      ?'Videollamada confidencial con un médico con cédula. No hay envío ni cobro: solo confirma tus datos de contacto.'
+      :'Caja neutra, sin marca. Ni el repartidor sabe qué lleva.'}</p>
     ${summary}
     <form class="form" novalidate>
       ${haveLead?'':`<div class="field"><label>Nombre completo</label><input name="name" autocomplete="name" placeholder="Carlos Mendoza"></div>
@@ -742,15 +783,15 @@ function renderCheckout(){
         <div class="field"><label>WhatsApp</label><input name="phone" type="tel" placeholder="55 1234 5678"></div>
         <div class="field"><label>Email</label><input name="email" type="email" placeholder="tu@correo.com"></div>
       </div>`}
-      <div class="field"><label>Calle y número</label><input name="street" autocomplete="street-address" placeholder="Av. Ámsterdam 123, Depto 4"></div>
+      ${isConsulta?'':`<div class="field"><label>Calle y número</label><input name="street" autocomplete="street-address" placeholder="Av. Ámsterdam 123, Depto 4"></div>
       <div class="f-row">
         <div class="field"><label>Ciudad</label><input name="city" placeholder="CDMX"></div>
         <div class="field"><label>C.P.</label><input name="zip" inputmode="numeric" placeholder="06100"></div>
-      </div>
+      </div>`}
       ${haveLead?'':`<div class="field"><label>Estado</label>
         <select name="state"><option value="">Elige…</option><option>Ciudad de México</option><option>Estado de México</option>
         <option>Nuevo León</option><option>Jalisco</option><option>Querétaro</option><option>Puebla</option><option>Otro</option></select></div>`}
-      <button class="btn btn-cta" type="submit" id="submitBtn">Confirmar mi orden →</button>
+      <button class="btn btn-cta" type="submit" id="submitBtn">${isConsulta?'Confirmar mi consulta gratis →':'Confirmar mi orden →'}</button>
       <p style="font-size:12px;color:var(--ink-soft);text-align:center;margin-top:4px">Al confirmar aceptas el <a href="legal.html#consentimiento" target="_blank" style="text-decoration:underline">consentimiento informado</a> y el <a href="legal.html#privacidad" target="_blank" style="text-decoration:underline">aviso de privacidad</a>.</p>
     </form>
   </div>`);
@@ -759,9 +800,10 @@ function renderCheckout(){
     const form=e.target;
     const f=Object.fromEntries(new FormData(form).entries());
     const cust={name:S.lead.name||f.name,email:S.lead.email||f.email,phone:S.lead.phone||f.phone,
-      state:S.lead.state||f.state||'',street:f.street,city:f.city,zip:f.zip};
+      state:S.lead.state||f.state||'',street:f.street||'',city:f.city||'',zip:f.zip||''};
     let valid=true;
-    const need=haveLead?['street','city','zip']:['name','phone','email','street','city','zip'];
+    const addr=isConsulta?[]:['street','city','zip'];
+    const need=haveLead?addr:['name','phone','email',...addr];
     need.forEach(k=>{
       const inp=form.querySelector(`[name=${k}]`);if(!inp)return;
       const ok=k==='email'?/.+@.+\..+/.test(f[k]):(f[k]||'').trim().length>1;
@@ -795,21 +837,37 @@ function renderCheckout(){
 function renderDone(result,cust){
   screens.dataset.current='done';
   const p=PLANS[S.plan];
-  const waText=encodeURIComponent(`Hola AKAN 👋 Soy ${cust.name}. Completé mi evaluación (orden ${result.order}, ${p.name}). Quedo pendiente de la revisión del médico.`);
+  const isConsulta=S.plan==='AKAN-CONSULTA';
+  const isOtc=!!p.otc;
+  const waText=encodeURIComponent(isConsulta
+    ?`Hola AKAN 👋 Soy ${cust.name}. Pedí mi Consulta Médica de Valoración gratuita (orden ${result.order}). Quedo pendiente para agendar la videollamada.`
+    :`Hola AKAN 👋 Soy ${cust.name}. Completé mi evaluación (orden ${result.order}, ${p.name}). Quedo pendiente de la revisión del médico.`);
+  const payPill=isConsulta
+    ?'<span style="display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:var(--forest);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Sin costo — no hay nada que pagar</span>'
+    :isOtc
+    ?'<span style="display:inline-flex;align-items:center;gap:7px;background:#F7E8B8;color:#7A5B17;font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pago: contra entrega, por WhatsApp</span>'
+    :'<span style="display:inline-flex;align-items:center;gap:7px;background:#F7E8B8;color:#7A5B17;font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pago: pendiente de aprobación médica</span>';
+  const timeline=isConsulta
+    ?`<div class="tl-item"><b>Hoy — Te escribimos por WhatsApp</b><span>Para coordinar el día y la hora de tu videollamada con el médico.</span></div>
+      <div class="tl-item dim"><b>Videollamada de valoración (15 min)</b><span>Confidencial. El médico revisa tu caso completo, con calma.</span></div>
+      <div class="tl-item dim"><b>Sales con un plan seguro para ti</b><span>Sin costo y sin compromiso. Nada se envía ni se cobra sin tu ok.</span></div>`
+    :isOtc
+    ?`<div class="tl-item"><b>Hoy — Confirmamos tu orden por WhatsApp</b><span>Coordinamos contigo la entrega y el pago contra entrega.</span></div>
+      <div class="tl-item dim"><b>Pago contra entrega</b><span>Hoy no pagas nada en línea.</span></div>
+      <div class="tl-item dim"><b>24-72h — En tu puerta</b><span>Caja neutra, sin marca. Confidencial de inicio a fin.</span></div>`
+    :`<div class="tl-item"><b>Hoy — Tu médico revisa tu evaluación</b><span>Un médico con cédula valora tus respuestas. Si tiene dudas te escribe por WhatsApp.</span></div>
+      <div class="tl-item dim"><b>Receta aprobada → link de pago</b><span>Te llega por WhatsApp. Hasta entonces, no pagas nada.</span></div>
+      <div class="tl-item dim"><b>24-72h — En tu puerta</b><span>Caja neutra, sin marca. Confidencial de inicio a fin.</span></div>`;
   screens.innerHTML=`<div class="screen on" style="text-align:center">
     <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
-    <div class="q-overline">Orden recibida</div>
-    <h1 class="q-title">Listo, ${cust.name.split(' ')[0]}.<br>Lo difícil <span class="serif-i grad-text">ya pasó.</span></h1>
+    <div class="q-overline">${isConsulta?'Consulta solicitada':'Orden recibida'}</div>
+    <h1 class="q-title">Listo, ${cust.name.split(' ')[0]}.<br>${isConsulta?'Tu consulta está <span class="serif-i grad-text">en marcha.</span>':'Lo difícil <span class="serif-i grad-text">ya pasó.</span>'}</h1>
     <div class="order-ref">${result.order}</div>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px">
-      <span style="display:inline-flex;align-items:center;gap:7px;background:#F7E8B8;color:#7A5B17;font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pago: pendiente de aprobación médica</span>
+      ${payPill}
       <span style="display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:var(--forest);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">Guarda tu número de orden</span>
     </div>
-    <div class="timeline">
-      <div class="tl-item"><b>Hoy — Tu médico revisa tu evaluación</b><span>Un médico con cédula valora tus respuestas. Si tiene dudas te escribe por WhatsApp.</span></div>
-      <div class="tl-item dim"><b>Receta aprobada → link de pago</b><span>Te llega por WhatsApp. Hasta entonces, no pagas nada.</span></div>
-      <div class="tl-item dim"><b>24-72h — En tu puerta</b><span>Caja neutra, sin marca. Confidencial de inicio a fin.</span></div>
-    </div>
+    <div class="timeline">${timeline}</div>
     <a class="btn btn-cta" style="margin-top:34px" href="https://wa.me/523398001614?text=${waText}">Abrir WhatsApp →</a>
     <a class="btn btn-ghost" style="margin-top:12px" href="perfil.html">Ver mi tratamiento (Mi AKAN) →</a>
     <div class="trust-row">
@@ -819,14 +877,42 @@ function renderDone(result,cust){
     </div>
   </div>`;
   setProgress('done');
+  /* la confirmación se renderiza fuera de show(): resetear scroll para que el
+     overline no quede bajo el header fijo (DZ-04 / MOV-ORDEN-OVERLINE-HEADER) */
+  scrollTo({top:0,behavior:'instant'});
 }
+
+/* con el teclado abierto, centrar el campo enfocado para que ni el campo
+   ni el CTA queden bajo el teclado (MOV-KB-LEAD-BIRTHDATE) */
+const FORM_CTRL='.form input, .form select';
+let kbTimer=null;
+document.addEventListener('focusin',e=>{
+  if(!e.target.matches(FORM_CTRL))return;
+  clearTimeout(kbTimer);
+  const st=document.querySelector('.stage');
+  if(st)st.classList.add('kb');
+  setTimeout(()=>e.target.scrollIntoView({block:'center',behavior:'smooth'}),250);
+});
+document.addEventListener('focusout',e=>{
+  if(!e.target.matches(FORM_CTRL))return;
+  clearTimeout(kbTimer);
+  /* retiro retrasado: si el blur viene de un tap en el CTA, el layout no se
+     mueve hasta que el click ya se completó */
+  kbTimer=setTimeout(()=>{
+    const a=document.activeElement;
+    if(a&&a.matches&&a.matches(FORM_CTRL))return;
+    const st=document.querySelector('.stage');
+    if(st)st.classList.remove('kb');
+  },400);
+});
 
 /* arranque — ?plan=CODE (compra directa) | ?branch= | normal */
 const params=new URLSearchParams(location.search);
 if(params.get('plan')&&PLANS[params.get('plan')]){
   S.plan=params.get('plan');
   S.branch=PLANS[S.plan].branch==='desempeno'?'desempeno':'pelo';
-  S.cadence=params.get('cad')==='monthly'?'monthly':'3m';
+  /* OTC = compra única: nunca cadencia 3m */
+  S.cadence=PLANS[S.plan].otc?'monthly':(params.get('cad')==='monthly'?'monthly':'3m');
   S.answers.push({q:'Origen',a:'Compra directa desde catálogo — '+S.plan});
   show('checkout',false);
 }else if(params.get('branch')==='desempeno'){S.branch='desempeno';show('d1',false);}
