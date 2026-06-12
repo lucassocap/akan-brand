@@ -115,6 +115,7 @@ with sync_playwright() as p:
         pg.click("text=Pagar mi tratamiento", timeout=8000)
         pg.wait_for_timeout(5000); shot(pg,"c08_pago_page")
         log("CARLOS","abre página de pago",("/my/orders" in pg.url) or ("payment" in pg.url), pg.url[:80])
+        pg.wait_for_selector("#o_payment_methods input[name=o_payment_radio]", timeout=25000)
         radios = pg.locator("#o_payment_methods input[name=o_payment_radio]")
         paid = False
         if radios.count():
@@ -149,11 +150,13 @@ with sync_playwright() as p:
         pg.goto(ODOO+"/web/login", timeout=30000); pg.wait_for_timeout(2500); shot(pg,"a01_login")
         log("ANA","login visible",pg.is_visible("input[name=login]"))
         pg.fill("input[name=login]","medico@akan.mx"); pg.fill("input[name=password]","Akan2026Med")
-        pg.click("button[type=submit]"); pg.wait_for_timeout(9000); shot(pg,"a02_backend")
-        ok = "/odoo" in pg.url and pg.locator(".o_navbar, .o_main_navbar").count()>0
+        pg.click("button[type=submit]")
+        pg.wait_for_selector(".o_navbar,.o_main_navbar", timeout=30000); shot(pg,"a02_backend")
+        ok = "/odoo" in pg.url
         log("ANA","backend Odoo SE ABRE",ok,pg.url[:70])
         pg.goto(ODOO+"/odoo/crm"); pg.wait_for_timeout(8000); shot(pg,"a03_crm")
         log("ANA","CRM renderiza",pg.locator(".o_kanban_renderer,.o_kanban_view").count()>0)
+        pg.wait_for_selector(".o_kanban_record", timeout=25000)
         pg.locator(".o_kanban_record").first.click(); pg.wait_for_timeout(6000); shot(pg,"a04_lead")
         body = pg.inner_text("body")
         log("ANA","lead con respuestas + chat",("Etapa" in body or "Meta" in body) and pg.locator(".o-mail-Chatter").count()>0)
