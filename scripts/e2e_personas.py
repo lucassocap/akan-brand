@@ -172,8 +172,9 @@ with sync_playwright() as p:
     try:
         pg.goto(ODOO+"/web/login"); pg.wait_for_timeout(2000)
         pg.fill("input[name=login]","admin@akan.mx"); pg.fill("input[name=password]","Akan2026")
-        pg.click("button[type=submit]"); pg.wait_for_timeout(9000); shot(pg,"l01_admin")
-        log("LUCAS","admin entra y ve apps","/odoo" in pg.url and pg.locator(".o_navbar,.o_main_navbar").count()>0)
+        pg.click("button[type=submit]")
+        pg.wait_for_selector(".o_navbar,.o_main_navbar", timeout=35000); shot(pg,"l01_admin")
+        log("LUCAS","admin entra y ve apps","/odoo" in pg.url)
     except Exception as e: log("LUCAS","admin",False,str(e)[:90]); shot(pg,"l_FAIL")
     ctx.close()
     browser.close()
