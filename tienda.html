@@ -165,11 +165,8 @@ section,header,.how-band{position:relative;z-index:2}
 .mnav a small{font-weight:500;font-size:13px;color:var(--ink-soft)}
 .mnav a:last-child{border-bottom:none}
 .mnav .hl{color:var(--clay)}
-.grid-skeleton{grid-column:1/-1;text-align:center;color:var(--ink-soft);
-  padding:60px 0;font-size:15px;opacity:.7}
-.grid-fail{grid-column:1/-1;text-align:center;color:var(--ink-soft);padding:50px 0}
-.grid-fail button{margin-left:10px;background:var(--forest);color:var(--paper);border:none;
-  padding:8px 18px;border-radius:100px;font-weight:600;cursor:pointer;font-family:var(--font-b)}
+.grid-skeleton{grid-column:1/-1;text-align:center;color:var(--ink-soft);padding:56px 0;font-size:15px;opacity:.75}
+.retry{margin-left:8px;background:var(--forest);color:var(--paper);border:none;padding:7px 16px;border-radius:100px;font-weight:600;cursor:pointer;font-family:var(--font-b)}
 </style>
 </head>
 <body>
@@ -230,277 +227,28 @@ section,header,.how-band{position:relative;z-index:2}
   </div>
 </div>
 
-<!-- CUIDADO DIARIO (OTC) — sin receta, compra directa. Productos desde Odoo -->
+<!-- CUIDADO DIARIO (OTC) — productos en vivo desde Odoo -->
 <section class="sec" id="cuidado">
   <div class="wrap">
-    <div class="sec-head">
-      <h2>Cuidado diario <span class="serif-i grad-text">— sin receta</span></h2>
-      <div class="note">Compra directa · Sin evaluación</div>
-    </div>
-    <div class="grid" id="grid-otc" data-state="loading"><div class="grid-skeleton">Cargando productos…</div></div>
+    <div class="sec-head"><h2>Cuidado diario <span class="serif-i grad-text">— sin receta</span></h2>
+      <div class="note">Compra directa · Sin evaluación</div></div>
+    <div class="grid" id="grid-otc"><div class="grid-skeleton">Cargando productos…</div></div>
   </div>
 </section>
-
-<!-- CABELLO (Rx) — planes médicos. Productos desde Odoo -->
+<!-- CABELLO (Rx) -->
 <section class="sec" id="cabello">
   <div class="wrap">
-    <div class="sec-head">
-      <h2>Cabello <span class="serif-i grad-text">— planes médicos</span></h2>
-      <div class="note">Requieren evaluación (2 min) · Pagas hoy, reembolso total si no aprueba</div>
-    </div>
-    <div class="grid" id="grid-cabello" data-state="loading"><div class="grid-skeleton">Cargando planes…</div></div>
+    <div class="sec-head"><h2>Cabello <span class="serif-i grad-text">— planes médicos</span></h2>
+      <div class="note">Requieren evaluación (2 min) · Pagas hoy, reembolso total si no aprueba</div></div>
+    <div class="grid" id="grid-cabello"><div class="grid-skeleton">Cargando planes…</div></div>
   </div>
 </section>
-
-<!-- DESEMPEÑO (Rx) — planes médicos. Productos desde Odoo -->
+<!-- DESEMPEÑO (Rx) -->
 <section class="sec" id="desempeno" style="background:var(--paper-deep)">
   <div class="wrap">
-    <div class="sec-head">
-      <h2>Desempeño <span class="serif-i" style="color:var(--clay)">— planes médicos</span></h2>
-      <div class="note">Evaluación de 5 preguntas · Confidencial de inicio a fin</div>
-    </div>
-    <div class="grid" id="grid-desempeno" data-state="loading"><div class="grid-skeleton">Cargando planes…</div></div>
-  </div>
-</section>
-
-<section class="sec" style="text-align:center;background:linear-gradient(150deg,#F6EFDE,#F2DEC8)">
-  <div class="wrap">
-    <h2 style="font-family:var(--font-d);font-weight:700;font-size:clamp(28px,4vw,48px);letter-spacing:-.02em">¿No sabes cuál te toca?</h2>
-    <p style="color:var(--ink-soft);margin:14px auto 28px;max-width:480px">Responde la evaluación de 2 minutos y te lo decimos exacto. Confidencial.</p>
-    <a class="btn btn-cta" style="padding:17px 40px" href="quiz.html">Hacer mi evaluación →</a>
-  </div>
-</section>
-
-
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script src="assets/cart.js"></script>
-<script>
-/* reveals */
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-
-/* scrollspy de tabs */
-const tabs=[...document.querySelectorAll('#catTabs a[href^="#"]')];
-const secIO=new IntersectionObserver(es=>{es.forEach(e=>{
-  if(e.isIntersecting){tabs.forEach(t=>t.classList.toggle('on',t.getAttribute('href')==='#'+e.target.id))}
-})},{rootMargin:'-30% 0px -60% 0px'});
-['cabello','desempeno','cuidado'].forEach(id=>{const el=document.getElementById(id);if(el)secIO.observe(el)});
-
-/* HEADLESS · INTEGRACIÓN TOTAL: los productos, precios y descripciones se
-   leen EN VIVO desde Odoo (/akan/api/products). Cero datos hardcodeados:
-   si cambias un precio en Odoo, la web lo refleja al recargar. */
-const API_BASE = AkanCart.API_BASE;
-AkanCart.mountBadge(document.getElementById('cartSlot'));
-const esc = s => String(s||'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
-const mx = n => '$'+Number(n).toLocaleString('es-MX',{maximumFractionDigits:0});
-
-/* marketing del front (NO son datos de negocio): foto e insignia por código.
-   El precio/nombre/descripción SIEMPRE vienen de Odoo. */
-const ART = {
-  'AKAN-SHAMPOO':{img:'assets/photography/product/akan_bathroom_shelf.jpg'},
-  'AKAN-SUPL':{img:'assets/photography/product/akan_product_family.jpg'},
-  'AKAN-MINOX':{img:'assets/premium/hero_light_products.jpg'},
-  'AKAN-ESENCIAL':{img:'assets/photography/product/akan_hero_products.jpg'},
-  'AKAN-COMPLETO':{img:'assets/premium/hero_light_products.jpg',top:'El más elegido'},
-  'AKAN-KIT':{img:'assets/photography/product/akan_product_family.jpg'},
-  'AKAN-SILD':{img:'assets/premium/macro_dropper.jpg'},
-  'AKAN-TADA':{img:'assets/premium/hombre_confianza.jpg',top:'Espontaneidad total'},
-  'AKAN-KITCONF':{img:'assets/premium/pareja_manana.jpg'},
-};
-const GROUP = {
-  'AKAN-SHAMPOO':'otc','AKAN-SUPL':'otc','AKAN-MINOX':'otc',
-  'AKAN-ESENCIAL':'cabello','AKAN-COMPLETO':'cabello','AKAN-KIT':'cabello',
-  'AKAN-SILD':'desempeno','AKAN-TADA':'desempeno','AKAN-KITCONF':'desempeno',
-};
-
-function cardOTC(p){
-  const art=ART[p.code]||{};
-  const img=art.img||p.image_url||'';
-  const out=p.in_stock===false;
-  return `<div class="prod rv in">
-    <div class="ph"><span class="badge otc">Sin receta</span>
-      <img src="${esc(img)}" onerror="this.src='${esc(p.image_url||'')}'" alt="${esc(p.name)}" loading="lazy"></div>
-    <div class="body">
-      <h3>${esc(p.name)}</h3>
-      <div class="for">${esc(p.description||'')}</div>
-      <div class="price">${mx(p.price)}</div>
-      ${out?'<button class="btn btn-ghost" disabled>Agotado</button>'
-           :`<button class="btn btn-green otc-add" data-code="${esc(p.code)}" data-name="${esc(p.name)}" data-price="${p.price}" data-img="${esc(img)}" data-desc="${esc(p.description||'')}">Agregar al carrito →</button>`}
-      <div class="micro">Compra directa · Envío gratis en caja neutra</div>
-    </div></div>`;
-}
-function cardRx(p){
-  const art=ART[p.code]||{};
-  const img=art.img||p.image_url||'';
-  const tres=Math.round(p.price*0.85);
-  const badge=art.top?`<span class="badge top">${esc(art.top)}</span>`:'<span class="badge rx">Rx · Receta</span>';
-  const cta=art.top?'btn-cta':'btn-ghost';
-  return `<div class="prod rv in">
-    <div class="ph">${badge}<img src="${esc(img)}" onerror="this.src='${esc(p.image_url||'')}'" alt="${esc(p.name)}" loading="lazy"></div>
-    <div class="body">
-      <h3>${esc(p.name)}</h3>
-      <div class="for">${esc(p.description||'')}</div>
-      <div class="price">${mx(p.price)} <small>/mes · ${mx(tres)}/mes en plan 3 meses</small></div>
-      <a class="btn ${cta}" href="quiz.html?plan=${esc(p.code)}">Elegir con evaluación →</a>
-    </div></div>`;
-}
-function fail(id,msg){
-  const g=document.getElementById(id);if(g)g.innerHTML=`<div class="grid-fail">${esc(msg)} <button onclick="loadCatalog()">Reintentar</button></div>`;
-}
-
-function loadCatalog(){
-  ['grid-otc','grid-cabello','grid-desempeno'].forEach(id=>{const g=document.getElementById(id);if(g){g.dataset.state='loading';g.innerHTML='<div class="grid-skeleton">Cargando…</div>';}});
-  fetch(API_BASE+'/akan/api/products',{signal:AbortSignal.timeout(8000)})
-    .then(r=>r.json()).then(p=>{
-      const items=(p.products||p);
-      if(!Array.isArray(items)||!items.length)throw new Error('vacío');
-      const groups={otc:[],cabello:[],desempeno:[]};
-      items.forEach(x=>{const g=GROUP[x.code];if(g)groups[g].push(x);});
-      const fill=(id,arr,fn)=>{
-        const g=document.getElementById(id);if(!g)return;
-        g.dataset.state='ok';
-        g.innerHTML=arr.length?arr.map(fn).join(''):'<div class="grid-skeleton">Pronto disponible</div>';
-      };
-      fill('grid-otc',groups.otc,cardOTC);
-      fill('grid-cabello',groups.cabello,cardRx);
-      fill('grid-desempeno',groups.desempeno,cardRx);
-      bindAdd();
-    })
-    .catch(()=>{
-      fail('grid-otc','No pudimos cargar el catálogo.');
-      fail('grid-cabello','No pudimos cargar los planes.');
-      fail('grid-desempeno','No pudimos cargar los planes.');
-    });
-}
-
-const toast=document.getElementById('toast');let toastT=null;
-function showToast(name){
-  toast.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'+
-    '<span>'+esc(name)+' agregado</span><a href="carrito.html">Ver carrito →</a>';
-  toast.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>toast.classList.remove('show'),3200);
-}
-function bindAdd(){
-  document.querySelectorAll('.otc-add').forEach(btn=>{
-    if(btn._bound)return;btn._bound=1;
-    btn.addEventListener('click',()=>{
-      AkanCart.add({code:btn.dataset.code,name:btn.dataset.name,price:Number(btn.dataset.price),
-        image_url:btn.dataset.img,description:btn.dataset.desc,category:'Cuidado Diario'},1);
-      showToast(btn.dataset.name);
-    });
-  });
-}
-loadCatalog();
-
-/* menú móvil */
-.burger{display:flex;flex-direction:column;gap:5px;width:42px;height:42px;border-radius:50%;
-  border:1.5px solid var(--line);background:var(--card);align-items:center;justify-content:center;
-  cursor:pointer;flex-shrink:0}
-.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s var(--ease)}
-.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.burger.open span:nth-child(2){opacity:0}
-.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-@media(min-width:900px){.burger{display:none}}
-.mnav{position:fixed;top:0;left:0;right:0;z-index:99;background:var(--paper);
-  border-bottom:1px solid var(--line);box-shadow:0 30px 60px rgba(27,24,18,.14);
-  padding:86px 26px 26px;transform:translateY(-105%);transition:transform .45s var(--ease)}
-.mnav.open{transform:none}
-.mnav a{display:flex;justify-content:space-between;align-items:center;padding:15px 4px;
-  font-weight:700;font-size:17px;border-bottom:1px solid var(--line)}
-.mnav a small{font-weight:500;font-size:13px;color:var(--ink-soft)}
-.mnav a:last-child{border-bottom:none}
-.mnav .hl{color:var(--clay)}
-</style>
-</head>
-<body>
-
-<div class="sprite s-sway" style="top:16%;left:-16px;width:84px"><img src="assets/elements/leaf_eucalyptus.png" alt=""></div>
-<div class="sprite s-float" style="top:42%;right:-10px;width:56px"><img src="assets/elements/bubble_amber.png" alt=""></div>
-<div class="sprite s-float" style="bottom:12%;left:4%;width:48px;animation-delay:3s"><img src="assets/elements/capsule_green.png" alt=""></div>
-
-<nav>
-  <div class="bar">
-    <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
-    <a href="index.html" class="logo">AKAN</a>
-    <div class="nav-links">
-      <a href="#cabello">Cabello</a>
-      <a href="#desempeno">Desempeño</a>
-      <a href="#cuidado">Cuidado diario</a>
-      <a href="index.html">Inicio</a>
-      <a href="perfil.html">Mi cuenta</a>
-    </div>
-    <div class="nav-right">
-      <span id="cartSlot"></span>
-      <a href="quiz.html" class="btn btn-cta">Comenzar evaluación</a>
-    </div>
-  </div>
-</nav>
-<div class="mnav" id="mnav">
-  <a href="quiz.html" class="hl">Hacer mi evaluación <small>2 min · confidencial</small></a>
-  <a href="#cabello">Cabello</a>
-  <a href="#desempeno">Desempeño</a>
-  <a href="#cuidado">Cuidado diario</a>
-  <a href="carrito.html">Mi carrito <small>cuidado diario sin receta</small></a>
-  <a href="perfil.html">Mi cuenta <small>el estado de tu tratamiento</small></a>
-  <a href="index.html">Inicio</a>
-</div>
-
-<header class="hero-mini">
-  <div class="wrap">
-    <span class="overline">La tienda AKAN</span>
-    <h1>Lo que necesitas, <span class="serif-i grad-text">a un toque.</span></h1>
-  </div>
-</header>
-
-<div class="cat-sticky" id="catTabs">
-  <div class="wrap">
-    <a href="#cuidado" class="on">🧴 Cuidado diario</a>
-    <a href="#cabello">🌿 Cabello</a>
-    <a href="#desempeno">⚡ Desempeño</a>
-    <a href="quiz.html" style="margin-left:auto;color:var(--clay)">¿No sabes? Evaluación 2 min →</a>
-  </div>
-</div>
-
-<div class="how-band">
-  <div class="wrap">
-    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>Planes Rx: pagas hoy, reembolso total si no aprueba</span>
-    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>100% confidencial, caja neutra</span>
-    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/></svg>Envío gratis 24-72h</span>
-    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>Del click a la orden: 2 toques</span>
-  </div>
-</div>
-
-<!-- CUIDADO DIARIO (OTC) — sin receta, compra directa. Productos desde Odoo -->
-<section class="sec" id="cuidado">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Cuidado diario <span class="serif-i grad-text">— sin receta</span></h2>
-      <div class="note">Compra directa · Sin evaluación</div>
-    </div>
-    <div class="grid" id="grid-otc" data-state="loading"><div class="grid-skeleton">Cargando productos…</div></div>
-  </div>
-</section>
-
-<!-- CABELLO (Rx) — planes médicos. Productos desde Odoo -->
-<section class="sec" id="cabello">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Cabello <span class="serif-i grad-text">— planes médicos</span></h2>
-      <div class="note">Requieren evaluación (2 min) · Pagas hoy, reembolso total si no aprueba</div>
-    </div>
-    <div class="grid" id="grid-cabello" data-state="loading"><div class="grid-skeleton">Cargando planes…</div></div>
-  </div>
-</section>
-
-<!-- DESEMPEÑO (Rx) — planes médicos. Productos desde Odoo -->
-<section class="sec" id="desempeno" style="background:var(--paper-deep)">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Desempeño <span class="serif-i" style="color:var(--clay)">— planes médicos</span></h2>
-      <div class="note">Evaluación de 5 preguntas · Confidencial de inicio a fin</div>
-    </div>
-    <div class="grid" id="grid-desempeno" data-state="loading"><div class="grid-skeleton">Cargando planes…</div></div>
+    <div class="sec-head"><h2>Desempeño <span class="serif-i" style="color:var(--clay)">— planes médicos</span></h2>
+      <div class="note">Evaluación de 5 preguntas · Confidencial de inicio a fin</div></div>
+    <div class="grid" id="grid-desempeno"><div class="grid-skeleton">Cargando planes…</div></div>
   </div>
 </section>
 
@@ -529,47 +277,82 @@ const secIO=new IntersectionObserver(es=>{es.forEach(e=>{
 })},{rootMargin:'-30% 0px -60% 0px'});
 ['cabello','desempeno','cuidado'].forEach(id=>{const el=document.getElementById(id);if(el)secIO.observe(el)});
 
-/* HEADLESS: el carrito vive en el navegador. La tienda NUNCA manda a /shop.
-   OTC → "Agregar al carrito"; Rx → "Hacer evaluación" (quiz). */
+/* HEADLESS · INTEGRACIÓN TOTAL: catálogo en vivo desde Odoo. Cero datos
+   de producto hardcodeados. Si Odoo no responde, "reintentar" — nunca un
+   precio viejo que mienta. */
 const API_BASE = AkanCart.API_BASE;
 AkanCart.mountBadge(document.getElementById('cartSlot'));
-
-const esc = s => String(s||'').replace(/"/g,'&quot;');
-/* enriquecer precios/datos OTC desde la API si está disponible (degrada al
-   fallback embebido en los data-attrs si la API aún no responde) */
-fetch(API_BASE+'/akan/api/products',{signal:AbortSignal.timeout(5000)})
-  .then(r=>r.json()).then(p=>{
-    const items=p.products||p;if(!Array.isArray(items))return;
-    const byCode={};items.forEach(x=>{byCode[x.code]=x});
-    document.querySelectorAll('.otc-add').forEach(btn=>{
-      const it=byCode[btn.dataset.code];if(!it)return;
-      if(it.price!=null){
-        btn.dataset.price=it.price;
-        const card=btn.closest('.prod');const pr=card&&card.querySelector('[data-price]');
-        if(pr)pr.textContent='$'+Number(it.price).toLocaleString('es-MX');
-      }
-      if(it.name)btn.dataset.name=it.name;
-      if(it.image_url)btn.dataset.img=it.image_url;
-      if(it.description)btn.dataset.desc=it.description;
-    });
-  }).catch(()=>{});
-
-/* toast */
-const toast=document.getElementById('toast');let toastT=null;
-function showToast(name){
-  toast.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'+
-    '<span>'+esc(name)+' agregado</span><a href="carrito.html">Ver carrito →</a>';
-  toast.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>toast.classList.remove('show'),3200);
+const esc = v => String(v==null?'':v).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+const mx = n => '$'+Number(n).toLocaleString('es-MX',{maximumFractionDigits:0});
+const ART = {
+  'AKAN-SHAMPOO':{img:'assets/photography/product/akan_bathroom_shelf.jpg'},
+  'AKAN-SUPL':{img:'assets/photography/product/akan_product_family.jpg'},
+  'AKAN-MINOX':{img:'assets/premium/hero_light_products.jpg'},
+  'AKAN-ESENCIAL':{img:'assets/photography/product/akan_hero_products.jpg'},
+  'AKAN-COMPLETO':{img:'assets/premium/hero_light_products.jpg',top:'El más elegido'},
+  'AKAN-KIT':{img:'assets/photography/product/akan_product_family.jpg'},
+  'AKAN-SILD':{img:'assets/premium/macro_dropper.jpg'},
+  'AKAN-TADA':{img:'assets/premium/hombre_confianza.jpg',top:'Espontaneidad total'},
+  'AKAN-KITCONF':{img:'assets/premium/pareja_manana.jpg'}
+};
+const GROUP = {'AKAN-SHAMPOO':'otc','AKAN-SUPL':'otc','AKAN-MINOX':'otc','AKAN-ESENCIAL':'cabello','AKAN-COMPLETO':'cabello','AKAN-KIT':'cabello','AKAN-SILD':'desempeno','AKAN-TADA':'desempeno','AKAN-KITCONF':'desempeno'};
+function cardOTC(p){
+  const art=ART[p.code]||{}, img=art.img||p.image_url||'', out=p.in_stock===false;
+  return '<div class="prod"><div class="ph"><span class="badge otc">Sin receta</span>'+
+    '<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy"></div><div class="body">'+
+    '<h3>'+esc(p.name)+'</h3><div class="for">'+esc(p.description)+'</div>'+
+    '<div class="price">'+mx(p.price)+'</div>'+
+    (out?'<button class="btn btn-ghost" disabled>Agotado</button>'
+        :'<button class="btn btn-green otc-add" data-code="'+esc(p.code)+'" data-name="'+esc(p.name)+'" data-price="'+p.price+'" data-img="'+esc(img)+'" data-desc="'+esc(p.description)+'">Agregar al carrito →</button>')+
+    '<div class="micro">Compra directa · Envío gratis en caja neutra</div></div></div>';
 }
-
-/* Agregar al carrito (OTC) */
-document.querySelectorAll('.otc-add').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    AkanCart.add({code:btn.dataset.code,name:btn.dataset.name,price:Number(btn.dataset.price),
-      image_url:btn.dataset.img,description:btn.dataset.desc,category:'Cuidado Diario'},1);
-    showToast(btn.dataset.name);
+function cardRx(p){
+  const art=ART[p.code]||{}, img=art.img||p.image_url||'', tres=Math.round(p.price*0.85);
+  const badge=art.top?'<span class="badge top">'+esc(art.top)+'</span>':'<span class="badge rx">Rx · Receta</span>';
+  const cta=art.top?'btn-cta':'btn-ghost';
+  return '<div class="prod"><div class="ph">'+badge+'<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy"></div>'+
+    '<div class="body"><h3>'+esc(p.name)+'</h3><div class="for">'+esc(p.description)+'</div>'+
+    '<div class="price">'+mx(p.price)+' <small>/mes · '+mx(tres)+'/mes en plan 3 meses</small></div>'+
+    '<a class="btn '+cta+'" href="quiz.html?plan='+esc(p.code)+'">Elegir con evaluación →</a></div></div>';
+}
+function fillGrid(id,arr,fn){
+  const g=document.getElementById(id); if(!g)return;
+  g.innerHTML=arr.length?arr.map(fn).join(''):'<div class="grid-skeleton">Pronto disponible</div>';
+}
+function loadCatalog(){
+  fetch(API_BASE+'/akan/api/products',{signal:AbortSignal.timeout(8000)})
+    .then(r=>r.json()).then(d=>{
+      const items=(d&&d.products)||d;
+      if(!Array.isArray(items)||!items.length)throw new Error('vacio');
+      const g={otc:[],cabello:[],desempeno:[]};
+      items.forEach(x=>{const k=GROUP[x.code]; if(k)g[k].push(x);});
+      fillGrid('grid-otc',g.otc,cardOTC);
+      fillGrid('grid-cabello',g.cabello,cardRx);
+      fillGrid('grid-desempeno',g.desempeno,cardRx);
+      bindAdd();
+    }).catch(()=>{
+      ['grid-otc','grid-cabello','grid-desempeno'].forEach(id=>{
+        const el=document.getElementById(id);
+        if(el)el.innerHTML='<div class="grid-skeleton">No pudimos cargar el catálogo. <button class="retry" onclick="loadCatalog()">Reintentar</button></div>';
+      });
+    });
+}
+const toast=document.getElementById('toast'); let toastT=null;
+function showToast(name){
+  if(!toast)return;
+  toast.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span>'+esc(name)+' agregado</span><a href="carrito.html">Ver carrito →</a>';
+  toast.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>toast.classList.remove('show'),3200);
+}
+function bindAdd(){
+  document.querySelectorAll('.otc-add').forEach(btn=>{
+    if(btn._b)return; btn._b=1;
+    btn.addEventListener('click',()=>{
+      AkanCart.add({code:btn.dataset.code,name:btn.dataset.name,price:Number(btn.dataset.price),image_url:btn.dataset.img,description:btn.dataset.desc,category:'Cuidado Diario'},1);
+      showToast(btn.dataset.name);
+    });
   });
-});
+}
+loadCatalog();
 
 /* menú móvil */
 (function(){
