@@ -132,3 +132,66 @@ Esto reemplaza el "Plan Coherencia C" (tematizar /shop) por algo mejor:
 4. "Mis pedidos" en el perfil (histórico real con recibos).
 5. Apagar /shop público (redirect a tienda.html).
 6. Enjambre de 9 personas re-verifica TODO el viaje unificado.
+
+---
+
+## 10. LAS DOS VELOCIDADES DE COMPRA (confirmado por Lucas)
+
+La fluidez = cada producto entra por el camino más corto posible para SU tipo:
+
+### Vía rápida — OTC (shampoo, suplemento, minoxidil)
+```
+tocar producto → carrito → pagar → LISTO
+```
+Segundos. Cero preguntas. Como cualquier compra de Amazon.
+
+### Vía con receta — Rx (planes capilares / desempeño)
+```
+cuestionario → checkout → PAGA DE UNA (le cobramos primero)
+   → revisión médica
+       ├─ CALIFICA  → se despacha (el cliente no hace nada más)
+       └─ NO CALIFICA → se devuelve el 100% automático + se le explica
+```
+**"Lo agarramos primero"** — clave de Lucas: cobramos al confirmar, no después.
+- Más cash flow, menos abandono (Keeps/Hims lo hacen así).
+- La garantía invertida es el argumento de confianza:
+  **"Pagas hoy. Si el médico no aprueba, te devolvemos todo — sin preguntas."**
+- Legalmente sólido: el despacho del medicamento sigue gateado por el médico;
+  solo el COBRO se adelanta, y el reembolso es automático si no procede.
+
+## 11. EL PERFIL "MI AKAN" NIVEL AMAZON (a Lucas le gusta el status, quiere MÁS)
+
+Lo que YA gusta (se conserva y mejora): el **tracking del pedido en curso** con
+sus pasos (médico → pago → en camino → en tu puerta).
+
+Lo que SE AGREGA para que sea un perfil Amazon de verdad:
+
+```
+MI AKAN
+├── Mi pedido en curso        ← el status/timeline actual (mejorado)
+│     · barra de pasos + "llega el [fecha]" + guía de rastreo en vivo
+│
+├── Mis pedidos (histórico)   ← NUEVO, tipo "Your Orders" de Amazon
+│     · cada pedido: fecha · productos con foto · monto · estado
+│     · botón "Ver detalle" · "Descargar recibo" (PDF de Odoo)
+│     · botón "Volver a pedir" (re-order en 1 toque)
+│
+├── Historial de despachos    ← NUEVO, cada caja que ha llegado
+│     · fecha de envío · guía · entregado el [fecha]
+│
+├── Mi suscripción            ← desde cuándo · próximo cobro · total acumulado
+│     · pausar / cambiar / cancelar
+│
+├── Mi chat con el médico     ← el hilo confidencial (ya existe)
+│
+└── Mis datos                 ← dirección, contacto, métodos de pago guardados
+```
+
+**Todo leído de Odoo por API** (órdenes, líneas, pickings, facturas, suscripción).
+Odoo ya tiene cada dato; el perfil solo lo pinta con la piel AKAN. Recibos = el
+PDF que Odoo ya genera por orden, expuesto por la API con el token del cliente.
+
+## 12. EL PRINCIPIO QUE GANA TODO
+> Velocidad máxima por tipo de producto. Cobro al confirmar. Reembolso si no
+> califica. Un perfil que el cliente quiere abrir. Cero saltos de marca.
+> Eso es nivel Amazon — y AKAN ya tiene la maquinaria para lograrlo.
