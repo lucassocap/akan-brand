@@ -282,16 +282,18 @@ const API_BASE = AkanCart.API_BASE;
 AkanCart.mountBadge(document.getElementById('cartSlot'));
 const esc = v => String(v==null?'':v).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
 const mx = n => '$'+Number(n).toLocaleString('es-MX',{maximumFractionDigits:0});
+/* Fotos premium por-producto (Leonardo, estética Verde Vivo). Mismas que
+   viven en Odoo product.image — web y Odoo muestran la misma imagen. */
 const ART = {
-  'AKAN-SHAMPOO':{img:'assets/photography/product/akan_bathroom_shelf.jpg'},
-  'AKAN-SUPL':{img:'assets/photography/product/akan_product_family.jpg'},
-  'AKAN-MINOX':{img:'assets/premium/hero_light_products.jpg'},
-  'AKAN-ESENCIAL':{img:'assets/photography/product/akan_hero_products.jpg'},
-  'AKAN-COMPLETO':{img:'assets/premium/hero_light_products.jpg',top:'El más elegido'},
-  'AKAN-KIT':{img:'assets/photography/product/akan_product_family.jpg'},
-  'AKAN-SILD':{img:'assets/premium/macro_dropper.jpg'},
-  'AKAN-TADA':{img:'assets/premium/hombre_confianza.jpg',top:'Espontaneidad total'},
-  'AKAN-KITCONF':{img:'assets/premium/pareja_manana.jpg'}
+  'AKAN-SHAMPOO':{img:'assets/photography/product/akan_p_shampoo.jpg'},
+  'AKAN-SUPL':{img:'assets/photography/product/akan_p_supl.jpg'},
+  'AKAN-MINOX':{img:'assets/photography/product/akan_p_minox.jpg'},
+  'AKAN-ESENCIAL':{img:'assets/photography/product/akan_p_esencial.jpg'},
+  'AKAN-COMPLETO':{img:'assets/photography/product/akan_p_completo.jpg',top:'El más elegido'},
+  'AKAN-KIT':{img:'assets/photography/product/akan_p_kit.jpg'},
+  'AKAN-SILD':{img:'assets/photography/product/akan_p_sild.jpg'},
+  'AKAN-TADA':{img:'assets/photography/product/akan_p_tada.jpg',top:'Espontaneidad total'},
+  'AKAN-KITCONF':{img:'assets/photography/product/akan_p_kitconf.jpg'}
 };
 const GROUP = {'AKAN-SHAMPOO':'otc','AKAN-SUPL':'otc','AKAN-MINOX':'otc','AKAN-ESENCIAL':'cabello','AKAN-COMPLETO':'cabello','AKAN-KIT':'cabello','AKAN-SILD':'desempeno','AKAN-TADA':'desempeno','AKAN-KITCONF':'desempeno'};
 function cardOTC(p){
