@@ -69,6 +69,8 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;padding:1
 .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(27,24,18,.25)}
 .btn-green{background:var(--forest);color:var(--paper)}
 
+.hero-mini{padding:96px 0 18px;text-align:left}
+.hero-mini h1{font-family:var(--font-d);font-weight:700;font-size:clamp(26px,3.4vw,38px);letter-spacing:-.02em;margin-top:6px}
 .hero-strip{padding:140px 0 50px;text-align:center;
   background:linear-gradient(165deg,#FBF7EE 0%,#F4EDDC 100%)}
 .hero-strip h1{font-family:var(--font-d);font-weight:700;font-size:clamp(38px,6vw,72px);
@@ -198,23 +200,18 @@ section,header,.how-band{position:relative;z-index:2}
   <a href="index.html">Inicio</a>
 </div>
 
-<header class="hero-strip">
+<header class="hero-mini">
   <div class="wrap">
-    <div class="overline">La tienda AKAN</div>
-    <h1>Todo tu tratamiento,<br>en <span class="serif-i grad-text">un solo lugar.</span></h1>
-    <p>Precios claros en pesos. Pagas hoy; si el médico no aprueba tu plan, te devolvemos todo.
-      El cuidado diario se compra directo.</p>
-    <div class="cat-tabs">
-      <a href="#cabello">🌿 Cabello</a><a href="#desempeno">⚡ Desempeño</a><a href="#cuidado">🧴 Cuidado diario</a>
-    </div>
+    <span class="overline">La tienda AKAN</span>
+    <h1>Lo que necesitas, <span class="serif-i grad-text">a un toque.</span></h1>
   </div>
 </header>
 
 <div class="cat-sticky" id="catTabs">
   <div class="wrap">
-    <a href="#cabello" class="on">🌿 Cabello</a>
+    <a href="#cuidado" class="on">🧴 Cuidado diario</a>
+    <a href="#cabello">🌿 Cabello</a>
     <a href="#desempeno">⚡ Desempeño</a>
-    <a href="#cuidado">🧴 Cuidado diario</a>
     <a href="quiz.html" style="margin-left:auto;color:var(--clay)">¿No sabes? Evaluación 2 min →</a>
   </div>
 </div>
@@ -227,6 +224,49 @@ section,header,.how-band{position:relative;z-index:2}
     <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>Del click a la orden: 2 toques</span>
   </div>
 </div>
+
+<!-- CUIDADO DIARIO OTC -->
+<section class="sec" id="cuidado">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Cuidado diario <span class="serif-i grad-text">— sin receta</span></h2>
+      <div class="note">Compra directa · Sin evaluación</div>
+    </div>
+    <div class="grid">
+      <div class="prod rv">
+        <div class="ph"><span class="badge otc">Sin receta</span><img src="assets/photography/product/akan_bathroom_shelf.jpg" alt="Shampoo Ketoconazol" loading="lazy"></div>
+        <div class="body">
+          <h3>Shampoo Ketoconazol 2%</h3>
+          <div class="for">Limpia el exceso de DHT del cuero cabelludo y controla la caspa. 3 veces por semana.</div>
+          <div class="price" data-price>$349</div>
+          <button class="btn btn-green otc-add" data-code="AKAN-SHAMPOO" data-name="Shampoo Ketoconazol 2%" data-price="349" data-img="assets/photography/product/akan_bathroom_shelf.jpg" data-desc="Limpia el exceso de DHT del cuero cabelludo y controla la caspa.">Agregar al carrito →</button>
+          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
+        </div>
+      </div>
+      <div class="prod rv">
+        <div class="ph"><span class="badge otc">Sin receta</span><img src="assets/photography/product/akan_product_family.jpg" alt="Suplemento Capilar" loading="lazy"></div>
+        <div class="body">
+          <h3>Suplemento Capilar</h3>
+          <div class="for">Biotina + Zinc. El pelo nuevo nace más grueso y fuerte. 1 cápsula al día.</div>
+          <div class="price" data-price>$399</div>
+          <button class="btn btn-green otc-add" data-code="AKAN-SUPL" data-name="Suplemento Capilar" data-price="399" data-img="assets/photography/product/akan_product_family.jpg" data-desc="Biotina + Zinc. El pelo nuevo nace más grueso y fuerte.">Agregar al carrito →</button>
+          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
+        </div>
+      </div>
+      <div class="prod rv">
+        <div class="ph"><span class="badge otc">Sin receta*</span><img src="assets/premium/hero_light_products.jpg" alt="Minoxidil 5%" loading="lazy"></div>
+        <div class="body">
+          <h3>Minoxidil Tópico 5%</h3>
+          <div class="for">Reactiva el folículo y la circulación. Aplicación diaria en zonas con caída.</div>
+          <div class="price" data-price>$449</div>
+          <button class="btn btn-green otc-add" data-code="AKAN-MINOX" data-name="Minoxidil Tópico 5%" data-price="449" data-img="assets/premium/hero_light_products.jpg" data-desc="Reactiva el folículo y la circulación. Aplicación diaria en zonas con caída.">Agregar al carrito →</button>
+          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- CABELLO Rx -->
 <section class="sec" id="cabello">
@@ -300,48 +340,6 @@ section,header,.how-band{position:relative;z-index:2}
           <div class="for">Tadalafil diario + suplemento de energía y circulación. El paquete completo.</div>
           <div class="price">$899 <small>/mes · $764.15/mes en plan 3 meses</small></div>
           <a class="btn btn-ghost" href="quiz.html?plan=AKAN-KITCONF">Elegir con evaluación →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CUIDADO DIARIO OTC -->
-<section class="sec" id="cuidado">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Cuidado diario <span class="serif-i grad-text">— sin receta</span></h2>
-      <div class="note">Compra directa · Sin evaluación</div>
-    </div>
-    <div class="grid">
-      <div class="prod rv">
-        <div class="ph"><span class="badge otc">Sin receta</span><img src="assets/photography/product/akan_bathroom_shelf.jpg" alt="Shampoo Ketoconazol" loading="lazy"></div>
-        <div class="body">
-          <h3>Shampoo Ketoconazol 2%</h3>
-          <div class="for">Limpia el exceso de DHT del cuero cabelludo y controla la caspa. 3 veces por semana.</div>
-          <div class="price" data-price>$349</div>
-          <button class="btn btn-green otc-add" data-code="AKAN-SHAMPOO" data-name="Shampoo Ketoconazol 2%" data-price="349" data-img="assets/photography/product/akan_bathroom_shelf.jpg" data-desc="Limpia el exceso de DHT del cuero cabelludo y controla la caspa.">Agregar al carrito →</button>
-          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
-        </div>
-      </div>
-      <div class="prod rv">
-        <div class="ph"><span class="badge otc">Sin receta</span><img src="assets/photography/product/akan_product_family.jpg" alt="Suplemento Capilar" loading="lazy"></div>
-        <div class="body">
-          <h3>Suplemento Capilar</h3>
-          <div class="for">Biotina + Zinc. El pelo nuevo nace más grueso y fuerte. 1 cápsula al día.</div>
-          <div class="price" data-price>$399</div>
-          <button class="btn btn-green otc-add" data-code="AKAN-SUPL" data-name="Suplemento Capilar" data-price="399" data-img="assets/photography/product/akan_product_family.jpg" data-desc="Biotina + Zinc. El pelo nuevo nace más grueso y fuerte.">Agregar al carrito →</button>
-          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
-        </div>
-      </div>
-      <div class="prod rv">
-        <div class="ph"><span class="badge otc">Sin receta*</span><img src="assets/premium/hero_light_products.jpg" alt="Minoxidil 5%" loading="lazy"></div>
-        <div class="body">
-          <h3>Minoxidil Tópico 5%</h3>
-          <div class="for">Reactiva el folículo y la circulación. Aplicación diaria en zonas con caída.</div>
-          <div class="price" data-price>$449</div>
-          <button class="btn btn-green otc-add" data-code="AKAN-MINOX" data-name="Minoxidil Tópico 5%" data-price="449" data-img="assets/premium/hero_light_products.jpg" data-desc="Reactiva el folículo y la circulación. Aplicación diaria en zonas con caída.">Agregar al carrito →</button>
-          <div class="micro">Compra directa · Envío gratis en caja neutra</div>
         </div>
       </div>
     </div>
