@@ -1430,6 +1430,18 @@ const reduced2=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const w=document.getElementById('rotWord');if(!w||reduced2)return;
   const imgs=[...document.querySelectorAll('.hero-stack .hs')];
   const words=['pelo','desempeño','confianza'];let i=0;
+  /* reservar la altura de la palabra más larga para que el hero NO salte
+     cuando cambia "pelo" → "desempeño" (que empuja una línea extra) */
+  const h1=document.getElementById('heroH');
+  function lockHeight(){
+    if(!h1)return;
+    h1.style.minHeight='';
+    const orig=w.textContent;let maxH=0;
+    words.forEach(x=>{w.textContent=x;maxH=Math.max(maxH,h1.offsetHeight)});
+    w.textContent=orig;h1.style.minHeight=maxH+'px';
+  }
+  lockHeight();
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(lockHeight,200)},{passive:true});
   setInterval(()=>{
     w.classList.add('rot-out');
     setTimeout(()=>{
