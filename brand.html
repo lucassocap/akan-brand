@@ -684,19 +684,7 @@ footer .logo small{color:var(--peach)}
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="wrap foot-flex">
-    <div>
-      <div class="logo">AKAN<small>Manual de Marca</small></div>
-      <p style="margin-top:14px;max-width:320px;font-size:14px">Verde Vivo v2.1 · Junio 2026<br>
-        Identidad generada con Claude Code + Leonardo AI.</p>
-    </div>
-    <div class="foot-meta">
-      © 2026 AKAN Salud Masculina S.A. de C.V.<br>
-      <a href="index.html" style="color:var(--peach)">akan — el sitio →</a>
-    </div>
-  </div>
-</footer>
+<div id="akan-footer"></div>
 
 <script>
 if(location.search.includes('noanim'))document.documentElement.classList.add('noanim');
@@ -751,5 +739,6 @@ if(!reduced){
   m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{b.classList.remove('open');m.classList.remove('open')}));
 })();
 </script>
+<script src="assets/footer.js"></script>
 </body>
 </html>
