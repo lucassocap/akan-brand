@@ -57,3 +57,19 @@ Cambios:
 ## REGLA DE SIMPLICIDAD (la que ordena todo)
 > Comprar Rx = SIEMPRE quiz. Comprar OTC = SIEMPRE carrito. Ver mi tratamiento =
 > SIEMPRE Mi AKAN. Trabajar = SIEMPRE plataforma. Cuatro frases, cero colisiones.
+
+## LEY DE CONTINUIDAD (Lucas, jun-12): "No se puede sentir que sales y entras — debe ser smooth, como UNO"
+El cliente debe poder cruzar web ↔ /shop ↔ pago ↔ perfil sin percibir el cambio de motor. Concretamente:
+1. **Mismo header en ambos mundos**: el /shop lleva un clon del nav de la web
+   (logo AKAN → home de la web, Tienda, Mi cuenta, "Hacer mi evaluación" en pill clay,
+   mismo glass/blur) — no el header default de Odoo con teléfono y "Contáctanos".
+2. **Misma piel**: tipografías (Fraunces/Hanken vía Google Fonts en website),
+   paleta Verde Vivo, radius 26px, sombras cálidas, botones pill — pixel-parejo
+   con tienda.html.
+3. **Títulos y favicon idénticos** ("AKAN — …" + ícono A) en todas las páginas de ambos lados.
+4. **Idas y vueltas invisibles**: cada página del /shop y del portal de pago tiene
+   regreso natural a la web (logo y footer); el perfil enlaza al pago y el pago
+   regresa al perfil (return_url → perfil.html).
+5. **Cero vocabulario Odoo de cara al cliente**: nada de "Cotización", "portal",
+   "Powered by" — lenguaje AKAN siempre.
+6. Meta final (con dominio): akan.mx y tienda.akan.mx — ni la URL delata el cambio.
