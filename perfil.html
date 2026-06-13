@@ -251,19 +251,27 @@ const params = new URLSearchParams(location.search);
 let token = params.get('t') || localStorage.getItem('akan_token') || '';
 if(params.get('t')) localStorage.setItem('akan_token', params.get('t'));
 
-const STATUS = {
-  /* COBRO DE UNA: el pago ocurre al confirmar, antes del médico. Por eso
-     "pagada/revisión" es el estado típico recién creado. */
-  revision_medica:{step:3,pill:['ok','Pagado · médico revisa hoy'],msg:'Pagado ✓ Tu médico está revisando tu evaluación hoy mismo. Si no aprueba, te devolvemos todo — sin preguntas.'},
-  pago_pendiente:{step:2,pill:['go','Pagar ahora'],msg:'Tu tratamiento está apartado. Termina tu pago para que tu médico lo revise hoy.'},
-  pagada:{step:4,pill:['ok','Pagado · preparando'],msg:'Pago recibido ✓ Tu médico aprobó y tu paquete se prepara en caja neutra, sin marca.'},
-  preparando:{step:4,pill:['ok','Preparando tu caja'],msg:'Pago recibido ✓ Tu paquete se prepara en caja neutra, sin marca. Pronto tendrás tu guía.'},
-  enviada:{step:5,pill:['ok','En camino'],msg:'Tu paquete va en camino. Ni el repartidor sabe qué lleva.'},
-  entregada:{step:6,pill:['ok','Entregado'],msg:'Entregado. La constancia es todo — los resultados llegan con los meses. Aquí seguimos.'},
-  cancelada:{step:0,pill:['warn','Cancelada'],msg:'Esta orden fue cancelada. Si fue un error, te devolvemos todo. Escríbenos por WhatsApp.'}
-};
-const STEPS=['Evaluación','Médico','Pago','En camino','En tu puerta'];
-const SHIP_LABEL={delivered:['Entregado','done'],in_transit:['En camino',''],ready:['Listo para envío',''],done:['Entregado','done']};
+/* Fallback de etapa si el backend aún no manda o.stage (ventana de deploy).
+   En cuanto Odoo manda stage, esto no se usa — la verdad vive en el backend. */
+function legacyStage(o){
+  const rx=!!o.is_rx;
+  const steps=rx?['Pago','Médico','En camino','En tu puerta']
+                :['Pago','Preparando','En camino','En tu puerta'];
+  const M={
+    pago_pendiente:[1,'Falta tu pago para empezar','Pagar ahora','pay'],
+    pagada_revision:[2,'Pagado · tu médico revisa hoy','En revisión médica','review'],
+    aprobada_preparando:[3,'Aprobado · preparando tu caja','Aprobado','prep'],
+    pagada:[2,'Pagado · preparando tu caja','Preparando','prep'],
+    preparando:[2,'Preparando tu caja','Preparando','prep'],
+    enviada:[3,'En camino a tu puerta','En camino','transit'],
+    entregada:[4,'Entregado — listo','Entregado','done'],
+    reembolsada:[0,'Reembolsado al 100%','Reembolsado','refund'],
+    cancelada:[0,'Orden cancelada','Cancelada','cancel']};
+  const r=M[o.status]||[1,'Procesando tu orden','Procesando','pay'];
+  return {steps,active:r[0],label:r[1],pill:r[2],tone:r[3]};
+}
+/* claves alineadas con los estados de envío que manda Odoo */
+const SHIP_LABEL={entregado:['Entregado','done'],enviado:['En camino',''],preparando:['Preparando',''],done:['Entregado','done']};
 
 function el(h){const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild}
 const wa = t => 'https://wa.me/523398001614?text='+encodeURIComponent(t);
@@ -273,6 +281,12 @@ const fmtMx = n => Number(n||0).toLocaleString('es-MX',{minimumFractionDigits:Nu
    del cliente y formatear es-MX ("11 jun, 20:18") */
 function fmtFecha(s){
   if(!s)return'';
+  /* date-only (YYYY-MM-DD): NO aplicar zona horaria — si no, en MX (UTC-6)
+     se mostraba el día anterior. */
+  if(/^\d{4}-\d{2}-\d{2}$/.test(s)){
+    const p=s.split('-').map(Number);
+    return new Date(p[0],p[1]-1,p[2]).toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'});
+  }
   const d=new Date(s.replace(' ','T')+(s.length<=16?':00':'')+'Z');
   if(isNaN(d))return s;
   return d.toLocaleString('es-MX',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -358,24 +372,30 @@ function renderProfile(d){
   let html=`<div class="screen">
     <h1>Hola, ${first}.<br><span class="serif-i grad-text">Aquí va tu tratamiento.</span></h1>`;
   if(o){
-    const st=STATUS[o.status]||STATUS.revision_medica;
-    const fillPct=Math.min(82,Math.max(0,(st.step-1))/(STEPS.length-1)*82);
+    /* La ETAPA la computa Odoo (o.stage): steps + paso activo + label + pill +
+       tono. La web solo pinta — nunca se desincroniza. Fallback legacy por si
+       el backend aún no manda stage (ventana de deploy). */
+    const stg=o.stage||legacyStage(o);
+    const steps=stg.steps, active=stg.active||0;
+    const toneClass={pay:'go',review:'ok',prep:'ok',transit:'ok',done:'ok',refund:'warn',cancel:'warn'}[stg.tone]||'ok';
+    const fillPct=active>0?Math.min(88,Math.max(0,(active-1))/(steps.length-1)*88):0;
+    const showPay=stg.tone==='pay'&&o.payment_link;
     html+=`<div class="status-card">
       <div class="st-top">
         <div><div class="plan">${o.plan}</div><div class="ref">Orden ${o.ref}${o.cadence==='3m'?' · plan 3 meses':''}${heroNote?' · '+heroNote:''}</div></div>
-        <span class="st-pill ${st.pill[0]}">${st.pill[1]}</span>
+        <span class="st-pill ${toneClass}">${esc(stg.pill)}</span>
       </div>
       <div class="tl"><div class="fill" style="width:${fillPct}%"></div>
-        ${STEPS.map((s,i)=>`<div class="tl-step ${i+1<st.step?'done':''} ${i+1===st.step?'now':''}">
-          <div class="dot">${i+1<st.step?'✓':i+1}</div><b>${s}</b></div>`).join('')}
+        ${steps.map((s,i)=>`<div class="tl-step ${active>0&&i+1<active?'done':''} ${i+1===active?'now':''}">
+          <div class="dot">${active>0&&i+1<active?'✓':i+1}</div><b>${esc(s)}</b></div>`).join('')}
       </div>
-      <div class="st-msg ${o.status==='pago_pendiente'?'warn':''}">
+      <div class="st-msg ${stg.tone==='pay'?'warn':''}">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
-        <span>${st.msg}</span>
+        <span>${esc(stg.label)}</span>
       </div>
       <div class="pay-row">
-        ${o.status==='pago_pendiente'&&o.payment_link?`<a class="btn btn-cta" href="${o.payment_link}">Pagar mi tratamiento →</a>`:''}
-        ${o.tracking&&o.tracking.ref?`<span class="st-pill ok" style="align-self:center">Guía ${o.tracking.carrier||''} ${o.tracking.ref}</span>`:''}
+        ${showPay?`<a class="btn btn-cta" href="${o.payment_link}">Pagar mi tratamiento →</a>`:''}
+        ${o.tracking&&o.tracking.ref?`<span class="st-pill ok" style="align-self:center">Guía ${esc(o.tracking.carrier||'')} ${esc(o.tracking.ref)}</span>`:''}
         <a class="btn btn-ghost" href="${wa(`Hola AKAN 👋 soy ${d.customer.name}, tengo una duda sobre mi orden ${o.ref}.`)}">Hablar con AKAN</a>
       </div>
     </div>`;
@@ -384,8 +404,8 @@ function renderProfile(d){
     const sub=d.subscription;
     html+=`<div class="sub-card">
       <div><div class="t">Mi suscripción</div><div class="v">${esc(sub.template||sub.plan||'AKAN')}</div>
-        <small>Activa desde ${sub.since||sub.start_date||'—'} · ${esc(sub.state||'activa')}</small></div>
-      <div><div class="t">Próximo cobro</div><div class="v">${sub.next_date||sub.next_invoice||'por definir'}</div>
+        <small>Activa desde ${sub.start_date?fmtFecha(sub.start_date):(sub.since||'—')} · ${esc(sub.state||'activa')}</small></div>
+      <div><div class="t">Próximo cobro</div><div class="v">${sub.next_date?fmtFecha(sub.next_date):'por definir'}</div>
         <small><a href="${wa('Hola AKAN 👋 quiero pausar o cambiar mi suscripción.')}" style="text-decoration:underline">Pausar o cambiar →</a></small></div>
     </div>`;
   }
@@ -468,7 +488,8 @@ function renderProfile(d){
 
 /* ── tarjeta de pedido (Your Orders) ── */
 function orderCard(x,idx,customer){
-  const st=STATUS[x.status]||{pill:['neutral',x.status||'—']};
+  const stg=x.stage||legacyStage(x);
+  const ocTone={pay:'go',review:'ok',prep:'ok',transit:'ok',done:'ok',refund:'warn',cancel:'warn'}[stg.tone]||'neutral';
   const lines=x.lines||[];
   const reorderData=encodeURIComponent(JSON.stringify(lines.map(l=>({
     code:l.code||l.plan_code||'',name:l.name,price:l.price,qty:l.qty||1,image_url:l.image_url,description:l.description
@@ -493,7 +514,7 @@ function orderCard(x,idx,customer){
         <div><div class="l">Fecha</div><div class="v">${x.date?fmtFecha(x.date):'—'}</div></div>
         <div><div class="l">Total</div><div class="v">${x.amount!=null?'$'+fmtMx(x.amount):'—'}</div></div>
       </div>
-      <span class="oc-status ${st.pill[0]}">${esc(st.pill[1])}</span>
+      <span class="oc-status ${ocTone}">${esc(stg.pill)}</span>
     </div>
     <div class="oc-body">
       ${lineHtml}
@@ -582,12 +603,12 @@ function renderOffline(){
 
 async function load(){
   if(!token){renderGate('');return}
+  /* SIN pre-probe de salud: con Odoo frío ese health a 3.5s expiraba y
+     mostraba "sincronizando" aunque la plataforma estaba viva (= "no pude
+     entrar"). Vamos directo a /me con timeout amplio; solo si ESO falla,
+     offline. */
   try{
-    const h=await fetch(API_BASE+'/akan/api/health',{signal:AbortSignal.timeout(3500)}).then(r=>r.json());
-    if(!h.ok){renderOffline();return}
-  }catch(e){renderOffline();return}
-  try{
-    const r=await fetch(API_BASE+'/akan/api/me?token='+encodeURIComponent(token),{signal:AbortSignal.timeout(8000)});
+    const r=await fetch(API_BASE+'/akan/api/me?token='+encodeURIComponent(token),{signal:AbortSignal.timeout(15000)});
     const d=await r.json();
     if(d.ok)renderProfile(d);
     else renderGate('No encontramos ese código. Revísalo o entra con tu email y número de orden.');
