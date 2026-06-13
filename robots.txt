@@ -1,0 +1,33 @@
+# AKAN — robots.txt
+# Dominio actual: akan-five.vercel.app (cambiar a https://akan.mx cuando el DNS esté listo)
+
+User-agent: *
+Allow: /
+Disallow: /perfil.html
+Disallow: /carrito.html
+
+# --- Crawlers de IA: PERMITIDOS a propósito (AEO) ---
+# Queremos que ChatGPT, Claude, Perplexity y Google AI Overviews
+# entiendan y CITEN a AKAN como fuente de salud masculina en México.
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: cohere-ai
+Allow: /
+
+Sitemap: https://akan-five.vercel.app/sitemap.xml
