@@ -484,6 +484,32 @@ function renderProfile(d){
     });
   });
   initChat();
+  _lastSig=profileSig(d);
+  startStatusPoll();   /* sincronía en vivo con Odoo (sin refrescar) */
+}
+
+/* ── Sincronía en vivo: el perfil revisa Odoo y se actualiza SOLO cuando
+   cambia algo (pago confirmado, médico aprueba, farmacia despacha). Así el
+   cliente NO tiene que refrescar para ver el pago/estado. ── */
+let _lastSig='';
+function profileSig(d){
+  return (d.orders||[]).map(o=>(o.ref||'')+':'+((o.stage&&o.stage.tone)||o.status||'')+':'+((o.tracking&&o.tracking.ref)||'')).join('|')
+    +'#'+((d.subscription&&d.subscription.state)||'');
+}
+function startStatusPoll(){
+  if(window._akanPoll)clearInterval(window._akanPoll);
+  window._akanPoll=setInterval(async()=>{
+    if(!token||document.hidden)return;
+    try{
+      const r=await fetch(API_BASE+'/akan/api/me?token='+encodeURIComponent(token),{signal:AbortSignal.timeout(12000)});
+      const d=await r.json();
+      if(d.ok){
+        const sig=profileSig(d);
+        if(_lastSig&&sig!==_lastSig){renderProfile(d);}  /* re-render solo si cambió */
+        else{_lastSig=sig;}
+      }
+    }catch(e){}
+  },10000);
 }
 
 /* ── tarjeta de pedido (Your Orders) ── */
