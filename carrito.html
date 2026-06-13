@@ -296,7 +296,7 @@ async function submitCheckout(e){
   const cust={name:f.name,email:f.email,phone:f.phone,street:f.street,city:f.city,zip:f.zip,state:f.state};
   localStorage.setItem('akan_customer',JSON.stringify(cust));
   const btn=document.getElementById('payBtn');btn.disabled=true;btn.textContent='Procesando…';
-  const payload={branch:'otc',items:AkanCart.checkoutItems(),answers:[{q:'Origen',a:'Carrito OTC headless'}],
+  const payload={branch:'tienda',items:AkanCart.checkoutItems(),answers:[{q:'Origen',a:'Carrito OTC headless'}],
     customer:cust,cadence:'monthly'};
   let result=null;
   /* SIEMPRE intentamos el cobro real — flujo lineal hasta el pago. NO gateamos
