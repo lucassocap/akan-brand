@@ -644,7 +644,7 @@ function renderLead(){
       const r=await fetch(API_BASE+'/akan/api/lead',{method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({branch:S.branch||'pelo',name:f.name,email:f.email,phone:f.phone,
-          state:f.state,birthdate:f.birthdate,profile:S.answers}),
+          state:f.state,birthdate:f.birthdate,profile:S.answers,...(S.attr||{})}),
         signal:AbortSignal.timeout(12000)});
       const j=await r.json();if(j.ok)S.leadId=j.lead_id;
     }catch(e){}
@@ -927,6 +927,15 @@ document.addEventListener('focusout',e=>{
 
 /* arranque — ?plan=CODE (compra directa) | ?branch= | normal */
 const params=new URLSearchParams(location.search);
+/* Atribución (Akan Social Brain): captura cid+utm de la URL y persiste el
+   first-touch en localStorage; se reenvía en el POST /akan/api/lead para que
+   Odoo reconcilie el lead con el click/post de origen. */
+try{
+  const a={};
+  ['cid','utm_source','utm_medium','utm_campaign','utm_content'].forEach(k=>{const v=params.get(k);if(v)a[k]=v;});
+  if(a.cid){localStorage.setItem('akan_attr',JSON.stringify(a));S.attr=a;}
+  else{const saved=localStorage.getItem('akan_attr');if(saved){try{S.attr=JSON.parse(saved);}catch(e){}}}
+}catch(e){}
 if(params.get('plan')&&PLANS[params.get('plan')]){
   S.plan=params.get('plan');
   S.branch=PLANS[S.plan].branch==='desempeno'?'desempeno':'pelo';
