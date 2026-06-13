@@ -510,20 +510,30 @@ function profileSig(d){
   return (d.orders||[]).map(o=>(o.ref||'')+':'+((o.stage&&o.stage.tone)||o.status||'')+':'+((o.tracking&&o.tracking.ref)||'')).join('|')
     +'#'+((d.subscription&&d.subscription.state)||'');
 }
+async function pollOnce(){
+  if(!token)return;
+  try{
+    const r=await fetch(API_BASE+'/akan/api/me?token='+encodeURIComponent(token),{signal:AbortSignal.timeout(12000)});
+    const d=await r.json();
+    if(d.ok){
+      const sig=profileSig(d);
+      if(_lastSig&&sig!==_lastSig){renderProfile(d);}  /* re-render solo si cambió */
+      else{_lastSig=sig;}
+    }
+  }catch(e){}
+}
 function startStatusPoll(){
   if(window._akanPoll)clearInterval(window._akanPoll);
-  window._akanPoll=setInterval(async()=>{
-    if(!token||document.hidden)return;
-    try{
-      const r=await fetch(API_BASE+'/akan/api/me?token='+encodeURIComponent(token),{signal:AbortSignal.timeout(12000)});
-      const d=await r.json();
-      if(d.ok){
-        const sig=profileSig(d);
-        if(_lastSig&&sig!==_lastSig){renderProfile(d);}  /* re-render solo si cambió */
-        else{_lastSig=sig;}
-      }
-    }catch(e){}
-  },10000);
+  window._akanPoll=setInterval(()=>{if(!document.hidden)pollOnce();},8000);
+  /* CLAVE: apenas el cliente VUELVE a la pestaña/página (p.ej. tras pagar en
+     el portal de Odoo), refrescamos AL INSTANTE — sin esperar el intervalo.
+     Se enlaza una sola vez. */
+  if(!window._akanVisBound){
+    window._akanVisBound=true;
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden&&token)pollOnce();});
+    window.addEventListener('pageshow',()=>{if(token)pollOnce();});
+    window.addEventListener('focus',()=>{if(token)pollOnce();});
+  }
 }
 
 /* ── tarjeta de pedido (Your Orders) ── */
