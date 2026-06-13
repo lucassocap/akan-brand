@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AKAN — Tratamiento Médico para Caída de Cabello | México</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
 <meta name="description" content="Tratamiento médico real para caída de cabello. Evaluación en 3 minutos. Médicos mexicanos con cédula. Entrega discreta a tu puerta. Confidencial. Sin filas.">
 <meta property="og:title" content="AKAN — Confidencial. Sin filas. A tu puerta.">
 <meta property="og:description" content="Tratamiento médico para caída de cabello. Evaluación gratuita en 3 minutos. Médicos con cédula. Entrega discreta a todo México.">
@@ -69,9 +73,11 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;
   padding:14px 24px;max-width:1280px;margin:0 auto}
 @media(min-width:768px){nav .bar{padding:16px 48px}}
 .logo{font-family:var(--font-d);font-weight:700;font-size:25px;letter-spacing:.04em;color:var(--forest)}
-.nav-links{display:none;gap:34px;font-weight:600;font-size:15px}
+.nav-links{display:none;align-items:center;gap:28px;font-weight:600;font-size:15px}
 .nav-links a{opacity:.78;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
+#navAccount{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.12;opacity:1}
+#navAccount .acct-name{font-size:11.5px;font-weight:700;color:var(--jade);margin-top:1px}
 @media(min-width:1024px){.nav-links{display:flex}}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-b);font-weight:600;
   font-size:16px;letter-spacing:.01em;padding:16px 34px;border-radius:var(--r-pill);
@@ -708,7 +714,7 @@ footer ul a:hover{color:var(--paper)}
       <a href="#como">Cómo funciona</a>
       <a href="#medicos">Médicos</a>
       <a href="tienda.html" class="nav-shop"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>Tienda</a>
-      <a href="perfil.html">Mi cuenta</a>
+      <a href="perfil.html" id="navAccount">Mi cuenta<small class="acct-name" hidden></small></a>
     </div>
     <div class="nav-actions">
       <span id="cartSlot"></span>
@@ -1512,6 +1518,15 @@ if(matchMedia('(pointer:fine) and (min-width:1024px)').matches&&!reduced2){
   if(!b||!m)return;
   b.addEventListener('click',()=>{b.classList.toggle('open');m.classList.toggle('open')});
   m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{b.classList.remove('open');m.classList.remove('open')}));
+})();
+/* Si el cliente está logueado, muestra su nombre bajo "Mi cuenta" */
+(function(){
+  try{
+    var n=(localStorage.getItem('akan_name')||'').trim();
+    var t=localStorage.getItem('akan_token');
+    if(n&&t){var s=document.querySelector('#navAccount .acct-name');
+      if(s){s.textContent=n.split(' ')[0];s.hidden=false;}}
+  }catch(e){}
 })();
 </script>
 <script src="assets/footer.js"></script>
