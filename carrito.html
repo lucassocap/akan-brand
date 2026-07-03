@@ -315,13 +315,53 @@ async function submitCheckout(e){
     result=await r.json();
   }catch(err){result=null}
   if(!result||!result.ok){
-    /* sin plataforma: guardamos pendiente y coordinamos por WhatsApp */
+    /* La plataforma no respondió: guardamos el pedido para reintentar y lo
+       decimos HONESTAMENTE (no hubo cargo, no existe orden todavía). El
+       carrito NO se vacía: nada se pierde. */
     const pend=JSON.parse(localStorage.getItem('akan_pending')||'[]');
-    pend.push({...payload,ts:Date.now()});localStorage.setItem('akan_pending',JSON.stringify(pend));
-    result={ok:true,order:'AKAN-'+String(Date.now()).slice(-6),fallback:true};
+    pend.push({...payload,ts:Date.now()});
+    localStorage.setItem('akan_pending',JSON.stringify(pend));
+    renderCheckoutFailed(cust);
+    return;
   }
+  localStorage.removeItem('akan_pending');
   if(result.profile_token)localStorage.setItem('akan_token',result.profile_token);
   finishCheckout(result,cust);
+}
+
+function renderCheckoutFailed(cust){
+  view='failed';
+  const waTxt=`Hola AKAN 👋 Soy ${cust.name}. Intenté hacer mi pedido de tienda pero la página no pudo procesarlo. ¿Me ayudan a completarlo?`;
+  app.innerHTML='';
+  app.appendChild(el(`<div class="screen" style="text-align:center">
+    <div class="q-overline">No se hizo ningún cargo</div>
+    <h1>No pudimos procesar<br><span class="serif-i grad-text">tu pedido.</span></h1>
+    <p class="sub" style="max-width:460px;margin:14px auto 0">Tu carrito y tus datos quedaron guardados en este navegador. Reintenta en un momento o escríbenos y lo terminamos por WhatsApp — <strong>aún no se te cobró nada</strong>.</p>
+    <button class="btn btn-cta" id="retryPending" style="margin-top:26px;max-width:360px;margin-left:auto;margin-right:auto">Reintentar ahora →</button>
+    <a class="btn btn-ghost" style="margin-top:12px;max-width:360px;margin-left:auto;margin-right:auto" href="${wa(waTxt)}">Terminar por WhatsApp →</a>
+  </div>`));
+  document.getElementById('retryPending').addEventListener('click',retryPending);
+  scrollTo({top:0,behavior:'instant'});
+}
+
+async function retryPending(){
+  const pend=JSON.parse(localStorage.getItem('akan_pending')||'[]');
+  if(!pend.length){renderCart();return}
+  const payload=pend[pend.length-1];
+  const btn=document.getElementById('retryPending');
+  if(btn){btn.disabled=true;btn.textContent='Reintentando…'}
+  let result=null;
+  try{
+    const r=await fetch(API_BASE+'/akan/api/checkout',{method:'POST',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),
+      signal:AbortSignal.timeout(15000)});
+    result=await r.json();
+  }catch(err){result=null}
+  if(result&&result.ok){
+    localStorage.removeItem('akan_pending');
+    if(result.profile_token)localStorage.setItem('akan_token',result.profile_token);
+    finishCheckout(result,payload.customer||{name:'—'});
+  }else if(btn){btn.disabled=false;btn.textContent='Reintentar ahora →'}
 }
 
 function finishCheckout(result,cust){

@@ -516,9 +516,17 @@ const ART = {
   'AKAN-TADA':{img:'assets/photography/product/akan_p_tada.jpg',top:'Espontaneidad total'},
   'AKAN-KITCONF':{img:'assets/photography/product/akan_p_kitconf.jpg'}
 };
+/* GROUP = colocación curada de los códigos conocidos. Un producto NUEVO en
+   Odoo que no esté acá NO desaparece: cae a la grilla por is_rx/category del
+   API (OTC → otc; Rx → desempeño si su categoría lo dice, si no cabello). */
 const GROUP = {'AKAN-SHAMPOO':'otc','AKAN-SUPL':'otc','AKAN-MINOX':'otc','AKAN-ESENCIAL':'cabello','AKAN-COMPLETO':'cabello','AKAN-KIT':'cabello','AKAN-SILD':'desempeno','AKAN-TADA':'desempeno','AKAN-KITCONF':'desempeno'};
+function groupOf(x){
+  if(GROUP[x.code])return GROUP[x.code];
+  if(!x.is_rx)return 'otc';
+  return /desem|sexual|ed\b/i.test(String(x.category||''))?'desempeno':'cabello';
+}
 function cardOTC(p){
-  const art=ART[p.code]||{}, img=art.img||p.image_url||'', out=p.in_stock===false;
+  const art=ART[p.code]||{}, img=p.image_url||art.img||'', out=p.in_stock===false;
   return '<div class="prod"><div class="ph"><span class="badge otc">Sin receta</span>'+
     '<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy"></div><div class="body">'+
     '<h3>'+esc(p.name)+'</h3><div class="for">'+esc(p.description)+'</div>'+
@@ -528,7 +536,7 @@ function cardOTC(p){
     '<div class="micro">Compra directa · Envío gratis en caja neutra</div></div></div>';
 }
 function cardRx(p){
-  const art=ART[p.code]||{}, img=art.img||p.image_url||'', tres=Math.round(p.price*0.85);
+  const art=ART[p.code]||{}, img=p.image_url||art.img||'', tres=Math.round(p.price*0.85);
   const badge=art.top?'<span class="badge top">'+esc(art.top)+'</span>':'<span class="badge rx">Rx · Receta</span>';
   const cta=art.top?'btn-cta':'btn-ghost';
   return '<div class="prod"><div class="ph">'+badge+'<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy"></div>'+
@@ -546,7 +554,7 @@ function loadCatalog(){
       const items=(d&&d.products)||d;
       if(!Array.isArray(items)||!items.length)throw new Error('vacio');
       const g={otc:[],cabello:[],desempeno:[]};
-      items.forEach(x=>{const k=GROUP[x.code]; if(k)g[k].push(x);});
+      items.forEach(x=>{g[groupOf(x)].push(x);});
       fillGrid('grid-otc',g.otc,cardOTC);
       fillGrid('grid-cabello',g.cabello,cardRx);
       fillGrid('grid-desempeno',g.desempeno,cardRx);
