@@ -551,8 +551,13 @@ function fillGrid(id,arr,fn){
 function loadCatalog(){
   fetch(API_BASE+'/akan/api/products',{signal:AbortSignal.timeout(8000)})
     .then(r=>r.json()).then(d=>{
-      const items=(d&&d.products)||d;
-      if(!Array.isArray(items)||!items.length)throw new Error('vacio');
+      let items=(d&&d.products)||d;
+      if(!Array.isArray(items))throw new Error('vacio');
+      /* Filtro de marca: el Odoo es compartido con Itzá (marca hermana). Hasta
+         que ?brand=akan esté desplegado en el API, excluimos su prefijo aquí —
+         espejo exacto del filtro de itza-brand (que solo toma ITZA-). */
+      items=items.filter(x=>!String(x.code||'').toUpperCase().startsWith('ITZA-'));
+      if(!items.length)throw new Error('vacio');
       const g={otc:[],cabello:[],desempeno:[]};
       items.forEach(x=>{g[groupOf(x)].push(x);});
       fillGrid('grid-otc',g.otc,cardOTC);
