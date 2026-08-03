@@ -866,20 +866,22 @@ function renderDone(result,cust){
   }
   const waText=encodeURIComponent(isConsulta
     ?`Hola AKAN 👋 Soy ${cust.name}. Pedí mi Consulta Médica de Valoración gratuita (orden ${result.order}). Quedo pendiente para agendar la videollamada.`
-    :`Hola AKAN 👋 Soy ${cust.name}. Completé mi evaluación y pagué mi orden ${result.order} (${p.name}). Quedo pendiente de la revisión del médico.`);
+    :(result.fallback?`Hola AKAN 👋 Soy ${cust.name}. Completé mi evaluación (${p.name}) pero el pago en línea no se pudo procesar — mi referencia es ${result.order}. ¿Me ayudan a completar mi pedido?`:`Hola AKAN 👋 Soy ${cust.name}. Completé mi evaluación y pagué mi orden ${result.order} (${p.name}). Quedo pendiente de la revisión del médico.`));
   const payPill=isConsulta
     ?'<span style="display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:var(--forest);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Sin costo — no hay nada que pagar</span>'
-    :'<span style="display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:var(--forest);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pagado · tu médico revisa hoy</span>';
+    :(result.fallback?'<span style="display:inline-flex;align-items:center;gap:7px;background:#FFF2D9;color:#9A6B1F;font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Sin cargos todavía — te contactamos para completar tu pedido</span>':'<span style="display:inline-flex;align-items:center;gap:7px;background:var(--sage);color:var(--forest);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px">● Pagado · tu médico revisa hoy</span>');
   const timeline=isConsulta
     ?`<div class="tl-item"><b>Hoy — Te escribimos por WhatsApp</b><span>Para coordinar el día y la hora de tu videollamada con el médico.</span></div>
       <div class="tl-item dim"><b>Videollamada de valoración (15 min)</b><span>Confidencial. El médico revisa tu caso completo, con calma.</span></div>
       <div class="tl-item dim"><b>Sales con un plan seguro para ti</b><span>Sin costo y sin compromiso. Nada se envía ni se cobra sin tu ok.</span></div>`
-    :`<div class="tl-item"><b>Hoy — Pagado ✓ Tu médico revisa tu evaluación</b><span>Un médico con cédula valora tu caso hoy mismo. Si no aprueba, te devolvemos todo — sin preguntas.</span></div>
+    :(result.fallback?`<div class="tl-item"><b>Hoy — Recibimos tu evaluación (no se hizo ningún cargo)</b><span>Hubo un detalle técnico al conectar con el pago. Tu evaluación quedó guardada en este navegador.</span></div>
+      <div class="tl-item dim"><b>Te escribimos por WhatsApp para completar tu pedido</b><span>O tócanos tú con el botón de abajo — 1 minuto y listo.</span></div>
+      <div class="tl-item dim"><b>Médico → caja neutra → tu puerta</b><span>Todo igual de confidencial. Si el médico no aprueba, no pagas nada.</span></div>`:`<div class="tl-item"><b>Hoy — Pagado ✓ Tu médico revisa tu evaluación</b><span>Un médico con cédula valora tu caso hoy mismo. Si no aprueba, te devolvemos todo — sin preguntas.</span></div>
       <div class="tl-item dim"><b>Aprobado → preparamos tu caja</b><span>En cuanto el médico aprueba, tu paquete se arma en caja neutra.</span></div>
-      <div class="tl-item dim"><b>24-72h — En tu puerta</b><span>Caja neutra, sin marca. Confidencial de inicio a fin.</span></div>`;
+      <div class="tl-item dim"><b>24-72h — En tu puerta</b><span>Caja neutra, sin marca. Confidencial de inicio a fin.</span></div>`);
   screens.innerHTML=`<div class="screen on" style="text-align:center">
     <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
-    <div class="q-overline">${isConsulta?'Consulta solicitada':'Orden recibida'}</div>
+    <div class="q-overline">${isConsulta?'Consulta solicitada':(result.fallback?'Evaluación guardada — pago pendiente':'Orden recibida')}</div>
     <h1 class="q-title">Listo, ${cust.name.split(' ')[0]}.<br>${isConsulta?'Tu consulta está <span class="serif-i grad-text">en marcha.</span>':'Lo difícil <span class="serif-i grad-text">ya pasó.</span>'}</h1>
     <div class="order-ref">${result.order}</div>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px">
