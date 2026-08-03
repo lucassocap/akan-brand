@@ -27,7 +27,15 @@
   };
 
   function read() {
-    try { var v = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : []; }
+    try {
+      var v = JSON.parse(localStorage.getItem(KEY) || '[]');
+      if (!Array.isArray(v)) return [];
+      /* purga defensiva: productos Itzá (marca hermana, mismo Odoo) que se
+         hayan colado al carrito durante la ventana sin filtro de marca */
+      return v.filter(function (it) {
+        return !String((it && it.code) || '').toUpperCase().startsWith('ITZA-');
+      });
+    }
     catch (e) { return []; }
   }
   function write(items) {
