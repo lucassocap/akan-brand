@@ -663,6 +663,15 @@ footer ul a:hover{color:var(--paper)}
 .mnav a small{font-weight:500;font-size:13px;color:var(--ink-soft)}
 .mnav a:last-child{border-bottom:none}
 .mnav .hl{color:var(--clay)}
+.stickycta{display:none}
+@media(max-width:760px){
+  .stickycta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:80;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    background:color-mix(in srgb,var(--paper) 92%,transparent);
+    backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .stickycta .btn{display:block;width:100%;text-align:center}
+  footer{padding-bottom:96px}
+}
 </style>
 <link rel="preload" as="image" href="assets/premium/hero_light_products.jpg">
 <script type="application/ld+json">
@@ -1619,6 +1628,7 @@ if(matchMedia('(pointer:fine) and (min-width:1024px)').matches&&!reduced2){
   }catch(e){}
 })();
 </script>
+<div class="stickycta"><a class="btn btn-cta" href="quiz.html">Hacer mi evaluación (2 min) →</a></div>
 <script src="assets/footer.js"></script>
 </body>
 </html>
