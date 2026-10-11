@@ -1,5 +1,5 @@
 # AKAN — robots.txt
-# Dominio actual: akan-five.vercel.app (cambiar a https://akan.mx cuando el DNS esté listo)
+# Dominio: https://soyakan.com (alias de Vercel: akan-five.vercel.app)
 
 User-agent: *
 Allow: /
@@ -30,4 +30,4 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-Sitemap: https://akan-five.vercel.app/sitemap.xml
+Sitemap: https://soyakan.com/sitemap.xml
