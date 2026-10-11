@@ -1564,9 +1564,11 @@ const reduced2=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* sticky CTA móvil */
 (function(){
   const m=document.getElementById('mcta');if(!m)return;
-  const foot=document.querySelector('footer');
+  /* el footer es #akan-footer (footer.js), no un <footer>: sin esto cada
+     scroll lanzaba un TypeError en consola */
+  const foot=document.getElementById('akan-footer')||document.querySelector('footer');
   addEventListener('scroll',()=>{
-    const nearFoot=foot.getBoundingClientRect().top<innerHeight+80;
+    const nearFoot=!!foot&&foot.getBoundingClientRect().top<innerHeight+80;
     m.classList.toggle('show',scrollY>innerHeight*0.85&&!nearFoot);
   },{passive:true});
 })();
