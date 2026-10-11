@@ -51,7 +51,8 @@ html{scroll-behavior:smooth}
 body{font-family:var(--font-b);background:var(--paper);color:var(--ink);
   -webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:17px;line-height:1.6}
 ::selection{background:var(--clay);color:var(--paper)}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
+:focus-visible{outline:3px solid var(--jade);outline-offset:2px}
 a{color:inherit;text-decoration:none}
 
 /* ── Tipografía ── */
@@ -109,7 +110,7 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;
 .nav-shop svg{width:16px;height:16px;stroke:var(--forest);flex:none}
 [data-nav="dark"] .nav-shop{background:rgba(168,220,192,.16);color:var(--paper)!important;border-color:rgba(168,220,192,.4)}
 [data-nav="dark"] .nav-shop svg{stroke:var(--paper)}
-.akan-cart-btn{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);
+.akan-cart-btn{position:relative;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);
   background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--ease)}
 .akan-cart-btn:hover{border-color:var(--jade)}
 .akan-cart-btn svg{width:20px;height:20px;stroke:var(--ink)}
@@ -435,6 +436,8 @@ footer ul a:hover{color:var(--paper)}
   font-size:14.5px;font-weight:600;opacity:1!important}
 .dd a:hover{background:var(--sage)}
 .dd a em{font-style:normal;color:var(--ink-soft);font-weight:500}
+.dd a[data-item]{flex-direction:column;gap:4px}
+.dd a[data-item] em{color:var(--clay);font-weight:700}
 .dd .dd-quiz{flex-direction:column;align-items:flex-start;gap:3px;background:var(--paper-deep);
   border:1px solid var(--sand);margin-bottom:8px}
 .dd .dd-quiz b{color:var(--clay)}
@@ -656,7 +659,7 @@ footer ul a:hover{color:var(--paper)}
 
 
 /* menú móvil */
-.burger{display:flex;flex-direction:column;gap:5px;width:42px;height:42px;border-radius:50%;
+.burger{display:flex;flex-direction:column;gap:5px;width:44px;height:44px;border-radius:50%;
   border:1.5px solid var(--line);background:var(--card);align-items:center;justify-content:center;
   cursor:pointer;flex-shrink:0}
 .burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s var(--ease)}
@@ -862,10 +865,10 @@ footer ul a:hover{color:var(--paper)}
   <div class="blob"></div>
   <div class="blob2"></div>
   <!-- elementos Leonardo vivos -->
-  <div class="sprite s-float" data-depth="28" style="top:13%;left:55%;width:clamp(54px,6vw,96px)"><img src="assets/elements/bubble_amber.png" alt=""></div>
-  <div class="sprite s-sway" data-depth="14" style="top:6%;left:3%;width:clamp(80px,9vw,150px);opacity:.9"><img src="assets/elements/leaf_eucalyptus.png" alt=""></div>
-  <div class="sprite s-float2" data-depth="40" style="bottom:10%;left:42%;width:clamp(40px,4.4vw,72px)"><img src="assets/elements/drop_gold.png" alt=""></div>
-  <div class="sprite s-float2" data-depth="20" style="top:48%;left:-30px;width:clamp(70px,8vw,130px);opacity:.85;transform:rotate(120deg)"><img src="assets/elements/leaf_monstera.png" alt=""></div>
+  <div class="sprite s-float" data-depth="28" style="top:13%;left:55%;width:clamp(54px,6vw,96px)"><img src="assets/elements/bubble_amber.png" alt="" width="640" height="640"></div>
+  <div class="sprite s-sway" data-depth="14" style="top:6%;left:3%;width:clamp(80px,9vw,150px);opacity:.9"><img src="assets/elements/leaf_eucalyptus.png" alt="" width="640" height="640"></div>
+  <div class="sprite s-float2" data-depth="40" style="bottom:10%;left:42%;width:clamp(40px,4.4vw,72px)"><img src="assets/elements/drop_gold.png" alt="" width="640" height="640"></div>
+  <div class="sprite s-float2" data-depth="20" style="top:48%;left:-30px;width:clamp(70px,8vw,130px);opacity:.85;transform:rotate(120deg)"><img src="assets/elements/leaf_monstera.png" alt="" width="640" height="640"></div>
   <div class="wrap hero-grid">
     <div class="hero-copy rv-l in-init">
       <div class="overline">La plataforma de salud del hombre mexicano</div>
@@ -890,9 +893,9 @@ footer ul a:hover{color:var(--paper)}
     </div>
     <div class="hero-img-wrap rv-r in-init">
       <div class="hero-img hero-stack" id="heroImg">
-        <img class="hs hs-on" src="assets/premium/hero_light_products.jpg" alt="Tratamiento capilar AKAN" fetchpriority="high">
-        <img class="hs" src="assets/premium/hombre_confianza.jpg" alt="Desempeño sexual AKAN" loading="lazy">
-        <img class="hs" src="assets/premium/pareja_manana.jpg" alt="Confianza AKAN" loading="lazy">
+        <img class="hs hs-on" src="assets/premium/hero_light_products.jpg" alt="Tratamiento capilar AKAN" fetchpriority="high" width="1312" height="736">
+        <img class="hs" src="assets/premium/hombre_confianza.jpg" alt="Desempeño sexual AKAN" loading="lazy" width="1600" height="1600">
+        <img class="hs" src="assets/premium/pareja_manana.jpg" alt="Confianza AKAN" loading="lazy" width="1600" height="1165">
       </div>
       <div class="pill-float" style="top:8%;left:-26px;animation-delay:.4s">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
@@ -912,13 +915,13 @@ footer ul a:hover{color:var(--paper)}
   <div class="wrap">
     <div class="cat-cards stagger in-init">
       <a class="cat-card" href="quiz.html?branch=pelo">
-        <img src="assets/premium/hero_light_products.jpg" alt="Tratamiento capilar AKAN" loading="lazy">
+        <img src="assets/premium/hero_light_products.jpg" alt="Tratamiento capilar AKAN" loading="lazy" width="1312" height="736">
         <div class="cc-body"><div class="overline" style="margin-bottom:6px">Caída de cabello</div>
           <h3>Consérvalo. Recupéralo.</h3>
           <span class="cc-arrow">Empezar evaluación →</span></div>
       </a>
       <a class="cat-card" href="quiz.html?branch=desempeno">
-        <img src="assets/premium/hombre_confianza.jpg" alt="Desempeño sexual AKAN" loading="lazy">
+        <img src="assets/premium/hombre_confianza.jpg" alt="Desempeño sexual AKAN" loading="lazy" width="1600" height="1600">
         <div class="cc-body"><div class="overline" style="margin-bottom:6px">Desempeño sexual</div>
           <h3>Confianza, de vuelta.</h3>
           <span class="cc-arrow">Empezar evaluación →</span></div>
@@ -1047,8 +1050,8 @@ footer ul a:hover{color:var(--paper)}
 
 <!-- ═══ QUIZ PATRÓN ═══ -->
 <section class="section-pad quiz-band" id="quiz" style="overflow:hidden">
-  <div class="sprite s-float" style="top:10%;right:4%;width:clamp(44px,5vw,76px);opacity:.75"><img src="assets/elements/bubble_amber.png" alt="" loading="lazy"></div>
-  <div class="sprite s-float2" style="bottom:12%;left:3%;width:clamp(36px,4vw,60px);opacity:.7"><img src="assets/elements/drop_gold.png" alt="" loading="lazy"></div>
+  <div class="sprite s-float" style="top:10%;right:4%;width:clamp(44px,5vw,76px);opacity:.75"><img src="assets/elements/bubble_amber.png" alt="" loading="lazy" width="640" height="640"></div>
+  <div class="sprite s-float2" style="bottom:12%;left:3%;width:clamp(36px,4vw,60px);opacity:.7"><img src="assets/elements/drop_gold.png" alt="" loading="lazy" width="640" height="640"></div>
   <div class="wrap">
     <div class="rv" style="max-width:720px">
       <div class="overline">Empieza por aquí</div>
@@ -1087,11 +1090,11 @@ footer ul a:hover{color:var(--paper)}
 
 <!-- ═══ CIENCIA ═══ -->
 <section class="section-pad science" id="ciencia" style="overflow:hidden">
-  <div class="sprite s-sway" style="top:-30px;right:-44px;width:clamp(130px,15vw,240px);opacity:.55;transform:rotate(165deg)"><img src="assets/elements/leaf_monstera.png" alt="" loading="lazy"></div>
-  <div class="sprite s-float" style="bottom:6%;left:-36px;width:clamp(90px,10vw,170px);opacity:.5"><img src="assets/elements/leaf_eucalyptus.png" alt="" loading="lazy"></div>
+  <div class="sprite s-sway" style="top:-30px;right:-44px;width:clamp(130px,15vw,240px);opacity:.55;transform:rotate(165deg)"><img src="assets/elements/leaf_monstera.png" alt="" loading="lazy" width="640" height="640"></div>
+  <div class="sprite s-float" style="bottom:6%;left:-36px;width:clamp(90px,10vw,170px);opacity:.5"><img src="assets/elements/leaf_eucalyptus.png" alt="" loading="lazy" width="640" height="640"></div>
   <div class="wrap science-grid">
     <div class="science-img rv-l annot-fig">
-      <img src="assets/premium/hero_light_products.jpg" alt="Tratamiento AKAN" loading="lazy">
+      <img src="assets/premium/hero_light_products.jpg" alt="Tratamiento AKAN" loading="lazy" width="1312" height="736">
       <div class="callout c1"><span class="dot"></span><div class="chip"><b>Valoración médica</b>Tratamiento solo si procede</div></div>
       <div class="callout c2"><span class="dot"></span><div class="chip"><b>Minoxidil 5%</b>Cuidado diario sin receta</div></div>
       <div class="callout c3"><span class="dot"></span><div class="chip"><b>Biotina + Zinc</b>Suplemento capilar</div></div>
@@ -1138,8 +1141,8 @@ footer ul a:hover{color:var(--paper)}
 
 <!-- ═══ PLANES ═══ -->
 <section class="section-pad" id="planes" style="overflow:hidden">
-  <div class="sprite s-sway" style="top:6%;right:-26px;width:clamp(80px,9vw,140px);opacity:.55"><img src="assets/elements/leaf_eucalyptus.png" alt="" loading="lazy"></div>
-  <div class="sprite s-float" style="bottom:8%;left:-18px;width:clamp(50px,6vw,90px);opacity:.6"><img src="assets/elements/capsule_green.png" alt="" loading="lazy"></div>
+  <div class="sprite s-sway" style="top:6%;right:-26px;width:clamp(80px,9vw,140px);opacity:.55"><img src="assets/elements/leaf_eucalyptus.png" alt="" loading="lazy" width="640" height="640"></div>
+  <div class="sprite s-float" style="bottom:8%;left:-18px;width:clamp(50px,6vw,90px);opacity:.6"><img src="assets/elements/capsule_green.png" alt="" loading="lazy" width="640" height="640"></div>
   <div class="wrap">
     <div class="rv" style="max-width:700px;margin:0 auto;text-align:center">
       <div class="overline">Tratamientos</div>
@@ -1187,10 +1190,10 @@ footer ul a:hover{color:var(--paper)}
       <p class="lead" style="color:var(--ink-soft);margin-top:18px">Pero nadie tiene por qué saberlo.</p>
     </div>
     <div class="bento">
-      <div class="bento-cell b-tall rv"><img src="assets/photography/product/akan_product_family.jpg" alt="Familia de productos AKAN" loading="lazy"><div class="cap">La familia completa</div></div>
-      <div class="bento-cell rv"><img src="assets/photography/product/akan_bathroom_shelf.jpg" alt="AKAN en tu baño" loading="lazy"><div class="cap">Hecho para tu repisa</div></div>
-      <div class="bento-cell rv"><img src="assets/premium/unboxing_neutral.jpg" alt="Unboxing AKAN discreto" loading="lazy"><div class="cap">Caja neutra, sin marca</div></div>
-      <div class="bento-cell b-wide rv"><img src="assets/photography/lifestyle_v2/grooming_mirror_fresa.jpg" alt="Ritual AKAN" loading="lazy"><div class="cap">Un ritual de 60 segundos al día</div></div>
+      <div class="bento-cell b-tall rv"><img src="assets/photography/product/akan_product_family.jpg" alt="Familia de productos AKAN" loading="lazy" width="1600" height="888"><div class="cap">La familia completa</div></div>
+      <div class="bento-cell rv"><img src="assets/photography/product/akan_bathroom_shelf.jpg" alt="AKAN en tu baño" loading="lazy" width="1600" height="1600"><div class="cap">Hecho para tu repisa</div></div>
+      <div class="bento-cell rv"><img src="assets/premium/unboxing_neutral.jpg" alt="Unboxing AKAN discreto" loading="lazy" width="1600" height="1094"><div class="cap">Caja neutra, sin marca</div></div>
+      <div class="bento-cell b-wide rv"><img src="assets/photography/lifestyle_v2/grooming_mirror_fresa.jpg" alt="Ritual AKAN" loading="lazy" width="1600" height="1600"><div class="cap">Un ritual de 60 segundos al día</div></div>
     </div>
     <div class="discreet-list rv">
       <div class="discreet-pill"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/></svg>Caja neutra, sin marca visible</div>
@@ -1202,8 +1205,8 @@ footer ul a:hover{color:var(--paper)}
 
 <!-- ═══ DESEMPEÑO ═══ -->
 <section class="section-pad" id="desempeno" style="background:var(--paper-deep);overflow:hidden">
-  <div class="sprite s-float" style="top:8%;right:-20px;width:clamp(60px,7vw,110px);opacity:.7"><img src="assets/elements/capsule_green.png" alt="" loading="lazy"></div>
-  <div class="sprite s-sway" style="bottom:5%;left:-30px;width:clamp(90px,10vw,160px);opacity:.5"><img src="assets/elements/leaf_agave.png" alt="" loading="lazy"></div>
+  <div class="sprite s-float" style="top:8%;right:-20px;width:clamp(60px,7vw,110px);opacity:.7"><img src="assets/elements/capsule_green.png" alt="" loading="lazy" width="640" height="640"></div>
+  <div class="sprite s-sway" style="bottom:5%;left:-30px;width:clamp(90px,10vw,160px);opacity:.5"><img src="assets/elements/leaf_agave.png" alt="" loading="lazy" width="640" height="640"></div>
   <div class="wrap">
     <div class="rv" style="max-width:760px">
       <div class="overline">Desempeño sexual</div>
@@ -1212,8 +1215,8 @@ footer ul a:hover{color:var(--paper)}
         Un médico valora tu caso y, solo si procede, te indica un tratamiento. 100% confidencial.</p>
     </div>
     <div class="dz-photos stagger">
-      <div class="dz-ph"><img src="assets/premium/pareja_manana.jpg" alt="" loading="lazy"></div>
-      <div class="dz-ph"><img src="assets/premium/hombre_confianza.jpg" alt="" loading="lazy"></div>
+      <div class="dz-ph"><img src="assets/premium/pareja_manana.jpg" alt="" loading="lazy" width="1600" height="1165"></div>
+      <div class="dz-ph"><img src="assets/premium/hombre_confianza.jpg" alt="" loading="lazy" width="1600" height="1600"></div>
       <div class="dz-stat rv"><b>5</b><span>preguntas confidenciales y un médico con cédula revisa tu caso</span></div>
     </div>
     <div class="plans one stagger">
@@ -1305,8 +1308,8 @@ footer ul a:hover{color:var(--paper)}
 
 <!-- ═══ TESTIMONIOS ═══ -->
 <section class="section-pad" id="testimonios" style="overflow:hidden">
-  <div class="sprite s-float2" style="top:12%;right:2%;width:clamp(40px,4.6vw,70px);opacity:.65"><img src="assets/elements/drop_gold.png" alt="" loading="lazy"></div>
-  <div class="sprite s-sway" style="bottom:6%;left:-24px;width:clamp(70px,8vw,120px);opacity:.5;transform:rotate(40deg)"><img src="assets/elements/leaf_agave.png" alt="" loading="lazy"></div>
+  <div class="sprite s-float2" style="top:12%;right:2%;width:clamp(40px,4.6vw,70px);opacity:.65"><img src="assets/elements/drop_gold.png" alt="" loading="lazy" width="640" height="640"></div>
+  <div class="sprite s-sway" style="bottom:6%;left:-24px;width:clamp(70px,8vw,120px);opacity:.5;transform:rotate(40deg)"><img src="assets/elements/leaf_agave.png" alt="" loading="lazy" width="640" height="640"></div>
   <div class="wrap">
     <div class="rv" style="max-width:680px">
       <div class="overline">Por qué confiar</div>
@@ -1358,11 +1361,11 @@ footer ul a:hover{color:var(--paper)}
 <section class="section-pad final" style="overflow:hidden">
   <div class="blob3"></div>
   <!-- burbujas Leonardo ascendentes -->
-  <div class="rise" style="left:8%;width:64px;animation-duration:16s;animation-delay:0s"><img src="assets/elements/bubble_amber.png" alt=""></div>
-  <div class="rise" style="left:22%;width:36px;animation-duration:21s;animation-delay:5s"><img src="assets/elements/drop_gold.png" alt=""></div>
-  <div class="rise" style="left:55%;width:48px;animation-duration:18s;animation-delay:9s"><img src="assets/elements/bubble_amber.png" alt=""></div>
-  <div class="rise" style="left:74%;width:88px;animation-duration:14s;animation-delay:3s"><img src="assets/elements/bubble_amber.png" alt=""></div>
-  <div class="rise" style="left:88%;width:42px;animation-duration:23s;animation-delay:12s"><img src="assets/elements/drop_gold.png" alt=""></div>
+  <div class="rise" style="left:8%;width:64px;animation-duration:16s;animation-delay:0s"><img src="assets/elements/bubble_amber.png" alt="" width="640" height="640" loading="lazy"></div>
+  <div class="rise" style="left:22%;width:36px;animation-duration:21s;animation-delay:5s"><img src="assets/elements/drop_gold.png" alt="" width="640" height="640" loading="lazy"></div>
+  <div class="rise" style="left:55%;width:48px;animation-duration:18s;animation-delay:9s"><img src="assets/elements/bubble_amber.png" alt="" width="640" height="640" loading="lazy"></div>
+  <div class="rise" style="left:74%;width:88px;animation-duration:14s;animation-delay:3s"><img src="assets/elements/bubble_amber.png" alt="" width="640" height="640" loading="lazy"></div>
+  <div class="rise" style="left:88%;width:42px;animation-duration:23s;animation-delay:12s"><img src="assets/elements/drop_gold.png" alt="" width="640" height="640" loading="lazy"></div>
   <div class="wrap rv">
     <div class="overline">Empieza hoy</div>
     <h2 class="mega" style="font-size:clamp(44px,7.2vw,106px)">Tu cuerpo no va<br>a <span class="serif-i grad-text-warm">esperar.</span></h2>

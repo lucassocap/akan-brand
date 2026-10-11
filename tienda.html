@@ -23,6 +23,7 @@
 <meta name="twitter:image" content="https://soyakan.com/assets/premium/og_akan_light.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://odoo-production-3a20.up.railway.app" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -44,7 +45,7 @@ body{font-family:var(--font-b);background:var(--paper);color:var(--ink);
   -webkit-font-smoothing:antialiased;font-size:17px;line-height:1.55}
 ::selection{background:var(--clay);color:var(--paper)}
 a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 .serif-i{font-family:var(--font-d);font-style:italic;font-weight:600}
 .grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent}
@@ -62,7 +63,7 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;padding:1
 @media(min-width:900px){.nav-links{display:flex}}
 .nav-right{display:flex;align-items:center;gap:16px}
 /* ícono de carrito persistente */
-.akan-cart-btn{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);
+.akan-cart-btn{position:relative;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);
   background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--ease)}
 .akan-cart-btn:hover{border-color:var(--jade)}
 .akan-cart-btn svg{width:20px;height:20px;stroke:var(--ink)}
@@ -163,7 +164,7 @@ section,header,.how-band{position:relative;z-index:2}
 @media(prefers-reduced-motion:reduce){.s-float,.s-sway{animation:none}.rv{opacity:1;transform:none}}
 
 /* menú móvil */
-.burger{display:flex;flex-direction:column;gap:5px;width:42px;height:42px;border-radius:50%;
+.burger{display:flex;flex-direction:column;gap:5px;width:44px;height:44px;border-radius:50%;
   border:1.5px solid var(--line);background:var(--card);align-items:center;justify-content:center;
   cursor:pointer;flex-shrink:0}
 .burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s var(--ease)}
@@ -180,8 +181,10 @@ section,header,.how-band{position:relative;z-index:2}
 .mnav a small{font-weight:500;font-size:13px;color:var(--ink-soft)}
 .mnav a:last-child{border-bottom:none}
 .mnav .hl{color:var(--clay)}
+.prod .btn{min-height:48px}
+:focus-visible{outline:3px solid var(--jade);outline-offset:2px}
 .grid-skeleton{grid-column:1/-1;text-align:center;color:var(--ink-soft);padding:56px 0;font-size:15px;opacity:.75}
-.retry{margin-left:8px;background:var(--forest);color:var(--paper);border:none;padding:7px 16px;border-radius:100px;font-weight:600;cursor:pointer;font-family:var(--font-b)}
+.retry{min-height:44px;margin-left:8px;background:var(--forest);color:var(--paper);border:none;padding:7px 16px;border-radius:100px;font-weight:600;cursor:pointer;font-family:var(--font-b)}
 </style>
 <script src="assets/analytics-config.js"></script>
 <script src="assets/analytics.js"></script>
@@ -479,9 +482,9 @@ section,header,.how-band{position:relative;z-index:2}
 </head>
 <body>
 
-<div class="sprite s-sway" style="top:16%;left:-16px;width:84px"><img src="assets/elements/leaf_eucalyptus.png" alt=""></div>
-<div class="sprite s-float" style="top:42%;right:-10px;width:56px"><img src="assets/elements/bubble_amber.png" alt=""></div>
-<div class="sprite s-float" style="bottom:12%;left:4%;width:48px;animation-delay:3s"><img src="assets/elements/capsule_green.png" alt=""></div>
+<div class="sprite s-sway" style="top:16%;left:-16px;width:84px"><img src="assets/elements/leaf_eucalyptus.png" alt="" width="640" height="640" loading="lazy"></div>
+<div class="sprite s-float" style="top:42%;right:-10px;width:56px"><img src="assets/elements/bubble_amber.png" alt="" width="640" height="640" loading="lazy"></div>
+<div class="sprite s-float" style="bottom:12%;left:4%;width:48px;animation-delay:3s"><img src="assets/elements/capsule_green.png" alt="" width="640" height="640" loading="lazy"></div>
 
 <nav>
   <div class="bar">
@@ -618,7 +621,7 @@ function groupOf(x){
 function cardOTC(p){
   const art=ART[p.code]||{}, img=p.image_url||art.img||'', out=p.in_stock===false;
   return '<div class="prod"><div class="ph"><span class="badge otc">Sin receta</span>'+
-    '<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy"></div><div class="body">'+
+    '<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy" width="800" height="600"></div><div class="body">'+
     '<h3>'+esc(p.name)+'</h3><div class="for">'+esc(p.description)+'</div>'+
     '<div class="price">'+mx(p.price)+'</div>'+
     (out?'<button class="btn btn-ghost" disabled>Agotado</button>'
