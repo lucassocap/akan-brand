@@ -251,7 +251,7 @@ h1{font-family:var(--font-d);font-weight:700;letter-spacing:-.025em;line-height:
   </div>
 </nav>
 
-<div class="stage"><div class="wrap" id="app"></div></div>
+<div class="stage"><div class="wrap" id="app" data-clarity-mask="true"></div></div>
 
 <script src="assets/cart.js"></script>
 <script>
@@ -261,6 +261,13 @@ const app = document.getElementById('app');
 const params = new URLSearchParams(location.search);
 let token = params.get('t') || localStorage.getItem('akan_token') || '';
 if(params.get('t')) localStorage.setItem('akan_token', params.get('t'));
+/* privacidad: el token ya quedó guardado → fuera de la URL (no llega a
+   historial, referrer, Pixel ni Clarity). La sesión sigue igual. */
+if(['t','token','email','ref'].some(k=>params.has(k))){
+  try{const u=new URL(location.href);['t','token','email','ref'].forEach(k=>u.searchParams.delete(k));
+    history.replaceState(history.state,'',u.pathname+u.search+u.hash);}catch(e){}
+}
+let pendingLogin=false; /* login (medición) al validar el código en /me */
 
 /* Fallback de etapa si el backend aún no manda o.stage (ventana de deploy).
    En cuanto Odoo manda stage, esto no se usa — la verdad vive en el backend. */
@@ -342,7 +349,7 @@ function renderGate(notFound){
   });
   document.getElementById('go').addEventListener('click',()=>{
     const v=document.getElementById('tok').value.trim();
-    if(v){gatePane='code';token=v;localStorage.setItem('akan_token',v);localStorage.removeItem('akan_order');load()}
+    if(v){gatePane='code';pendingLogin=true;token=v;localStorage.setItem('akan_token',v);localStorage.removeItem('akan_order');load()}
   });
   document.getElementById('goEmail').addEventListener('click',async ()=>{
     const email=document.getElementById('gEmail').value.trim();
@@ -354,7 +361,7 @@ function renderGate(notFound){
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({email,order}),signal:AbortSignal.timeout(10000)});
       const d=await r.json();
-      if(d.ok){token=d.profile_token;localStorage.setItem('akan_token',token);
+      if(d.ok){akanTrack('login',{method:'token'});token=d.profile_token;localStorage.setItem('akan_token',token);
         localStorage.setItem('akan_order',order.toUpperCase());load()}
       else{err.textContent=d.error||'No pudimos entrar.';err.classList.add('show')}
     }catch(e){err.textContent='No alcanzamos la plataforma. Intenta de nuevo.';err.classList.add('show')}
@@ -493,10 +500,15 @@ function renderProfile(d){
       lines.forEach(l=>AkanCart.add({code:l.code,name:l.name,price:l.price,
         image_url:l.image_url||(AkanCart.OTC_FALLBACK[l.code]&&AkanCart.OTC_FALLBACK[l.code].image_url)||'',
         description:l.description||''},l.qty||1));
+      const items=lines.map(l=>AkanAnalytics.item({code:l.code,name:l.name,price:l.price,qty:l.qty||1}));
+      if(items.length)akanTrack('add_to_cart',{currency:'MXN',value:AkanAnalytics.itemsValue(items),items});
       location.href='carrito.html';
     });
   });
   initChat();
+  /* purchase de respaldo: solo órdenes que ESTE navegador llevó al pago y que
+     Odoo ya marca pagadas; una sola vez por orden (transaction_id = ref) */
+  try{(d.orders||[]).forEach(x=>AkanAnalytics.purchaseOnce(x));}catch(e){}
   /* guardar el nombre para mostrarlo en "Mi cuenta" del navbar (otras páginas) */
   try{localStorage.setItem('akan_name',(d.customer&&d.customer.name)||'');}catch(e){}
   _lastSig=profileSig(d);
@@ -661,7 +673,7 @@ async function load(){
   try{
     const r=await fetch(API_BASE+'/akan/api/me?token='+encodeURIComponent(token),{signal:AbortSignal.timeout(15000)});
     const d=await r.json();
-    if(d.ok)renderProfile(d);
+    if(d.ok){if(pendingLogin){pendingLogin=false;akanTrack('login',{method:'token'});}renderProfile(d);}
     else renderGate('No encontramos ese código. Revísalo o entra con tu email y número de orden.');
   }catch(e){renderOffline()}
 }

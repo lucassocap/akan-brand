@@ -1588,6 +1588,37 @@ if(matchMedia('(pointer:fine) and (min-width:1024px)').matches&&!reduced2){
   b.addEventListener('click',()=>{b.classList.toggle('open');m.classList.toggle('open')});
   m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{b.classList.remove('open');m.classList.remove('open')}));
 })();
+/* ── medición (spec §4): view_item_list de los planes visibles + select_item.
+   Solo SKU/nombre/precio; nada personal. ── */
+(function(){
+  if(!window.akanTrack)return;
+  const num=t=>Number(String(t||'').replace(/[^0-9.]/g,''))||0;
+  const lists=[['planes','home_cabello','Inicio · Cabello'],['desempeno','home_desempeno','Inicio · Desempeño']];
+  const CAT={};
+  lists.forEach(([sid,lid,lname])=>{
+    const sec=document.getElementById(sid);if(!sec)return;
+    const items=[...sec.querySelectorAll('.plans .plan')].map((pl,i)=>{
+      const a=pl.querySelector('a[href*="quiz.html?plan="]');if(!a)return null;
+      const code=new URL(a.href,location.href).searchParams.get('plan');
+      const it=AkanAnalytics.item({code,name:(pl.querySelector('h3')||{}).textContent||code,
+        price:num((pl.querySelector('.price')||{}).textContent),category:sid==='planes'?'Cabello':'Desempeño'},
+        {item_list_id:lid,item_list_name:lname,index:i});
+      CAT[code]=it;return it;
+    }).filter(Boolean);
+    if(!items.length)return;
+    const lio=new IntersectionObserver(es=>{es.forEach(e=>{
+      if(e.isIntersecting){lio.disconnect();akanTrack('view_item_list',{item_list_id:lid,item_list_name:lname,items});}
+    })},{threshold:.25});
+    lio.observe(sec.querySelector('.plans'));
+  });
+  document.addEventListener('click',e=>{
+    const a=e.target.closest&&e.target.closest('a[href*="quiz.html?plan="]');if(!a)return;
+    const code=new URL(a.href,location.href).searchParams.get('plan');
+    const it=CAT[code]||AkanAnalytics.item({code,name:a.textContent.replace(/\$[\d,]+/,'').trim(),
+      price:num((a.querySelector('em')||{}).textContent)},{item_list_id:'home_nav',item_list_name:'Inicio · Menú'});
+    akanTrack('select_item',{item_list_id:it.item_list_id,item_list_name:it.item_list_name,items:[it]});
+  });
+})();
 /* Si el cliente está logueado, muestra su nombre bajo "Mi cuenta" */
 (function(){
   try{

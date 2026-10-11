@@ -565,6 +565,7 @@ function loadCatalog(){
       fillGrid('grid-cabello',g.cabello,cardRx);
       fillGrid('grid-desempeno',g.desempeno,cardRx);
       bindAdd();
+      trackList(g);
     }).catch(()=>{
       ['grid-otc','grid-cabello','grid-desempeno'].forEach(id=>{
         const el=document.getElementById(id);
@@ -584,10 +585,33 @@ function bindAdd(){
     btn.addEventListener('click',()=>{
       AkanCart.add({code:btn.dataset.code,name:btn.dataset.name,price:Number(btn.dataset.price),image_url:btn.dataset.img,description:btn.dataset.desc,category:'Cuidado Diario'},1);
       showToast(btn.dataset.name);
+      const it=CAT[btn.dataset.code]||AkanAnalytics.item({code:btn.dataset.code,name:btn.dataset.name,price:Number(btn.dataset.price),category:'Cuidado Diario',is_rx:false});
+      akanTrack('add_to_cart',{currency:'MXN',value:it.price,items:[{...it,quantity:1}]});
     });
   });
 }
 loadCatalog();
+
+/* ── medición (spec §4): view_item_list + select_item. Sin datos personales. ── */
+const CAT={};
+function trackList(g){
+  const items=[];
+  [['otc','Cuidado diario'],['cabello','Cabello'],['desempeno','Desempeño']].forEach(([k,list])=>{
+    g[k].forEach(x=>{
+      const it=AkanAnalytics.item({code:x.code,name:x.name,price:x.price,category:x.category,is_rx:x.is_rx},
+        {item_list_id:'tienda_'+k,item_list_name:'Tienda · '+list,index:items.length});
+      CAT[x.code]=it;items.push(it);
+    });
+  });
+  if(items.length)akanTrack('view_item_list',{item_list_id:'tienda',item_list_name:'Tienda',items});
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest&&e.target.closest('.grid a[href*="quiz.html?plan="]');
+  if(!a)return;
+  const code=new URL(a.href,location.href).searchParams.get('plan');
+  const it=CAT[code];
+  if(it)akanTrack('select_item',{item_list_id:it.item_list_id,item_list_name:it.item_list_name,items:[it]});
+});
 
 /* menú móvil */
 (function(){

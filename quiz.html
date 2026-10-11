@@ -265,7 +265,7 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<div class="stage"><div id="screens"></div></div>
+<div class="stage"><div id="screens" data-clarity-mask="true"></div></div>
 
 <script>
 const API_BASE = localStorage.getItem('AKAN_API') || 'https://odoo-production-3a20.up.railway.app';
@@ -454,6 +454,29 @@ const fmtMx=n=>n.toLocaleString('es-MX',{minimumFractionDigits:Number.isInteger(
    849 → 721.65, no 722 — así el monto del pago nunca sorprende */
 const price3m=p=>Math.round(p*0.85*100)/100;
 
+/* ── medición (spec §3-4). REGLA: los eventos del quiz llevan SOLO el índice
+   del paso — jamás la pregunta, la respuesta, la rama ni el id de pantalla. ── */
+let quizStarted=false;
+function trackStep(){
+  const idx=S.history.length+1;
+  if(!quizStarted){quizStarted=true;akanTrack('quiz_start',{step_index:idx});}
+  akanTrack('quiz_step',{step_index:idx});
+}
+/* items GA4 del plan elegido (cadencia 3m = 3 meses con -15%) */
+function planItems(code,cadence){
+  const p=PLANS[code];if(!p||!(p.price>0))return null;
+  const is3m=cadence==='3m'&&!p.otc;
+  const unit=is3m?price3m(p.price):p.price, qty=is3m?3:1;
+  const items=[AkanAnalytics.item({code,name:p.name,price:unit,qty,is_rx:!p.otc,
+    category:p.otc?'Cuidado Diario':(p.branch==='desempeno'?'Desempeño':'Cabello')})];
+  return {items,value:Math.round(unit*qty*100)/100};
+}
+function trackPlan(ev,code,cadence,extra){
+  const pi=planItems(code,cadence);
+  if(pi)akanTrack(ev,{currency:'MXN',value:pi.value,items:pi.items,...(extra||{})});
+  return pi;
+}
+
 /* ── Motor de render ── */
 const screens=document.getElementById('screens');
 const progFill=document.getElementById('progFill');
@@ -477,6 +500,7 @@ function show(id, push=true){
   else if(id==='result')node=renderResult();
   else if(id==='checkout')node=renderCheckout();
   else if(id!=='done')node=renderFlow(id);
+  if(FLOW[id]&&FLOW[id].type!=='gate')trackStep();
   if(node)screens.appendChild(node);
   setProgress(id);
   scrollTo({top:0,behavior:'instant'});
@@ -637,6 +661,7 @@ function renderLead(){
       return;
     }
     S.lead=f;
+    akanTrack('quiz_complete',{step_index:S.history.length+1});
     /* lead a Odoo ANTES de revelar el plan (remarketing si abandona).
        Siempre intentamos la llamada real — NO gateamos en un pre-probe de
        salud (que con Odoo frío daba falso-offline). El timeout cubre el peor
@@ -645,9 +670,10 @@ function renderLead(){
       const r=await fetch(API_BASE+'/akan/api/lead',{method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({branch:S.branch||'pelo',name:f.name,email:f.email,phone:f.phone,
-          state:f.state,birthdate:f.birthdate,profile:S.answers,...(S.attr||{})}),
+          state:f.state,birthdate:f.birthdate,profile:S.answers,...(S.attr||{}),
+          attribution:getAttribution()}),
         signal:AbortSignal.timeout(12000)});
-      const j=await r.json();if(j.ok)S.leadId=j.lead_id;
+      const j=await r.json();if(j.ok){S.leadId=j.lead_id;akanTrack('generate_lead',{lead_source:'quiz'});}
     }catch(e){}
     show(S.flags.gated?'checkout':'match');
   });
@@ -689,6 +715,7 @@ function renderMatch(){
 function renderResult(){
   const [recCode,altCode]=recommend();
   S.plan=recCode;
+  trackPlan('view_item',recCode,'3m');
   const first=S.lead.name?S.lead.name.split(' ')[0]:'Listo';
   const pelo=S.branch==='pelo';
   let compare='';
@@ -757,6 +784,7 @@ function renderCheckout(){
   /* "desde" exige redondear hacia ABAJO — nunca prometer un piso más alto */
   const perDay=p.price>0?Math.floor(mensual/30):0;
   const haveLead=!!S.lead.name;
+  if(!isConsulta)trackPlan('begin_checkout',S.plan,S.cadence);
   const subLabel=isConsulta?'Valoración médica en línea — sin costo'
     :isOtc?'Compra única · sin evaluación'
     :(is3m?'Plan 3 meses · -15%':'Plan mensual');
@@ -817,9 +845,10 @@ function renderCheckout(){
       inp.classList.toggle('err',!ok);if(!ok)valid=false;
     });
     if(!valid)return;
+    if(!isConsulta)trackPlan('add_shipping_info',S.plan,S.cadence,{shipping_tier:'gratis_caja_neutra'});
     const btn=scr.querySelector('#submitBtn');btn.disabled=true;btn.textContent=isConsulta?'Enviando…':'Procesando tu pago…';
     const payload={branch:S.branch||'pelo',plan_code:S.plan,answers:S.answers,customer:cust,
-      cadence:S.cadence,lead_id:S.leadId};
+      cadence:S.cadence,lead_id:S.leadId,attribution:getAttribution()};
     let result=null;
     /* SIEMPRE intentamos el cobro real — el flujo debe ser lineal hasta el
        pago. NO gateamos en apiOnline: con Odoo frío ese pre-probe daba
@@ -853,6 +882,8 @@ function renderDone(result,cust){
      Mismo funnel, no espera al médico. */
   if(!isConsulta && result.payment_link){
     if(cust)localStorage.setItem('akan_customer',JSON.stringify(cust));
+    const pi=trackPlan('add_payment_info',S.plan,S.cadence,{payment_type:'link_de_pago'});
+    if(pi)AkanAnalytics.rememberCheckout(result.order,pi.items,pi.value);
     screens.innerHTML=`<div class="screen on" style="text-align:center">
       <div class="success-icon" style="border-color:var(--peach);background:#FBEADF"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--clay)"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
       <div class="q-overline">Orden ${result.order}</div>
@@ -945,6 +976,7 @@ if(params.get('plan')&&PLANS[params.get('plan')]){
   /* OTC = compra única: nunca cadencia 3m */
   S.cadence=PLANS[S.plan].otc?'monthly':(params.get('cad')==='monthly'?'monthly':'3m');
   S.answers.push({q:'Origen',a:'Compra directa desde catálogo — '+S.plan});
+  trackPlan('view_item',S.plan,S.cadence);
   show('checkout',false);
 }else if(params.get('branch')==='desempeno'){S.branch='desempeno';show('d1',false);}
 else if(params.get('branch')==='pelo'){S.branch='pelo';show('p1',false);}
