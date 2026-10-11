@@ -309,6 +309,10 @@ html.noanim .fol-dht circle{opacity:.9}
 .plan.featured li svg{stroke:var(--mint)}
 .plan .btn{justify-content:center}
 .plan-note{text-align:center;margin-top:34px;color:var(--ink-soft);font-size:14.5px}
+@media(min-width:1000px){.plans.two{grid-template-columns:repeat(2,1fr);max-width:900px;margin-left:auto;margin-right:auto}}
+.plans.one{max-width:520px;margin-left:auto;margin-right:auto}
+@media(min-width:1000px){.plans.one{grid-template-columns:1fr}}
+.price-note{font-size:15px;font-weight:600;line-height:1.45}
 
 /* ── Bento producto ── */
 .bento{display:grid;gap:18px;margin-top:64px;grid-template-columns:1fr}
@@ -813,10 +817,9 @@ footer ul a:hover{color:var(--paper)}
         <a href="#planes">Cabello <span class="caret">▾</span></a>
         <div class="dd">
           <a class="dd-quiz" href="quiz.html?branch=pelo"><b>Hazte la evaluación →</b><span>Tu plan a la medida en 2 minutos. Confidencial.</span></a>
-          <div class="dd-label">Tratamientos</div>
-          <a href="quiz.html?plan=AKAN-ESENCIAL">Plan Esencial <em>$549</em></a>
-          <a href="quiz.html?plan=AKAN-COMPLETO">Plan Completo <em>$849</em></a>
-          <a href="quiz.html?plan=AKAN-KIT">Kit AKAN Total <em>$1,199</em></a>
+          <div class="dd-label">Con evaluación médica</div>
+          <a href="quiz.html?branch=pelo" data-item="AKAN-CONSULTA" data-item-name="Consulta médica — Cabello" data-item-cat="Cabello">Consulta médica + tratamiento si el médico lo indica <em>Empieza tu consulta</em></a>
+          <div class="dd-label">Cuidado diario sin receta</div>
           <a href="tienda.html#cuidado">Shampoo Ketoconazol <em>$349</em></a>
           <a href="tienda.html#cuidado">Suplemento Capilar <em>$399</em></a>
           <a href="tienda.html#cuidado">Minoxidil 5% <em>$449</em></a>
@@ -827,10 +830,8 @@ footer ul a:hover{color:var(--paper)}
         <a href="#desempeno">Desempeño <span class="caret">▾</span></a>
         <div class="dd">
           <a class="dd-quiz" href="quiz.html?branch=desempeno"><b>Hazte la evaluación →</b><span>5 preguntas, 100% confidencial.</span></a>
-          <div class="dd-label">Tratamientos</div>
-          <a href="quiz.html?plan=AKAN-SILD">Plan Momento — Sildenafil <em>$449</em></a>
-          <a href="quiz.html?plan=AKAN-TADA">Plan Diario — Tadalafil <em>$649</em></a>
-          <a href="quiz.html?plan=AKAN-KITCONF">Kit Confianza <em>$899</em></a>
+          <div class="dd-label">Con evaluación médica</div>
+          <a href="quiz.html?branch=desempeno" data-item="AKAN-CONSULTA" data-item-name="Consulta médica — Desempeño" data-item-cat="Desempeño">Consulta médica + tratamiento si el médico lo indica <em>Empieza tu consulta</em></a>
           <a href="tienda.html#desempeno" style="color:var(--jade);font-weight:700">Ver tienda completa →</a>
         </div>
       </div>
@@ -883,7 +884,7 @@ footer ul a:hover{color:var(--paper)}
       </div>
       <div class="hero-trust">
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>Médico con cédula vigente</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>3 min de evaluación</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>2 min de evaluación</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Empaque 100% discreto</span>
       </div>
     </div>
@@ -930,9 +931,9 @@ footer ul a:hover{color:var(--paper)}
 <section class="stats" data-nav="dark">
   <div class="wrap stats-grid stagger">
     <div><div class="stat-n"><span data-count="10000">0</span><sup>+</sup></div><div class="stat-l">hombres ya empezaron</div></div>
-    <div><div class="stat-n"><span data-count="87">0</span><sup>%</sup></div><div class="stat-l">ven resultados al mes 6 · cabello</div></div>
-    <div><div class="stat-n"><span data-count="3">0</span><sup>min</sup></div><div class="stat-l">dura la evaluación</div></div>
-    <div><div class="stat-n"><span data-count="8">0</span><sup>/10</sup></div><div class="stat-l">responden 1ª dosis · desempeño</div></div>
+    <div><div class="stat-n"><span data-count="72">0</span><sup>h</sup></div><div class="stat-l">máximo de entrega a todo México</div></div>
+    <div><div class="stat-n"><span data-count="2">0</span><sup>min</sup></div><div class="stat-l">dura la evaluación</div></div>
+    <div><div class="stat-n"><span data-count="100">0</span><sup>%</sup></div><div class="stat-l">caja neutra, sin marca</div></div>
   </div>
 </section>
 
@@ -965,7 +966,7 @@ footer ul a:hover{color:var(--paper)}
   <div class="wrap">
     <div class="rv" style="max-width:680px;padding-top:clamp(70px,9vw,120px)">
       <div class="overline">La historia de tu pelo</div>
-      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Cuatro actos.<br>Final <span class="serif-i grad-text">feliz.</span></h2>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Cuatro actos.<br>Con <span class="serif-i grad-text">médico.</span></h2>
     </div>
     <div class="scrolly">
       <div class="scrolly-fig" id="folFig" data-act="1">
@@ -1002,10 +1003,10 @@ footer ul a:hover{color:var(--paper)}
           <p>La dihidrotestosterona — un derivado de tu propia testosterona — empieza a rodear el folículo. Es genética: no hiciste nada mal.</p></div>
         <div class="sc-step" data-act="2"><div class="sc-num">Acto 2</div><h3>El folículo se encoge</h3>
           <p>Con cada ciclo, el DHT lo miniaturiza. El pelo nace más delgado, más corto, más débil… hasta que deja de nacer.</p></div>
-        <div class="sc-step" data-act="3"><div class="sc-num">Acto 3</div><h3>Entra el tratamiento</h3>
-          <p>Finasteride bloquea hasta el 70% del DHT. El ataque se detiene. Lo que tienes, se queda.</p></div>
-        <div class="sc-step" data-act="4"><div class="sc-num">Acto 4</div><h3>El pelo regresa</h3>
-          <p>Minoxidil reactiva la circulación del folículo y la biotina lo fortalece. Mes 6: crecimiento nuevo visible en el 87% de los hombres.</p></div>
+        <div class="sc-step" data-act="3"><div class="sc-num">Acto 3</div><h3>Entra tu médico</h3>
+          <p>Un médico con cédula valora tu caso y, solo si procede, te indica un tratamiento para frenar el proceso.</p></div>
+        <div class="sc-step" data-act="4"><div class="sc-num">Acto 4</div><h3>Constancia y seguimiento</h3>
+          <p>Los tratamientos capilares toman meses. Tu médico revisa tu avance contigo; los resultados varían por persona.</p></div>
       </div>
     </div>
   </div>
@@ -1091,27 +1092,27 @@ footer ul a:hover{color:var(--paper)}
   <div class="wrap science-grid">
     <div class="science-img rv-l annot-fig">
       <img src="assets/premium/hero_light_products.jpg" alt="Tratamiento AKAN" loading="lazy">
-      <div class="callout c1"><span class="dot"></span><div class="chip"><b>Finasteride</b>Bloquea el DHT hasta 70%</div></div>
-      <div class="callout c2"><span class="dot"></span><div class="chip"><b>Minoxidil 5%</b>Reactiva el folículo</div></div>
-      <div class="callout c3"><span class="dot"></span><div class="chip"><b>Biotina + Zinc</b>Pelo más grueso y fuerte</div></div>
+      <div class="callout c1"><span class="dot"></span><div class="chip"><b>Valoración médica</b>Tratamiento solo si procede</div></div>
+      <div class="callout c2"><span class="dot"></span><div class="chip"><b>Minoxidil 5%</b>Cuidado diario sin receta</div></div>
+      <div class="callout c3"><span class="dot"></span><div class="chip"><b>Biotina + Zinc</b>Suplemento capilar</div></div>
     </div>
     <div class="rv-r">
       <div class="overline">La ciencia</div>
       <h2 class="display" style="font-size:clamp(32px,4.2vw,58px);color:var(--forest)">El enemigo se llama <span class="serif-i grad-text-warm">DHT.</span></h2>
       <p class="lead" style="color:var(--ink-soft);margin-top:20px">La dihidrotestosterona encoge tus
-        folículos hasta que dejan de producir pelo. Tu tratamiento la ataca por tres frentes:</p>
+        folículos hasta que dejan de producir pelo. Por eso el abordaje lo define un médico:</p>
       <div class="science-list">
         <div class="science-item">
-          <div class="k"><svg class="gauge" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(31,61,46,.12)" stroke-width="7"/><circle class="gauge-fill" cx="32" cy="32" r="26" fill="none" stroke="#C5623E" stroke-width="7" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="163.4" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle" font-size="14" font-weight="700" fill="#1F3D2E">-70%</text></svg></div>
-          <div><h4>Finasteride — bloquea</h4><p>Reduce el DHT hasta 70%. La caída se frena desde la raíz del problema.</p></div>
+          <div class="k">01</div>
+          <div><h4>Tratamiento con receta — solo si tu médico lo indica</h4><p>Tras revisar tu evaluación, el médico decide si un medicamento con receta es adecuado para ti y te explica qué esperar.</p></div>
         </div>
         <div class="science-item">
           <div class="k">02</div>
-          <div><h4>Minoxidil — activa</h4><p>Aumenta el flujo sanguíneo al folículo y reactiva el crecimiento donde se había detenido.</p></div>
+          <div><h4>Minoxidil tópico — cuidado diario</h4><p>Solución tópica al 5%, sin receta, de aplicación diaria sobre el cuero cabelludo.</p></div>
         </div>
         <div class="science-item">
           <div class="k">03</div>
-          <div><h4>Biotina + Zinc — fortalece</h4><p>El pelo nuevo nace más grueso, más fuerte y con mejor textura.</p></div>
+          <div><h4>Biotina + Zinc — complemento</h4><p>Suplemento alimenticio de apoyo. No sustituye un tratamiento médico.</p></div>
         </div>
       </div>
     </div>
@@ -1123,17 +1124,15 @@ footer ul a:hover{color:var(--paper)}
   <div class="wrap">
     <div class="rv" style="max-width:640px">
       <div class="overline">Precios sin sorpresas</div>
-      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">La mitad que<br>la <span class="serif-i grad-text-warm">farmacia.</span></h2>
-      <p class="lead" style="color:var(--ink-soft);margin-top:18px">Vendemos directo, sin intermediarios. Mismo principio activo, la mitad del precio — y la consulta va por nuestra cuenta.</p>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">La consulta,<br>por nuestra <span class="serif-i grad-text-warm">cuenta.</span></h2>
+      <p class="lead" style="color:var(--ink-soft);margin-top:18px">Vendemos directo, sin intermediarios. La evaluación médica no tiene costo y el envío es gratis. Si el médico te indica un tratamiento, ves su precio completo antes de pagar.</p>
     </div>
     <div class="price-table rv">
-      <div class="pt-row pt-head"><span>Tratamiento</span><span>Farmacia / privado</span><span>AKAN</span></div>
-      <div class="pt-row"><span>Finasteride 1mg (mes)</span><span class="pt-other">$1,100</span><span class="pt-akan">$549</span></div>
-      <div class="pt-row"><span>Finasteride + Minoxidil (mes)</span><span class="pt-other">$1,700</span><span class="pt-akan">$849</span></div>
+      <div class="pt-row pt-head"><span>Concepto</span><span>Consultorio privado</span><span>AKAN</span></div>
       <div class="pt-row"><span>Consulta médica</span><span class="pt-other">$800+ por visita</span><span class="pt-akan">GRATIS</span></div>
       <div class="pt-row"><span>Envío discreto</span><span class="pt-other">—</span><span class="pt-akan">GRATIS</span></div>
     </div>
-    <p class="plan-note rv">¿Ya sabes lo que quieres? Elige tu plan abajo y listo — el médico confirma antes de enviar.</p>
+    <p class="plan-note rv">Empieza tu consulta abajo: el médico decide si procede un tratamiento antes de enviar nada.</p>
   </div>
 </section>
 
@@ -1144,47 +1143,35 @@ footer ul a:hover{color:var(--paper)}
   <div class="wrap">
     <div class="rv" style="max-width:700px;margin:0 auto;text-align:center">
       <div class="overline">Tratamientos</div>
-      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Tu plan, según tu caída.</h2>
-      <p class="lead" style="color:var(--ink-soft);margin-top:20px">Precios reales, en pesos, sin sorpresas.
-        Incluyen consulta médica, seguimiento y envío.</p>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Empieza por tu consulta.</h2>
+      <p class="lead" style="color:var(--ink-soft);margin-top:20px">Tu médico decide si procede un tratamiento.
+        Precios en pesos, sin sorpresas: ves el total antes de pagar.</p>
     </div>
-    <div class="plans stagger">
-      <div class="plan">
-        <h3>Esencial</h3>
-        <div class="for">Para entradas · prevención temprana</div>
-        <div class="price"><span class="cur">$</span>549<span class="per"> /mes</span></div>
+    <div class="plans two stagger">
+      <div class="plan featured" data-item="AKAN-CONSULTA" data-item-name="Consulta médica — Cabello" data-item-cat="Cabello">
+        <div class="plan-badge">Empieza aquí</div>
+        <h3>Consulta médica + tratamiento si el médico lo indica</h3>
+        <div class="for">Caída de cabello · evaluación en línea de 2 minutos</div>
+        <div class="price-note">Evaluación sin costo. Si el médico indica un tratamiento, ves su precio completo antes de pagar.</div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Finasteride 1mg oral</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta médica incluida</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Seguimiento por chat ilimitado</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Un médico con cédula profesional vigente revisa tu caso</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Solo si procede, tratamiento con receta</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Seguimiento médico incluido</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío gratis en caja neutra</li>
         </ul>
-        <a href="quiz.html?plan=AKAN-ESENCIAL" class="btn btn-ghost">Elegir Esencial</a>
-      </div>
-      <div class="plan featured">
-        <div class="plan-badge">El más elegido</div>
-        <h3>Completo</h3>
-        <div class="for">Para corona · frenar y recuperar</div>
-        <div class="price"><span class="cur">$</span>849<span class="per"> /mes</span></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Finasteride 1mg oral</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Minoxidil tópico 5%</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta + seguimiento médico</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
-        </ul>
-        <a href="quiz.html?plan=AKAN-COMPLETO" class="btn btn-cta">Elegir Completo</a>
+        <a href="quiz.html?branch=pelo" class="btn btn-cta" data-item="AKAN-CONSULTA">Empieza tu consulta</a>
       </div>
       <div class="plan">
-        <h3>Kit AKAN Total</h3>
-        <div class="for">Para caída general · máximo resultado</div>
-        <div class="price"><span class="cur">$</span>1,199<span class="per"> /mes</span></div>
+        <h3>Cuidado diario sin receta</h3>
+        <div class="for">Compra directa, sin evaluación</div>
+        <div class="price"><span class="per">desde </span><span class="cur">$</span>349</div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Finasteride + Minoxidil 5%</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Shampoo Ketoconazol 2%</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Suplemento Biotina + Zinc</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta + seguimiento prioritario</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Shampoo Ketoconazol 2% · $349</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Suplemento Capilar (Biotina + Zinc) · $399</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Minoxidil Tópico 5% · $449</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío gratis en caja neutra</li>
         </ul>
-        <a href="quiz.html?plan=AKAN-KIT" class="btn btn-ghost">Elegir Kit Total</a>
+        <a href="tienda.html#cuidado" class="btn btn-ghost">Ver cuidado diario</a>
       </div>
     </div>
     <p class="plan-note rv">Cancela cuando quieras. Tu primera consulta médica es <strong>gratis</strong>.</p>
@@ -1222,67 +1209,28 @@ footer ul a:hover{color:var(--paper)}
       <div class="overline">Desempeño sexual</div>
       <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Lo que pasa en tu cama,<br><span class="serif-i grad-text-warm">se queda ahí.</span></h2>
       <p class="lead" style="color:var(--ink-soft);margin-top:20px">A <b>1 de cada 2</b> hombres mayores de 40 le pasa — y a muchos antes.
-        Tratamiento médico real que funciona desde la primera dosis. 100% confidencial.</p>
+        Un médico valora tu caso y, solo si procede, te indica un tratamiento. 100% confidencial.</p>
     </div>
     <div class="dz-photos stagger">
       <div class="dz-ph"><img src="assets/premium/pareja_manana.jpg" alt="" loading="lazy"></div>
       <div class="dz-ph"><img src="assets/premium/hombre_confianza.jpg" alt="" loading="lazy"></div>
-      <div class="dz-stat rv"><b>8/10</b><span>hombres responden al tratamiento desde la primera dosis</span></div>
+      <div class="dz-stat rv"><b>5</b><span>preguntas confidenciales y un médico con cédula revisa tu caso</span></div>
     </div>
-    <!-- infografía animada: ¿cuándo actúa? -->
-    <div class="timing rv">
-      <div class="overline" style="margin-bottom:18px">¿Cuándo actúa cada plan?</div>
-      <div class="tm-row">
-        <div class="tm-head"><b>Plan Momento</b><span>Sildenafil 50mg · lo tomas cuando lo vas a usar</span></div>
-        <div class="tm-track"><div class="tm-fill tm-sild"></div>
-          <span class="tm-mark" style="left:4%">Tomas</span><span class="tm-mark" style="left:14%">30-60 min: activo</span><span class="tm-mark" style="left:38%">ventana 4-6 h</span></div>
-      </div>
-      <div class="tm-row">
-        <div class="tm-head"><b>Plan Diario</b><span>Tadalafil 5mg · dosis baja cada mañana</span></div>
-        <div class="tm-track"><div class="tm-fill tm-tada"></div>
-          <span class="tm-mark" style="left:4%">Una dosis al día</span><span class="tm-mark" style="left:55%">siempre listo · 24/7, sin planear</span></div>
-      </div>
-    </div>
-    <div class="plans stagger">
-      <div class="plan">
-        <h3>Plan Momento</h3>
-        <div class="for">Sildenafil 50mg · para cuando tú decidas</div>
-        <div class="price"><span class="cur">$</span>449<span class="per"> /mes</span></div>
+    <div class="plans one stagger">
+      <div class="plan featured" data-item="AKAN-CONSULTA" data-item-name="Consulta médica — Desempeño" data-item-cat="Desempeño">
+        <h3>Consulta médica + tratamiento si el médico lo indica</h3>
+        <div class="for">Desempeño sexual · 5 preguntas, 100% confidencial</div>
+        <div class="price-note">Evaluación sin costo. Si el médico indica un tratamiento, ves su precio completo antes de pagar.</div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>8 dosis al mes</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Actúa en 30-60 minutos</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta médica incluida</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Un médico con cédula profesional vigente revisa tu caso</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Solo si procede, tratamiento con receta</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Seguimiento médico incluido</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío gratis en caja neutra</li>
         </ul>
-        <a href="quiz.html?plan=AKAN-SILD" class="btn btn-ghost">Elegir Momento</a>
-      </div>
-      <div class="plan featured">
-        <div class="plan-badge">Espontaneidad total</div>
-        <h3>Plan Diario</h3>
-        <div class="for">Tadalafil 5mg · siempre listo, sin planear</div>
-        <div class="price"><span class="cur">$</span>649<span class="per"> /mes</span></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Dosis diaria baja, 30 días</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Sin cronometrar nada</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Consulta + seguimiento médico</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
-        </ul>
-        <a href="quiz.html?plan=AKAN-TADA" class="btn btn-cta">Elegir Diario</a>
-      </div>
-      <div class="plan">
-        <h3>Kit Confianza</h3>
-        <div class="for">Tadalafil + suplemento · el paquete completo</div>
-        <div class="price"><span class="cur">$</span>899<span class="per"> /mes</span></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Tadalafil 5mg diario</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Suplemento energía + circulación</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Seguimiento prioritario</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Envío discreto mensual</li>
-        </ul>
-        <a href="quiz.html?plan=AKAN-KITCONF" class="btn btn-ghost">Elegir Confianza</a>
+        <a href="quiz.html?branch=desempeno" class="btn btn-cta" data-item="AKAN-CONSULTA">Empieza tu consulta</a>
       </div>
     </div>
-    <p class="plan-note rv">¿No sabes cuál? <a href="quiz.html?branch=desempeno" style="color:var(--clay);font-weight:700;text-decoration:underline;text-underline-offset:3px">Responde 5 preguntas</a> y te lo decimos. Tu médico valida todo antes de enviar.</p>
+    <p class="plan-note rv">¿No sabes cuál? <a href="quiz.html?branch=desempeno" style="color:var(--clay);font-weight:700;text-decoration:underline;text-underline-offset:3px">Responde 5 preguntas</a> y un médico con cédula valida todo antes de enviar.</p>
   </div>
 </section>
 
@@ -1291,11 +1239,11 @@ footer ul a:hover{color:var(--paper)}
   <div class="wrap">
     <div class="rv" style="max-width:720px;margin:0 auto;text-align:center">
       <div class="overline">Resultados</div>
-      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Tu pelo, mes a mes.</h2>
-      <p class="lead" style="color:rgba(250,246,236,.75);margin-top:20px">La constancia gana. Esto es lo que
-        reportan los hombres que siguen su tratamiento.</p>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,64px)">Tu seguimiento, mes a mes.</h2>
+      <p class="lead" style="color:rgba(250,246,236,.75);margin-top:20px">La constancia importa. Así acompaña tu médico
+        cada etapa; los resultados varían por persona.</p>
     </div>
-    <div class="results-grid rv">
+    <div class="results-grid rv" style="grid-template-columns:1fr;max-width:820px;margin-left:auto;margin-right:auto">
       <div class="curve-box">
         <svg viewBox="0 0 600 280" class="curve-svg" aria-hidden="true">
           <defs><linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
@@ -1304,21 +1252,11 @@ footer ul a:hover{color:var(--paper)}
           <line x1="40" y1="240" x2="580" y2="240" stroke="rgba(250,246,236,.3)" stroke-width="1.5"/>
           <path class="curve-area" d="M40 238 C140 236 180 230 260 196 C350 158 430 110 560 78 L560 240 L40 240 Z" fill="url(#areaG)"/>
           <path class="curve-line" d="M40 238 C140 236 180 230 260 196 C350 158 430 110 560 78" fill="none" stroke="#F2C9A8" stroke-width="5" stroke-linecap="round"/>
-          <g class="curve-dot d1"><circle cx="150" cy="232" r="9" fill="#E07B4C"/><text x="150" y="262" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 1</text><text x="150" y="210" text-anchor="middle" font-size="13" fill="#CFE7D6">menos caída</text></g>
-          <g class="curve-dot d2"><circle cx="330" cy="168" r="9" fill="#C9A876"/><text x="330" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 3</text><text x="330" y="146" text-anchor="middle" font-size="13" fill="#CFE7D6">caída detenida</text></g>
-          <g class="curve-dot d3"><circle cx="560" cy="78" r="9" fill="#6FB890"/><text x="548" y="108" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 6</text><text x="544" y="56" text-anchor="middle" font-size="13" fill="#CFE7D6">pelo nuevo · 87%</text></g>
+          <g class="curve-dot d1"><circle cx="150" cy="232" r="9" fill="#E07B4C"/><text x="150" y="262" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 1</text><text x="150" y="210" text-anchor="middle" font-size="13" fill="#CFE7D6">arranque</text></g>
+          <g class="curve-dot d2"><circle cx="330" cy="168" r="9" fill="#C9A876"/><text x="330" y="198" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 3</text><text x="330" y="146" text-anchor="middle" font-size="13" fill="#CFE7D6">revisión médica</text></g>
+          <g class="curve-dot d3"><circle cx="560" cy="78" r="9" fill="#6FB890"/><text x="548" y="108" text-anchor="middle" font-size="15" font-weight="700" fill="#FAF6EC">Mes 6</text><text x="544" y="56" text-anchor="middle" font-size="13" fill="#CFE7D6">evaluación de avance</text></g>
         </svg>
-        <div style="font-size:13px;color:rgba(250,246,236,.55);text-align:center;margin-top:6px">Densidad capilar reportada siguiendo el tratamiento · resultados varían por persona</div>
-      </div>
-      <div class="ba-box">
-        <div class="ba" id="baSlider">
-          <img src="assets/quiz/crown_2_leve.jpg" alt="Mes 6" loading="lazy">
-          <div class="ba-top" style="width:55%"><img src="assets/quiz/crown_3_moderada.jpg" alt="Hoy" loading="lazy"></div>
-          <div class="ba-handle" style="left:55%"><span>↔</span></div>
-          <input type="range" min="4" max="96" value="55" aria-label="Comparar hoy y mes 6">
-          <div class="ba-tag l">Hoy</div><div class="ba-tag r">Mes 6*</div>
-        </div>
-        <div style="font-size:13px;color:rgba(250,246,236,.55);text-align:center;margin-top:10px">Desliza para comparar · *resultados varían por etapa y constancia</div>
+        <div style="font-size:13px;color:rgba(250,246,236,.55);text-align:center;margin-top:6px">Ilustrativo: etapas típicas de seguimiento, no una promesa de resultado</div>
       </div>
     </div>
   </div>
@@ -1385,15 +1323,16 @@ footer ul a:hover{color:var(--paper)}
         <p><b>Caja neutra, sin marca.</b> Nadie —ni el repartidor— sabe qué pediste. Confidencial desde el quiz hasta tu puerta.</p>
       </div>
       <div class="testi">
-        <p><b>Moléculas probadas por décadas.</b> Finasterida, minoxidil, sildenafil y tadalafil: los mismos principios activos de siempre, a precio justo.</p>
+        <p><b>Tratamientos de uso médico establecido.</b> Si tu médico te indica uno, es con su receta y con la información para usarlo bien.</p>
       </div>
       <div class="testi">
-        <p><b>Hasta 50% menos que la farmacia tradicional.</b> Mismos activos, sin rentas de consultorio ni intermediarios. Compara: la tabla está arriba.</p>
+        <p><b>Consulta sin costo y envío gratis.</b> Sin rentas de consultorio ni intermediarios. Ves el precio completo antes de pagar.</p>
       </div>
       <div class="testi">
         <p><b>Tus datos, protegidos.</b> Tu evaluación es información médica: viaja cifrada y no se comparte con nadie. Jamás te llamaremos sin avisarte.</p>
       </div>
     </div>
+  </div>
 </section>
 
 <!-- ═══ FAQ ═══ -->
@@ -1406,8 +1345,8 @@ footer ul a:hover{color:var(--paper)}
     <div class="faq stagger">
       <details><summary>¿Es legal comprar esto en línea en México?<span class="fx">+</span></summary><p>Sí — siempre que un médico con cédula emita tu receta, que es exactamente como funciona AKAN. Tu evaluación la revisa un médico real, con nombre y cédula, antes de aprobar cualquier tratamiento.</p></details>
       <details><summary>¿De verdad nadie se entera?<span class="fx">+</span></summary><p>Nadie. La caja llega neutra, sin marca ni descripción del contenido. Tus respuestas médicas solo las ve tu médico — ni la farmacia que despacha tiene acceso a ellas.</p></details>
-      <details><summary>¿Qué efectos secundarios tienen?<span class="fx">+</span></summary><p>La mayoría de los hombres no presenta ninguno. Los posibles efectos son poco comunes y reversibles al suspender, y tu médico los revisa contigo según tu historial antes de recetar. Por eso la evaluación pregunta lo que pregunta.</p></details>
-      <details><summary>¿Cuándo veo resultados?<span class="fx">+</span></summary><p>En cabello: menos caída desde el mes 1, caída detenida al mes 3, y el 87% ve pelo nuevo al mes 6. En desempeño: desde la primera dosis.</p></details>
+      <details><summary>¿Qué efectos secundarios tienen?<span class="fx">+</span></summary><p>Todo medicamento puede tener efectos secundarios. Tu médico los revisa contigo según tu historial antes de indicar cualquier tratamiento. Por eso la evaluación pregunta lo que pregunta.</p></details>
+      <details><summary>¿Cuándo veo resultados?<span class="fx">+</span></summary><p>Depende de cada persona y del tratamiento que el médico indique. En caída de cabello, el avance se evalúa a lo largo de varios meses; tu médico te explica qué esperar en tu caso y revisa tu progreso.</p></details>
       <details><summary>¿Puedo cancelar cuando quiera?<span class="fx">+</span></summary><p>Sí. Sin plazos forzosos, sin penalización, sin llamadas incómodas. Pausas o cancelas por WhatsApp.</p></details>
       <details><summary>¿Quién es el médico que revisa mi caso?<span class="fx">+</span></summary><p>Un médico mexicano con cédula profesional vigente. Su nombre y su cédula aparecen en tu receta — puedes verificarla tú mismo en el registro público.</p></details>
     </div>
@@ -1561,7 +1500,7 @@ const reduced2=matchMedia('(prefers-reduced-motion: reduce)').matches;
 (function(){
   const fig=document.getElementById('folFig');if(!fig)return;
   const cap=document.getElementById('folCap');
-  const caps={1:'El DHT aparece',2:'El folículo se encoge',3:'Finasteride lo protege',4:'El pelo regresa'};
+  const caps={1:'El DHT aparece',2:'El folículo se encoge',3:'Valoración médica',4:'Seguimiento'};
   const stepIO=new IntersectionObserver(es=>{
     es.forEach(e=>{
       if(e.isIntersecting){
@@ -1614,23 +1553,20 @@ if(matchMedia('(pointer:fine) and (min-width:1024px)').matches&&!reduced2){
   b.addEventListener('click',()=>{b.classList.toggle('open');m.classList.toggle('open')});
   m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{b.classList.remove('open');m.classList.remove('open')}));
 })();
-/* ── medición (spec §4): view_item_list de los planes visibles + select_item.
-   Solo SKU/nombre/precio; nada personal. ── */
+/* ── medición (spec §4): view_item_list de la consulta visible + select_item.
+   Los Rx ya no se muestran por nombre ni precio: el item es la consulta
+   genérica (AKAN-CONSULTA, Rx ⇒ «Plan AKAN» hacia Meta/Ads). Nada personal. ── */
 (function(){
   if(!window.akanTrack)return;
-  const num=t=>Number(String(t||'').replace(/[^0-9.]/g,''))||0;
   const lists=[['planes','home_cabello','Inicio · Cabello'],['desempeno','home_desempeno','Inicio · Desempeño']];
-  const CAT={};
+  const itemOf=(el,extra)=>AkanAnalytics.item({code:el.dataset.item,name:el.dataset.itemName||el.dataset.item,
+    price:0,category:el.dataset.itemCat||'Tratamiento',is_rx:true},extra);
   lists.forEach(([sid,lid,lname])=>{
     const sec=document.getElementById(sid);if(!sec)return;
-    const items=[...sec.querySelectorAll('.plans .plan')].map((pl,i)=>{
-      const a=pl.querySelector('a[href*="quiz.html?plan="]');if(!a)return null;
-      const code=new URL(a.href,location.href).searchParams.get('plan');
-      const it=AkanAnalytics.item({code,name:(pl.querySelector('h3')||{}).textContent||code,
-        price:num((pl.querySelector('.price')||{}).textContent),category:sid==='planes'?'Cabello':'Desempeño'},
-        {item_list_id:lid,item_list_name:lname,index:i});
-      CAT[code]=it;return it;
-    }).filter(Boolean);
+    const items=[...sec.querySelectorAll('.plans .plan[data-item]')].map((pl,i)=>{
+      const it=itemOf(pl,{item_list_id:lid,item_list_name:lname,index:i});
+      pl._it=it;return it;
+    });
     if(!items.length)return;
     const lio=new IntersectionObserver(es=>{es.forEach(e=>{
       if(e.isIntersecting){lio.disconnect();akanTrack('view_item_list',{item_list_id:lid,item_list_name:lname,items});}
@@ -1638,10 +1574,9 @@ if(matchMedia('(pointer:fine) and (min-width:1024px)').matches&&!reduced2){
     lio.observe(sec.querySelector('.plans'));
   });
   document.addEventListener('click',e=>{
-    const a=e.target.closest&&e.target.closest('a[href*="quiz.html?plan="]');if(!a)return;
-    const code=new URL(a.href,location.href).searchParams.get('plan');
-    const it=CAT[code]||AkanAnalytics.item({code,name:a.textContent.replace(/\$[\d,]+/,'').trim(),
-      price:num((a.querySelector('em')||{}).textContent)},{item_list_id:'home_nav',item_list_name:'Inicio · Menú'});
+    const a=e.target.closest&&e.target.closest('a[data-item]');if(!a)return;
+    const card=a.closest('.plan[data-item]');
+    const it=(card&&card._it)||itemOf(a,{item_list_id:'home_nav',item_list_name:'Inicio · Menú'});
     akanTrack('select_item',{item_list_id:it.item_list_id,item_list_name:it.item_list_name,items:[it]});
   });
 })();
