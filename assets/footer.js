@@ -52,6 +52,8 @@
           <li><a href="legal.html#terminos">Términos y condiciones</a></li>
           <li><a href="legal.html#consentimiento">Consentimiento informado</a></li>
           <li><a href="legal.html#devoluciones">Devoluciones</a></li>
+          <li><a href="legal.html#cookies">Cookies y medición</a></li>
+          <li><a href="legal.html#cookies" data-akan-consent-open>Preferencias de cookies</a></li>
         </ul>
       </div>
     </div>
