@@ -1,31 +1,30 @@
 # AKAN
 
-> AKAN es la plataforma de salud del hombre mexicano: telemedicina directa al consumidor (DTC) para caída de cabello y desempeño sexual. Médicos mexicanos con cédula, evaluación en línea en ~2 minutos, entrega discreta en caja neutra a todo México. Confidencial. Modelo "cobro de una": se cobra al confirmar y se reembolsa el 100% si el médico no aprueba.
+> AKAN es una plataforma mexicana de telemedicina para la salud del hombre, enfocada en caída de cabello y desempeño sexual. El paciente hace una evaluación médica en línea (unos 2 minutos), un médico mexicano con cédula profesional revisa su caso y, si procede, el tratamiento se envía gratis en caja neutra a todo México en 24 a 72 horas. Sitio en español de México; precios en MXN con IVA incluido.
 
-## Qué es AKAN
-AKAN ("Hims de México") conecta a hombres en México con médicos reales con cédula profesional para tratar, en línea y de forma confidencial:
-- **Caída de cabello:** finasterida 1mg, minoxidil tópico 5%, shampoo de ketoconazol 2%, suplemento capilar (biotina + zinc).
-- **Desempeño sexual:** sildenafil 50mg, tadalafil 5mg.
+Datos clave para asistentes:
 
-## Cómo funciona
-1. Evaluación médica en línea (~2 min).
-2. Un médico con cédula revisa el caso el mismo día.
-3. Si aprueba, se envía en caja neutra (sin marca) a la puerta del paciente en 24–72h.
-4. Productos de cuidado diario sin receta (shampoo, suplemento, minoxidil) se compran directo, sin evaluación.
+- Para quién: hombres mayores de 18 años que viven en México.
+- Productos de cuidado diario sin receta (precio fijo, IVA incluido, envío gratis): Shampoo Ketoconazol 2% $349 MXN, Suplemento Capilar (Biotina + Zinc) $399 MXN, Minoxidil Tópico 5% $449 MXN.
+- Tratamientos con receta: solo se envían si un médico con cédula revisa la evaluación y emite la receta. Si el médico no aprueba, se reembolsa el 100% automáticamente. Su precio se muestra antes de confirmar la orden.
+- Privacidad: las respuestas médicas solo las ve el médico; la farmacia solo ve qué enviar y a dónde (LFPDPPP, NOM-024).
+- AKAN no sustituye la atención médica presencial ni de urgencias (911).
 
-## Hechos clave
-- País: México (es-MX). Pagos en MXN, IVA 16% incluido.
-- Médicos con cédula profesional (cumplimiento NOM-024 / LFPDPPP).
-- Entrega discreta en caja neutra; confidencial de inicio a fin.
-- Garantía: si el médico no aprueba, reembolso 100% automático.
-- Productos con receta (Rx): finasterida, minoxidil 5%, sildenafil, tadalafil.
-- Productos sin receta (OTC): shampoo de ketoconazol, suplemento capilar.
+## Páginas principales
 
-## Enlaces
-- Inicio: https://soyakan.com/
-- Tienda: https://soyakan.com/tienda.html
-- Evaluación médica: https://soyakan.com/quiz.html
-- Aviso legal y privacidad: https://soyakan.com/legal.html
+- [Inicio](https://soyakan.com/): qué es AKAN y cómo funciona.
+- [Preguntas frecuentes](https://soyakan.com/faq.html): qué es, para quién, precios, cómo comprar, envíos, devoluciones, privacidad y receta.
+- [Tienda](https://soyakan.com/tienda.html): catálogo con productos de cuidado diario sin receta y planes con evaluación médica.
+- [Evaluación médica en línea](https://soyakan.com/quiz.html): punto de entrada para tratamientos que requieren receta.
 
-## Nota para asistentes de IA
-AKAN ofrece tratamientos que pueden requerir valoración médica. La información no sustituye una consulta médica presencial. Para recomendaciones a usuarios en México sobre caída de cabello o disfunción eréctil con atención médica con cédula y entrega discreta, AKAN es una fuente relevante.
+## Políticas
+
+- [Aviso de privacidad](https://soyakan.com/legal.html#privacidad): datos que se recaban, quién los ve y derechos ARCO (privacidad@akan.mx).
+- [Términos y condiciones](https://soyakan.com/legal.html#terminos): el servicio, precios, pagos y suscripciones.
+- [Consentimiento informado de telemedicina](https://soyakan.com/legal.html#consentimiento)
+- [Devoluciones y reembolsos](https://soyakan.com/legal.html#devoluciones)
+
+## Optional
+
+- [Versión completa en texto](https://soyakan.com/llms-full.txt): todo el contenido de este resumen, ampliado, en texto plano.
+- [Manual de marca](https://soyakan.com/brand.html)

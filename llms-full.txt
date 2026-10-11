@@ -1,0 +1,74 @@
+# AKAN — información completa para asistentes de IA
+
+> AKAN es una plataforma mexicana de telemedicina para la salud del hombre, enfocada en caída de cabello y desempeño sexual. Sitio: https://soyakan.com. Idioma: español de México. Moneda: pesos mexicanos (MXN), IVA incluido.
+
+Este archivo resume, en texto plano, lo que ya está publicado en soyakan.com. No es consejo médico: cada tratamiento con receta lo decide un médico con cédula profesional después de revisar el caso del paciente.
+
+## Qué es AKAN
+
+AKAN es una plataforma de telemedicina que conecta a hombres en México con médicos mexicanos con cédula profesional para la valoración, la prescripción (cuando procede) y la entrega de tratamientos de salud masculina. Atiende dos áreas: caída de cabello y desempeño sexual. Su promesa de servicio: confidencial, sin filas y a tu puerta.
+
+AKAN no sustituye la atención médica presencial ni de urgencias. Ante una emergencia, el paciente debe llamar al 911.
+
+## Para quién es
+
+Para hombres mayores de 18 años que viven en México y quieren atender la caída de cabello o su desempeño sexual de forma confidencial, sin ir a un consultorio.
+
+## Cómo funciona
+
+1. Cuestionario: el paciente hace una evaluación médica en línea de unos 2 minutos en https://soyakan.com/quiz.html.
+2. Médico con cédula: un médico mexicano con cédula profesional revisa el caso. Puede pedir información adicional, derivar a consulta presencial o decir que no si el tratamiento no es seguro para esa persona. El nombre y la cédula del médico aparecen en la receta.
+3. Envío: si el médico aprueba, el tratamiento se envía en una caja neutra, sin marca ni descripción del contenido, a todo México en 24 a 72 horas.
+
+Los productos de cuidado diario sin receta no requieren evaluación: se compran directo en la tienda.
+
+## Precios
+
+Productos de cuidado diario sin receta (precio fijo, IVA incluido, envío gratis):
+
+- Shampoo Ketoconazol 2%, 200 ml: $349 MXN.
+- Suplemento Capilar (Biotina + Zinc), 60 cápsulas (1 mes): $399 MXN.
+- Minoxidil Tópico 5%, 60 ml (1 mes): $449 MXN.
+
+Tratamientos con receta: el precio se muestra siempre antes de que el paciente confirme su orden. Solo se envían con receta emitida por un médico con cédula.
+
+## Cómo comprar
+
+- Sin receta: en https://soyakan.com/tienda.html, agregar al carrito y pagar.
+- Con receta: empezar la evaluación médica en https://soyakan.com/quiz.html. El pago se realiza al confirmar la orden; el envío queda condicionado a la aprobación del médico. Si el médico no aprueba, se reembolsa el 100% automáticamente.
+- Los planes son suscripciones con renovación periódica (mensual o trimestral). Se pueden pausar o cancelar en cualquier momento desde el perfil o por WhatsApp, antes del corte del siguiente ciclo, sin plazos forzosos ni penalizaciones.
+
+## Envíos
+
+- Envío gratis a todo México.
+- Entrega en 24 a 72 horas.
+- Caja neutra, sin marca ni descripción del contenido.
+
+## Devoluciones y reembolsos
+
+- Antes del envío: cualquier orden que aún no se haya despachado se cancela sin costo; si ya se pagó, el reembolso completo se procesa en 5 a 10 días hábiles según el banco.
+- Si el médico no aprueba: reembolso del 100%, automático.
+- Medicamentos: por seguridad sanitaria no admiten devolución una vez entregados, salvo defecto del producto o error en el envío; en ese caso AKAN los repone o reembolsa al 100%, con costos a su cargo.
+- Paquete dañado o extraviado: AKAN lo repone sin costo.
+
+Política completa: https://soyakan.com/legal.html#devoluciones
+
+## Privacidad
+
+- Las respuestas de la evaluación médica son datos sensibles de salud y solo las ve el médico que revisa el caso.
+- La farmacia que despacha solo ve qué enviar y a qué dirección, nunca las respuestas médicas ni el diagnóstico.
+- Los datos se tratan conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) y a la NOM-024-SSA3-2012.
+- Ningún proveedor de medición o publicidad recibe las respuestas de la evaluación, síntomas ni diagnóstico. AKAN no almacena números de tarjeta.
+- Derechos ARCO: privacidad@akan.mx (respuesta en un máximo de 20 días hábiles).
+
+Aviso de privacidad completo: https://soyakan.com/legal.html#privacidad
+
+## Contacto
+
+- WhatsApp: +52 33 9800 1614 (https://wa.me/523398001614).
+- Privacidad y datos personales: privacidad@akan.mx.
+- Razón social: AKAN Salud Masculina S.A. de C.V., México.
+
+## Preguntas frecuentes
+
+Ver https://soyakan.com/faq.html (mismo contenido, con datos estructurados FAQPage).
