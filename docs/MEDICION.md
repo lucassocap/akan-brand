@@ -54,8 +54,8 @@ llevan además `ecommerce{currency:"MXN", value, items[], transaction_id?, shipp
 
 | Evento | Dónde se dispara |
 |---|---|
-| `view_item_list` | tienda (catálogo cargado); inicio (bloques de planes al ser visibles) |
-| `select_item` | clic en un plan Rx (tienda o inicio) |
+| `view_item_list` | tienda (catálogo cargado: OTC por SKU + una consulta genérica `AKAN-CONSULTA` por área); inicio (tarjetas de consulta al ser visibles) |
+| `select_item` | clic en «Empieza tu consulta» (tienda, inicio o menú): item `AKAN-CONSULTA`. Los Rx ya no se muestran por nombre ni precio en páginas públicas |
 | `view_item` | quiz: resultado (plan recomendado) o entrada directa `?plan=` |
 | `add_to_cart` / `remove_from_cart` | tienda (Agregar), carrito (+ / − / Quitar), perfil (Volver a pedir) |
 | `view_cart` | carrito con productos |
