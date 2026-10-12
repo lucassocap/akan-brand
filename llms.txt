@@ -6,7 +6,7 @@ Datos clave para asistentes:
 
 - Para quién: hombres mayores de 18 años que viven en México.
 - Productos de cuidado diario sin receta (precio fijo, IVA incluido, envío gratis): Shampoo Ketoconazol 2% $349 MXN, Suplemento Capilar (Biotina + Zinc) $399 MXN, Minoxidil Tópico 5% $449 MXN.
-- Tratamientos con receta: solo se envían si un médico con cédula revisa la evaluación y emite la receta. Si el médico no aprueba, se reembolsa el 100% automáticamente. Su precio se muestra antes de confirmar la orden.
+- Consulta médica + tratamiento si el médico lo indica: los tratamientos con receta solo se envían si un médico con cédula revisa la evaluación y emite la receta. Si el médico no aprueba, se reembolsa el 100% automáticamente. Su precio se muestra antes de confirmar la orden.
 - Privacidad: las respuestas médicas solo las ve el médico; la farmacia solo ve qué enviar y a dónde (LFPDPPP, NOM-024).
 - AKAN no sustituye la atención médica presencial ni de urgencias (911).
 
@@ -14,7 +14,7 @@ Datos clave para asistentes:
 
 - [Inicio](https://soyakan.com/): qué es AKAN y cómo funciona.
 - [Preguntas frecuentes](https://soyakan.com/faq.html): qué es, para quién, precios, cómo comprar, envíos, devoluciones, privacidad y receta.
-- [Tienda](https://soyakan.com/tienda.html): catálogo con productos de cuidado diario sin receta y planes con evaluación médica.
+- [Tienda](https://soyakan.com/tienda.html): productos de cuidado diario sin receta y consulta médica en línea (tratamiento con receta solo si el médico lo indica).
 - [Evaluación médica en línea](https://soyakan.com/quiz.html): punto de entrada para tratamientos que requieren receta.
 
 ## Políticas

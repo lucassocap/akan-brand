@@ -8,21 +8,22 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<meta name="description" content="Catálogo AKAN: planes médicos para caída de cabello y desempeño sexual, y productos de cuidado capilar. Precios claros en MXN, entrega discreta.">
+<meta name="description" content="Tienda AKAN: consulta médica en línea para caída de cabello y desempeño sexual, y productos de cuidado capilar sin receta. Precios claros en MXN, entrega discreta.">
 <link rel="canonical" href="https://soyakan.com/tienda.html">
 <meta property="og:url" content="https://soyakan.com/tienda.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tienda AKAN — Confidencial. Sin filas. A tu puerta.">
 <meta property="og:image" content="https://soyakan.com/assets/premium/og_akan_light.jpg">
-<meta property="og:description" content="Planes médicos para caída de cabello y desempeño sexual, y cuidado capilar sin receta. Precios claros en MXN, envío gratis y discreto.">
+<meta property="og:description" content="Consulta médica para caída de cabello y desempeño sexual, y cuidado capilar sin receta. Precios claros en MXN, envío gratis y discreto.">
 <meta property="og:site_name" content="AKAN">
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tienda AKAN — Confidencial. Sin filas. A tu puerta.">
-<meta name="twitter:description" content="Planes médicos para caída de cabello y desempeño sexual, y cuidado capilar sin receta. Precios claros en MXN, envío gratis y discreto.">
+<meta name="twitter:description" content="Consulta médica para caída de cabello y desempeño sexual, y cuidado capilar sin receta. Precios claros en MXN, envío gratis y discreto.">
 <meta name="twitter:image" content="https://soyakan.com/assets/premium/og_akan_light.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://odoo-production-3a20.up.railway.app" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -44,7 +45,7 @@ body{font-family:var(--font-b);background:var(--paper);color:var(--ink);
   -webkit-font-smoothing:antialiased;font-size:17px;line-height:1.55}
 ::selection{background:var(--clay);color:var(--paper)}
 a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 .serif-i{font-family:var(--font-d);font-style:italic;font-weight:600}
 .grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent}
@@ -62,7 +63,7 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;padding:1
 @media(min-width:900px){.nav-links{display:flex}}
 .nav-right{display:flex;align-items:center;gap:16px}
 /* ícono de carrito persistente */
-.akan-cart-btn{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);
+.akan-cart-btn{position:relative;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);
   background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--ease)}
 .akan-cart-btn:hover{border-color:var(--jade)}
 .akan-cart-btn svg{width:20px;height:20px;stroke:var(--ink)}
@@ -121,6 +122,7 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;padding:1
 .prod .price small{font-family:var(--font-b);font-size:13px;font-weight:500;color:var(--ink-soft)}
 .prod .price s{font-size:15px;color:var(--ink-soft);font-weight:400;margin-right:8px}
 .prod .btn{margin-top:14px}
+.prod .price-note{font-size:14px;font-weight:600;color:var(--forest);margin-top:4px;line-height:1.45}
 .prod .micro{font-size:12px;color:var(--ink-soft);text-align:center;margin-top:8px}
 
 .how-band{background:var(--sage);border-top:1px solid var(--mint);border-bottom:1px solid var(--mint)}
@@ -162,7 +164,7 @@ section,header,.how-band{position:relative;z-index:2}
 @media(prefers-reduced-motion:reduce){.s-float,.s-sway{animation:none}.rv{opacity:1;transform:none}}
 
 /* menú móvil */
-.burger{display:flex;flex-direction:column;gap:5px;width:42px;height:42px;border-radius:50%;
+.burger{display:flex;flex-direction:column;gap:5px;width:44px;height:44px;border-radius:50%;
   border:1.5px solid var(--line);background:var(--card);align-items:center;justify-content:center;
   cursor:pointer;flex-shrink:0}
 .burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s var(--ease)}
@@ -179,8 +181,10 @@ section,header,.how-band{position:relative;z-index:2}
 .mnav a small{font-weight:500;font-size:13px;color:var(--ink-soft)}
 .mnav a:last-child{border-bottom:none}
 .mnav .hl{color:var(--clay)}
+.prod .btn{min-height:48px}
+:focus-visible{outline:3px solid var(--jade);outline-offset:2px}
 .grid-skeleton{grid-column:1/-1;text-align:center;color:var(--ink-soft);padding:56px 0;font-size:15px;opacity:.75}
-.retry{margin-left:8px;background:var(--forest);color:var(--paper);border:none;padding:7px 16px;border-radius:100px;font-weight:600;cursor:pointer;font-family:var(--font-b)}
+.retry{min-height:44px;margin-left:8px;background:var(--forest);color:var(--paper);border:none;padding:7px 16px;border-radius:100px;font-weight:600;cursor:pointer;font-family:var(--font-b)}
 </style>
 <script src="assets/analytics-config.js"></script>
 <script src="assets/analytics.js"></script>
@@ -478,9 +482,9 @@ section,header,.how-band{position:relative;z-index:2}
 </head>
 <body>
 
-<div class="sprite s-sway" style="top:16%;left:-16px;width:84px"><img src="assets/elements/leaf_eucalyptus.png" alt=""></div>
-<div class="sprite s-float" style="top:42%;right:-10px;width:56px"><img src="assets/elements/bubble_amber.png" alt=""></div>
-<div class="sprite s-float" style="bottom:12%;left:4%;width:48px;animation-delay:3s"><img src="assets/elements/capsule_green.png" alt=""></div>
+<div class="sprite s-sway" style="top:16%;left:-16px;width:84px"><img src="assets/elements/leaf_eucalyptus.png" alt="" width="640" height="640" loading="lazy"></div>
+<div class="sprite s-float" style="top:42%;right:-10px;width:56px"><img src="assets/elements/bubble_amber.png" alt="" width="640" height="640" loading="lazy"></div>
+<div class="sprite s-float" style="bottom:12%;left:4%;width:48px;animation-delay:3s"><img src="assets/elements/capsule_green.png" alt="" width="640" height="640" loading="lazy"></div>
 
 <nav>
   <div class="bar">
@@ -525,7 +529,7 @@ section,header,.how-band{position:relative;z-index:2}
 
 <div class="how-band">
   <div class="wrap">
-    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>Planes Rx: pagas hoy, reembolso total si no aprueba</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>Con receta: solo si el médico lo indica · reembolso total si no aprueba</span>
     <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>100% confidencial, caja neutra</span>
     <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/></svg>Envío gratis 24-72h</span>
     <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>Del click a la orden: 2 toques</span>
@@ -543,25 +547,25 @@ section,header,.how-band{position:relative;z-index:2}
 <!-- CABELLO (Rx) -->
 <section class="sec" id="cabello">
   <div class="wrap">
-    <div class="sec-head"><h2>Cabello <span class="serif-i grad-text">— planes médicos</span></h2>
-      <div class="note">Requieren evaluación (2 min) · Apartas hoy y coordinamos tu pago · reembolso total si no aprueba</div></div>
-    <div class="grid" id="grid-cabello"><div class="grid-skeleton">Cargando planes…</div></div>
+    <div class="sec-head"><h2>Cabello <span class="serif-i grad-text">— con evaluación médica</span></h2>
+      <div class="note">Evaluación de 2 minutos · Receta solo si el médico la indica</div></div>
+    <div class="grid" id="grid-cabello"></div>
   </div>
 </section>
 <!-- DESEMPEÑO (Rx) -->
 <section class="sec" id="desempeno" style="background:var(--paper-deep)">
   <div class="wrap">
-    <div class="sec-head"><h2>Desempeño <span class="serif-i" style="color:var(--clay)">— planes médicos</span></h2>
+    <div class="sec-head"><h2>Desempeño <span class="serif-i" style="color:var(--clay)">— con evaluación médica</span></h2>
       <div class="note">Evaluación de 5 preguntas · Confidencial de inicio a fin</div></div>
-    <div class="grid" id="grid-desempeno"><div class="grid-skeleton">Cargando planes…</div></div>
+    <div class="grid" id="grid-desempeno"></div>
   </div>
 </section>
 
 <section class="sec" style="text-align:center;background:linear-gradient(150deg,#F6EFDE,#F2DEC8)">
   <div class="wrap">
     <h2 style="font-family:var(--font-d);font-weight:700;font-size:clamp(28px,4vw,48px);letter-spacing:-.02em">¿No sabes cuál te toca?</h2>
-    <p style="color:var(--ink-soft);margin:14px auto 28px;max-width:480px">Responde la evaluación de 2 minutos y te lo decimos exacto. Confidencial.</p>
-    <a class="btn btn-cta" style="padding:17px 40px" href="quiz.html">Hacer mi evaluación →</a>
+    <p style="color:var(--ink-soft);margin:14px auto 28px;max-width:480px">Responde la evaluación de 2 minutos y un médico con cédula revisa tu caso. Confidencial.</p>
+    <a class="btn btn-cta" style="padding:17px 40px" href="quiz.html">Empieza tu consulta →</a>
   </div>
 </section>
 
@@ -594,13 +598,16 @@ const mx = n => '$'+Number(n).toLocaleString('es-MX',{maximumFractionDigits:0});
 const ART = {
   'AKAN-SHAMPOO':{img:'assets/photography/product/akan_p_shampoo.jpg'},
   'AKAN-SUPL':{img:'assets/photography/product/akan_p_supl.jpg'},
-  'AKAN-MINOX':{img:'assets/photography/product/akan_p_minox.jpg'},
-  'AKAN-ESENCIAL':{img:'assets/photography/product/akan_p_esencial.jpg'},
-  'AKAN-COMPLETO':{img:'assets/photography/product/akan_p_completo.jpg',top:'El más elegido'},
-  'AKAN-KIT':{img:'assets/photography/product/akan_p_kit.jpg'},
-  'AKAN-SILD':{img:'assets/photography/product/akan_p_sild.jpg'},
-  'AKAN-TADA':{img:'assets/photography/product/akan_p_tada.jpg',top:'Espontaneidad total'},
-  'AKAN-KITCONF':{img:'assets/photography/product/akan_p_kitconf.jpg'}
+  'AKAN-MINOX':{img:'assets/photography/product/akan_p_minox.jpg'}
+};
+/* Rx (COFEPRIS): los medicamentos con receta NO se publicitan por nombre ni
+   precio. Cada área muestra una sola tarjeta genérica de consulta; el plan
+   concreto y su precio aparecen solo dentro de la evaluación. */
+const CONSULTA = {
+  cabello:{branch:'pelo',name:'Consulta médica — Cabello',cat:'Cabello',img:'assets/premium/hero_light_products.jpg',
+    desc:'Caída de cabello. Un médico con cédula profesional vigente revisa tu evaluación y, solo si procede, te indica un tratamiento con receta. Seguimiento y envío incluidos.'},
+  desempeno:{branch:'desempeno',name:'Consulta médica — Desempeño',cat:'Desempeño',img:'assets/premium/hombre_confianza.jpg',
+    desc:'Desempeño sexual. Un médico con cédula profesional vigente revisa tu evaluación y, solo si procede, te indica un tratamiento con receta. Seguimiento y envío incluidos.'}
 };
 /* GROUP = colocación curada de los códigos conocidos. Un producto NUEVO en
    Odoo que no esté acá NO desaparece: cae a la grilla por is_rx/category del
@@ -614,22 +621,23 @@ function groupOf(x){
 function cardOTC(p){
   const art=ART[p.code]||{}, img=p.image_url||art.img||'', out=p.in_stock===false;
   return '<div class="prod"><div class="ph"><span class="badge otc">Sin receta</span>'+
-    '<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy"></div><div class="body">'+
+    '<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy" width="800" height="600"></div><div class="body">'+
     '<h3>'+esc(p.name)+'</h3><div class="for">'+esc(p.description)+'</div>'+
     '<div class="price">'+mx(p.price)+'</div>'+
     (out?'<button class="btn btn-ghost" disabled>Agotado</button>'
         :'<button class="btn btn-green otc-add" data-code="'+esc(p.code)+'" data-name="'+esc(p.name)+'" data-price="'+p.price+'" data-img="'+esc(img)+'" data-desc="'+esc(p.description)+'">Agregar al carrito →</button>')+
     '<div class="micro">Compra directa · Envío gratis en caja neutra</div></div></div>';
 }
-function cardRx(p){
-  const art=ART[p.code]||{}, img=p.image_url||art.img||'', tres=Math.round(p.price*0.85);
-  const badge=art.top?'<span class="badge top">'+esc(art.top)+'</span>':'<span class="badge rx">Rx · Receta</span>';
-  const cta=art.top?'btn-cta':'btn-ghost';
-  return '<div class="prod"><div class="ph">'+badge+'<img src="'+esc(img)+'" alt="'+esc(p.name)+'" loading="lazy"></div>'+
-    '<div class="body"><h3>'+esc(p.name)+'</h3><div class="for">'+esc(p.description)+'</div>'+
-    '<div class="price">'+mx(p.price)+' <small>/mes · '+mx(tres)+'/mes en plan 3 meses</small></div>'+
-    '<a class="btn '+cta+'" href="quiz.html?plan='+esc(p.code)+'">Elegir con evaluación →</a></div></div>';
+function cardConsulta(area){
+  const c=CONSULTA[area];
+  return '<div class="prod"><div class="ph"><span class="badge rx">Con evaluación médica</span><img src="'+c.img+'" alt="" loading="lazy" width="800" height="600"></div>'+
+    '<div class="body"><h3>Consulta médica + tratamiento si el médico lo indica</h3><div class="for">'+esc(c.desc)+'</div>'+
+    '<div class="price-note">Evaluación sin costo. Si el médico indica un tratamiento, ves su precio completo antes de pagar.</div>'+
+    '<a class="btn btn-cta" href="quiz.html?branch='+c.branch+'" data-item="AKAN-CONSULTA" data-area="'+area+'">Empieza tu consulta →</a>'+
+    '<div class="micro">Receta solo si procede · Reembolso total si el médico no aprueba</div></div></div>';
 }
+/* las tarjetas de consulta no dependen de la API: se pintan siempre */
+['cabello','desempeno'].forEach(a=>{const g=document.getElementById('grid-'+a);if(g)g.innerHTML=cardConsulta(a);});
 function fillGrid(id,arr,fn){
   const g=document.getElementById(id); if(!g)return;
   g.innerHTML=arr.length?arr.map(fn).join(''):'<div class="grid-skeleton">Pronto disponible</div>';
@@ -647,12 +655,10 @@ function loadCatalog(){
       const g={otc:[],cabello:[],desempeno:[]};
       items.forEach(x=>{g[groupOf(x)].push(x);});
       fillGrid('grid-otc',g.otc,cardOTC);
-      fillGrid('grid-cabello',g.cabello,cardRx);
-      fillGrid('grid-desempeno',g.desempeno,cardRx);
       bindAdd();
       trackList(g);
     }).catch(()=>{
-      ['grid-otc','grid-cabello','grid-desempeno'].forEach(id=>{
+      ['grid-otc'].forEach(id=>{
         const el=document.getElementById(id);
         if(el)el.innerHTML='<div class="grid-skeleton">No pudimos cargar el catálogo. <button class="retry" onclick="loadCatalog()">Reintentar</button></div>';
       });
@@ -679,22 +685,26 @@ loadCatalog();
 
 /* ── medición (spec §4): view_item_list + select_item. Sin datos personales. ── */
 const CAT={};
+/* lo que se ve: OTC por SKU + la consulta genérica por área (Rx ⇒ «Plan AKAN» en ads) */
 function trackList(g){
   const items=[];
-  [['otc','Cuidado diario'],['cabello','Cabello'],['desempeno','Desempeño']].forEach(([k,list])=>{
-    g[k].forEach(x=>{
-      const it=AkanAnalytics.item({code:x.code,name:x.name,price:x.price,category:x.category,is_rx:x.is_rx},
-        {item_list_id:'tienda_'+k,item_list_name:'Tienda · '+list,index:items.length});
-      CAT[x.code]=it;items.push(it);
-    });
+  g.otc.forEach(x=>{
+    const it=AkanAnalytics.item({code:x.code,name:x.name,price:x.price,category:x.category,is_rx:x.is_rx},
+      {item_list_id:'tienda_otc',item_list_name:'Tienda · Cuidado diario',index:items.length});
+    CAT[x.code]=it;items.push(it);
+  });
+  [['cabello','Cabello'],['desempeno','Desempeño']].forEach(([k,list])=>{
+    const c=CONSULTA[k];
+    const it=AkanAnalytics.item({code:'AKAN-CONSULTA',name:c.name,price:0,category:c.cat,is_rx:true},
+      {item_list_id:'tienda_'+k,item_list_name:'Tienda · '+list,index:items.length});
+    CAT['consulta_'+k]=it;items.push(it);
   });
   if(items.length)akanTrack('view_item_list',{item_list_id:'tienda',item_list_name:'Tienda',items});
 }
 document.addEventListener('click',e=>{
-  const a=e.target.closest&&e.target.closest('.grid a[href*="quiz.html?plan="]');
+  const a=e.target.closest&&e.target.closest('.grid a[data-item]');
   if(!a)return;
-  const code=new URL(a.href,location.href).searchParams.get('plan');
-  const it=CAT[code];
+  const it=CAT['consulta_'+a.dataset.area];
   if(it)akanTrack('select_item',{item_list_id:it.item_list_id,item_list_name:it.item_list_name,items:[it]});
 });
 
