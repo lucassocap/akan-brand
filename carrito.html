@@ -12,6 +12,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://odoo-production-3a20.up.railway.app" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -47,7 +48,7 @@ nav .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;
 .nav-right a.txt:hover{opacity:1}
 @media(max-width:520px){.nav-right a.txt{display:none}}
 /* ícono de carrito */
-.akan-cart-btn{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);
+.akan-cart-btn{position:relative;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);
   background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--ease)}
 .akan-cart-btn:hover{border-color:var(--jade)}
 .akan-cart-btn svg{width:20px;height:20px;stroke:var(--ink)}
@@ -85,12 +86,18 @@ h1{font-family:var(--font-d);font-weight:700;letter-spacing:-.025em;line-height:
 .line .ctrl{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0}
 .line .price{font-family:var(--font-d);font-weight:700;font-size:19px;white-space:nowrap}
 .qty{display:flex;align-items:center;gap:0;border:1.5px solid var(--line);border-radius:var(--r-pill);overflow:hidden;background:var(--paper)}
-.qty button{width:34px;height:34px;border:none;background:transparent;font-size:18px;font-weight:600;
+.qty button{width:44px;height:44px;border:none;background:transparent;font-size:18px;font-weight:600;
   cursor:pointer;color:var(--forest);display:flex;align-items:center;justify-content:center}
 .qty button:active{background:var(--sage)}
 .qty span{min-width:28px;text-align:center;font-weight:700;font-size:15px}
-.line .rm{font-size:12.5px;color:var(--ink-soft);text-decoration:underline;text-underline-offset:2px;
-  background:none;border:none;cursor:pointer;font-family:var(--font-b)}
+.line .rm{font-size:13px;color:var(--ink-soft);text-decoration:underline;text-underline-offset:2px;
+  background:none;border:none;cursor:pointer;font-family:var(--font-b);min-height:44px;min-width:44px;padding:0 6px}
+@media(max-width:520px){.line{flex-wrap:wrap}.line .ctrl{flex-direction:row;align-items:center;width:100%;justify-content:space-between}}
+:focus-visible{outline:3px solid var(--jade);outline-offset:2px}
+.help-wa{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin-top:6px;font-size:14.5px;font-weight:700;
+  color:var(--forest);text-decoration:underline;text-underline-offset:3px}
+.sm-row .muted{color:var(--ink-soft);text-align:right}
+.btn .spin-s{width:18px;height:18px;border:2.5px solid rgba(255,247,236,.45);border-top-color:#FFF7EC;border-radius:50%;animation:spin 1s linear infinite}
 .line .rm:hover{color:var(--clay)}
 
 /* resumen */
@@ -142,6 +149,65 @@ footer a{text-decoration:underline;text-underline-offset:3px}
 </style>
 <script src="assets/analytics-config.js"></script>
 <script src="assets/analytics.js"></script>
+<script src="assets/form-validate.js"></script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://soyakan.com/#org",
+   "name": "AKAN",
+   "legalName": "AKAN Salud Masculina S.A. de C.V.",
+   "url": "https://soyakan.com/",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://soyakan.com/icon-192.png",
+    "width": 192,
+    "height": 192
+   },
+   "image": "https://soyakan.com/assets/premium/og_akan_light.jpg",
+   "slogan": "Confidencial. Sin filas. A tu puerta.",
+   "description": "Plataforma mexicana de telemedicina para la salud del hombre: caída de cabello y desempeño sexual, con médicos con cédula profesional y entrega discreta en caja neutra.",
+   "areaServed": {
+    "@type": "Country",
+    "name": "México"
+   },
+   "contactPoint": [
+    {
+     "@type": "ContactPoint",
+     "contactType": "customer service",
+     "telephone": "+52-33-9800-1614",
+     "url": "https://wa.me/523398001614",
+     "areaServed": "MX",
+     "availableLanguage": [
+      "es"
+     ]
+    },
+    {
+     "@type": "ContactPoint",
+     "contactType": "privacy",
+     "email": "privacidad@akan.mx",
+     "areaServed": "MX",
+     "availableLanguage": [
+      "es"
+     ]
+    }
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://soyakan.com/#website",
+   "url": "https://soyakan.com/",
+   "name": "AKAN",
+   "inLanguage": "es-MX",
+   "publisher": {
+    "@id": "https://soyakan.com/#org"
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 
@@ -206,7 +272,7 @@ function renderCart(){
     <div class="lines">`;
   items.forEach(l=>{
     html+=`<div class="line" data-code="${l.code}">
-      <div class="ph">${l.image_url?`<img src="${esc(l.image_url)}" alt="${esc(l.name)}">`:''}</div>
+      <div class="ph">${l.image_url?`<img src="${esc(l.image_url)}" alt="" width="84" height="84" loading="lazy">`:''}</div>
       <div class="info">
         <h3>${esc(l.name)}</h3>
         ${l.description?`<div class="desc">${esc(l.description)}</div>`:''}
@@ -214,20 +280,21 @@ function renderCart(){
       </div>
       <div class="ctrl">
         <div class="price">$${fmtMx(l.price*l.qty)}</div>
-        <div class="qty"><button data-act="dec" aria-label="Quitar uno">−</button><span>${l.qty}</span><button data-act="inc" aria-label="Agregar uno">+</button></div>
-        <button class="rm" data-act="rm">Quitar</button>
+        <div class="qty"><button data-act="dec" aria-label="Quitar uno de ${esc(l.name)}">−</button><span aria-live="polite">${l.qty}</span><button data-act="inc" aria-label="Agregar uno de ${esc(l.name)}">+</button></div>
+        <button class="rm" data-act="rm" aria-label="Quitar ${esc(l.name)} del carrito">Quitar</button>
       </div>
     </div>`;
   });
   html+=`</div>
     <div class="summary">
       <div class="sm-row"><span>Subtotal</span><span>$${fmtMx(total)} MXN</span></div>
-      <div class="sm-row"><span>Envío discreto (caja neutra)</span><span class="free">GRATIS</span></div>
+      <div class="sm-row"><span>Envío a todo México · caja neutra · 24-72h</span><span class="free">GRATIS</span></div>
+      <div class="sm-row"><span>Impuestos</span><span class="muted">IVA incluido</span></div>
       <div class="sm-total"><span>Total</span><span>$${fmtMx(total)} MXN</span></div>
       <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
-        Pago seguro · Envío en caja neutra, sin marca · 24-72h a tu puerta</div>
+        Al confirmar recibes el link de pago de tu orden (pago por transferencia bancaria) · Caja neutra, sin marca · 24-72h a tu puerta</div>
     </div>
-    <button class="btn btn-cta" style="margin-top:20px" id="toCheckout">Proceder al pago →</button>
+    <button class="btn btn-cta" style="margin-top:20px" id="toCheckout">Continuar con mis datos de envío →</button>
     <a class="btn btn-ghost" style="margin-top:12px" href="tienda.html#cuidado">Seguir comprando</a>
   </div>`;
   app.appendChild(el(html));
@@ -261,8 +328,9 @@ function renderCheckout(){
     <p class="sub">Caja neutra, sin marca. Ni el repartidor sabe qué lleva.</p>
     <div class="mini-summary">
       ${items.map(l=>`<div class="r"><span>${esc(l.name)} ×${l.qty}</span><b>$${fmtMx(l.price*l.qty)}</b></div>`).join('')}
-      <div class="r"><span>Envío</span><b style="color:#1F6B40">GRATIS</b></div>
-      <div class="tot"><span>Total a pagar hoy</span><span>$${fmtMx(total)} MXN</span></div>
+      <div class="r"><span>Envío a todo México (24-72h)</span><b style="color:#1F6B40">GRATIS</b></div>
+      <div class="r"><span>Forma de pago</span><b>Transferencia (link de pago)</b></div>
+      <div class="tot"><span>Total (IVA incluido)</span><span>$${fmtMx(total)} MXN</span></div>
     </div>
     <form class="form" novalidate>
       <div class="field"><label>Nombre completo</label><input name="name" autocomplete="name" placeholder="Carlos Mendoza" value="${esc(saved.name||'')}"></div>
@@ -283,15 +351,17 @@ function renderCheckout(){
       </div>
       <div class="priv-note">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        <span><b>Pago seguro.</b> Pagas hoy y recibes en 24-72h. Caja neutra, confidencial de inicio a fin.</span>
+        <span><b>¿Cómo pago?</b> Al confirmar te llevamos al link de pago de tu orden, con los datos para pagar por transferencia bancaria. Cuando se confirma el pago, tu pedido llega en 24-72h en caja neutra.</span>
       </div>
-      <button class="btn btn-cta" type="submit" id="payBtn">Pagar $${fmtMx(total)} →</button>
-      <p style="font-size:12px;color:var(--ink-soft);text-align:center;margin-top:4px">Al pagar aceptas el <a href="legal.html#privacidad" target="_blank" style="text-decoration:underline">aviso de privacidad</a>.</p>
+      <button class="btn btn-cta" type="submit" id="payBtn">Confirmar pedido · $${fmtMx(total)} →</button>
+      <p style="font-size:12.5px;color:var(--ink-soft);text-align:center;margin-top:4px">Al confirmar aceptas el <a href="legal.html#privacidad" target="_blank" style="text-decoration:underline">aviso de privacidad</a>.</p>
+      <a class="help-wa" href="${wa('Hola AKAN, tengo una duda con mi pedido de la tienda.')}">¿Dudas con tu pedido? Escríbenos por WhatsApp</a>
     </form>
   </div>`;
   app.appendChild(el(html));
   if(saved.state){const sel=app.querySelector('[name=state]');if(sel)sel.value=saved.state}
   document.getElementById('back').addEventListener('click',()=>{view='cart';renderCart()});
+  AkanForm.enhance(app.querySelector('form'));
   app.querySelector('form').addEventListener('submit',submitCheckout);
 }
 
@@ -299,17 +369,11 @@ async function submitCheckout(e){
   e.preventDefault();
   const form=e.target;
   const f=Object.fromEntries(new FormData(form).entries());
-  let valid=true;
-  ['name','phone','email','street','city','zip','state'].forEach(k=>{
-    const inp=form.querySelector(`[name=${k}]`);if(!inp)return;
-    const ok=k==='email'?/.+@.+\..+/.test(f[k]):(f[k]||'').trim().length>1;
-    inp.classList.toggle('err',!ok);if(!ok)valid=false;
-  });
-  if(!valid)return;
+  if(!AkanForm.validate(form,['name','phone','email','street','city','zip','state']))return;
   track('add_shipping_info',{shipping_tier:'gratis_caja_neutra'});
   const cust={name:f.name,email:f.email,phone:f.phone,street:f.street,city:f.city,zip:f.zip,state:f.state};
   localStorage.setItem('akan_customer',JSON.stringify(cust));
-  const btn=document.getElementById('payBtn');btn.disabled=true;btn.textContent='Procesando…';
+  const btn=document.getElementById('payBtn');btn.disabled=true;btn.setAttribute('aria-busy','true');btn.innerHTML='<span class="spin-s" aria-hidden="true"></span>Creando tu orden…';
   const payload={branch:'tienda',items:AkanCart.checkoutItems(),answers:[{q:'Origen',a:'Carrito OTC headless'}],
     customer:cust,cadence:'monthly',attribution:getAttribution()};
   let result=null;
@@ -388,8 +452,8 @@ function finishCheckout(result,cust){
     app.appendChild(el(`<div class="screen pay-wait">
       <div class="spin"></div>
       <div class="q-overline">Orden ${esc(result.order||'')}</div>
-      <h1>Te llevamos al <span class="serif-i grad-text">pago seguro.</span></h1>
-      <p class="sub" style="max-width:440px;margin:10px auto 0">Tu carrito quedó apartado. Al terminar regresas a Mi AKAN con tu pedido listo.</p>
+      <h1>Te llevamos al <span class="serif-i grad-text">link de pago.</span></h1>
+      <p class="sub" style="max-width:440px;margin:10px auto 0">Tu orden quedó creada. En el link verás los datos para pagar por transferencia; tu pedido sale cuando se confirma el pago.</p>
       <a class="btn btn-cta" style="margin-top:26px;max-width:360px;margin-left:auto;margin-right:auto" href="${result.payment_link}">Continuar al pago →</a>
     </div>`));
     AkanCart.clear();
