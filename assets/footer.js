@@ -41,6 +41,7 @@
         <ul>
           <li><a href="index.html#como">Cómo funciona</a></li>
           <li><a href="index.html#medicos">Nuestros médicos</a></li>
+          <li><a href="faq.html">Preguntas frecuentes</a></li>
           <li><a href="index.html#resultados">Resultados</a></li>
           <li><a href="brand.html">Manual de marca</a></li>
         </ul>
