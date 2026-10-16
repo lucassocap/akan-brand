@@ -140,6 +140,7 @@ footer{background:var(--forest);color:rgba(250,246,236,.72);padding:38px 0;font-
 footer a{text-decoration:underline;text-underline-offset:3px}
 @media(prefers-reduced-motion:reduce){.screen,.spin{animation:none}}
 </style>
+<script src="assets/analytics-config.js"></script>
 <script src="assets/analytics.js"></script>
 </head>
 <body>
@@ -155,7 +156,7 @@ footer a{text-decoration:underline;text-underline-offset:3px}
   </div>
 </nav>
 
-<div class="stage"><div class="wrap" id="app"></div></div>
+<div class="stage"><div class="wrap" id="app" data-clarity-mask="true"></div></div>
 
 <div id="akan-footer"></div>
 
@@ -176,6 +177,11 @@ const esc = s => String(s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'
 
 let view='cart'; /* cart | checkout | paying */
 
+/* ── medición (spec §4). Items del carrito → GA4; Rx genérico hacia ads. ── */
+const gaItems=()=>AkanCart.read().map(l=>AkanAnalytics.item({code:l.code,name:l.name,price:l.price,qty:l.qty,category:l.category}));
+const track=(ev,extra)=>{const items=gaItems();if(items.length)akanTrack(ev,{currency:'MXN',value:AkanAnalytics.itemsValue(items),items,...(extra||{})});};
+let viewCartSent=false;
+
 /* ── carrito ── */
 function renderCart(){
   const items=AkanCart.read();
@@ -192,6 +198,7 @@ function renderCart(){
     return;
   }
   const total=AkanCart.total();
+  if(!viewCartSent){viewCartSent=true;track('view_cart');}
   let html=`<div class="screen">
     <div class="q-overline">Tu carrito · ${AkanCart.count()} ${AkanCart.count()===1?'producto':'productos'}</div>
     <h1>Tu <span class="serif-i grad-text">carrito.</span></h1>
@@ -230,13 +237,14 @@ function renderCart(){
       const act=b.dataset.act;
       const cur=AkanCart.read().find(x=>x.code===code);
       if(!cur)return;
-      if(act==='inc')AkanCart.setQty(code,cur.qty+1);
-      else if(act==='dec')AkanCart.setQty(code,cur.qty-1);
-      else if(act==='rm')AkanCart.remove(code);
+      const one=q=>[AkanAnalytics.item({code:cur.code,name:cur.name,price:cur.price,qty:q,category:cur.category})];
+      if(act==='inc'){AkanCart.setQty(code,cur.qty+1);akanTrack('add_to_cart',{currency:'MXN',value:cur.price,items:one(1)});}
+      else if(act==='dec'){AkanCart.setQty(code,cur.qty-1);akanTrack('remove_from_cart',{currency:'MXN',value:cur.price,items:one(1)});}
+      else if(act==='rm'){AkanCart.remove(code);akanTrack('remove_from_cart',{currency:'MXN',value:cur.price*cur.qty,items:one(cur.qty)});}
       renderCart();
     }));
   });
-  document.getElementById('toCheckout').addEventListener('click',()=>{view='checkout';renderCheckout()});
+  document.getElementById('toCheckout').addEventListener('click',()=>{track('begin_checkout');view='checkout';renderCheckout()});
 }
 
 /* ── checkout OTC ── */
@@ -298,11 +306,12 @@ async function submitCheckout(e){
     inp.classList.toggle('err',!ok);if(!ok)valid=false;
   });
   if(!valid)return;
+  track('add_shipping_info',{shipping_tier:'gratis_caja_neutra'});
   const cust={name:f.name,email:f.email,phone:f.phone,street:f.street,city:f.city,zip:f.zip,state:f.state};
   localStorage.setItem('akan_customer',JSON.stringify(cust));
   const btn=document.getElementById('payBtn');btn.disabled=true;btn.textContent='Procesando…';
   const payload={branch:'tienda',items:AkanCart.checkoutItems(),answers:[{q:'Origen',a:'Carrito OTC headless'}],
-    customer:cust,cadence:'monthly'};
+    customer:cust,cadence:'monthly',attribution:getAttribution()};
   let result=null;
   /* SIEMPRE intentamos el cobro real — flujo lineal hasta el pago. NO gateamos
      en apiOnline: con Odoo frío ese pre-probe daba falso-offline y mandaba al
@@ -368,6 +377,13 @@ function finishCheckout(result,cust){
   view='paying';
   /* AHORA /checkout SIEMPRE devuelve payment_link (cobro de una) → al pago */
   if(result.payment_link){
+    /* antes de vaciar el carrito: add_payment_info + orden pendiente para el
+       purchase de respaldo en perfil (transaction_id = ref de la orden) */
+    const items=gaItems();
+    if(items.length){
+      track('add_payment_info',{payment_type:'link_de_pago'});
+      AkanAnalytics.rememberCheckout(result.order,items,AkanAnalytics.itemsValue(items));
+    }
     app.innerHTML='';
     app.appendChild(el(`<div class="screen pay-wait">
       <div class="spin"></div>

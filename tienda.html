@@ -9,8 +9,11 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <meta name="description" content="Catálogo AKAN: planes médicos para caída de cabello y desempeño sexual, y productos de cuidado capilar. Precios claros en MXN, entrega discreta.">
+<link rel="canonical" href="https://soyakan.com/tienda.html">
+<meta property="og:url" content="https://soyakan.com/tienda.html">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Tienda AKAN — Confidencial. Sin filas. A tu puerta.">
-<meta property="og:image" content="assets/premium/og_akan_light.jpg">
+<meta property="og:image" content="https://soyakan.com/assets/premium/og_akan_light.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -197,7 +200,7 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "849.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     },
@@ -220,7 +223,7 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "549.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     },
@@ -243,7 +246,7 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "1199.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     },
@@ -266,7 +269,7 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "649.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     },
@@ -289,7 +292,7 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "449.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     },
@@ -312,7 +315,7 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "899.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     },
@@ -335,7 +338,7 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "449.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     },
@@ -358,7 +361,7 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "349.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     },
@@ -381,13 +384,14 @@ section,header,.how-band{position:relative;z-index:2}
           "priceCurrency": "MXN",
           "price": "399.00",
           "availability": "https://schema.org/InStock",
-          "url": "https://akan-five.vercel.app/tienda.html"
+          "url": "https://soyakan.com/tienda.html"
         }
       }
     }
   ]
 }
 </script>
+<script src="assets/analytics-config.js"></script>
 <script src="assets/analytics.js"></script>
 </head>
 <body>
@@ -564,6 +568,7 @@ function loadCatalog(){
       fillGrid('grid-cabello',g.cabello,cardRx);
       fillGrid('grid-desempeno',g.desempeno,cardRx);
       bindAdd();
+      trackList(g);
     }).catch(()=>{
       ['grid-otc','grid-cabello','grid-desempeno'].forEach(id=>{
         const el=document.getElementById(id);
@@ -583,10 +588,33 @@ function bindAdd(){
     btn.addEventListener('click',()=>{
       AkanCart.add({code:btn.dataset.code,name:btn.dataset.name,price:Number(btn.dataset.price),image_url:btn.dataset.img,description:btn.dataset.desc,category:'Cuidado Diario'},1);
       showToast(btn.dataset.name);
+      const it=CAT[btn.dataset.code]||AkanAnalytics.item({code:btn.dataset.code,name:btn.dataset.name,price:Number(btn.dataset.price),category:'Cuidado Diario',is_rx:false});
+      akanTrack('add_to_cart',{currency:'MXN',value:it.price,items:[{...it,quantity:1}]});
     });
   });
 }
 loadCatalog();
+
+/* ── medición (spec §4): view_item_list + select_item. Sin datos personales. ── */
+const CAT={};
+function trackList(g){
+  const items=[];
+  [['otc','Cuidado diario'],['cabello','Cabello'],['desempeno','Desempeño']].forEach(([k,list])=>{
+    g[k].forEach(x=>{
+      const it=AkanAnalytics.item({code:x.code,name:x.name,price:x.price,category:x.category,is_rx:x.is_rx},
+        {item_list_id:'tienda_'+k,item_list_name:'Tienda · '+list,index:items.length});
+      CAT[x.code]=it;items.push(it);
+    });
+  });
+  if(items.length)akanTrack('view_item_list',{item_list_id:'tienda',item_list_name:'Tienda',items});
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest&&e.target.closest('.grid a[href*="quiz.html?plan="]');
+  if(!a)return;
+  const code=new URL(a.href,location.href).searchParams.get('plan');
+  const it=CAT[code];
+  if(it)akanTrack('select_item',{item_list_id:it.item_list_id,item_list_name:it.item_list_name,items:[it]});
+});
 
 /* menú móvil */
 (function(){
