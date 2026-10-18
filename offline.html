@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sin conexión — AKAN</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1F3D2E">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root{--paper:#FAF6EC;--card:#FFFEFA;--sand:#DCCFB4;--forest:#1F3D2E;--emerald:#2E6B4D;--ink:#1B1812;--ink-soft:#57503F}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.55}
+.card{max-width:440px;width:100%;background:var(--card);border:1px solid var(--sand);border-radius:20px;padding:36px 28px;text-align:center;box-shadow:0 14px 40px rgba(31,61,46,.08)}
+.logo{width:64px;height:64px;border-radius:16px;display:block;margin:0 auto 20px}
+h1{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:700;color:var(--forest);font-size:2rem;line-height:1.1;margin:0 0 12px}
+p{color:var(--ink-soft);margin:0 0 24px}
+.btn{display:inline-block;border:0;cursor:pointer;background:var(--forest);color:var(--paper);font:inherit;font-weight:600;
+  padding:14px 28px;border-radius:999px;text-decoration:none}
+.btn:hover{background:var(--emerald)}
+.help{margin:22px 0 0;font-size:.92rem}
+.help a{color:var(--emerald);font-weight:600}
+</style>
+</head>
+<body>
+<main class="card">
+  <img class="logo" src="/icon-192.png" alt="AKAN" width="64" height="64">
+  <h1>Sin conexión</h1>
+  <p>Parece que no tienes internet en este momento. Revisa tu conexión e inténtalo de nuevo.</p>
+  <button class="btn" type="button" onclick="location.reload()">Reintentar</button>
+  <p class="help">¿Necesitas ayuda? <a href="https://wa.me/523398001614">Escríbenos por WhatsApp</a></p>
+</main>
+</body>
+</html>
