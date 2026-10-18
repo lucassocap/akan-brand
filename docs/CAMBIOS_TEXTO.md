@@ -44,3 +44,9 @@ Pendiente de aprobación de Lucas. Líneas según el estado final de la rama.
 | tienda.html:11 | meta description / og / twitter: «planes médicos…» | «consulta médica…» | Coherencia SEO |
 | brand.html:508 | “Finasteride bloquea el DHT” | “El DHT encoge el folículo” | Sin nombres Rx en página pública |
 | llms.txt:17 | planes con evaluación médica / Tratamientos con receta: | consulta médica en línea (tratamiento con receta solo si el médico lo indica) / Consulta médica + tratamiento si el médico lo indica: | Coherencia SEO/IA |
+
+## Rama `feat/pwa`
+
+| archivo:línea | antes | después | motivo |
+|---|---|---|---|
+| offline.html (nuevo) | (no existía) | «Sin conexión» · «Parece que no tienes internet en este momento. Revisa tu conexión e inténtalo de nuevo.» · botón «Reintentar» · «¿Necesitas ayuda? Escríbenos por WhatsApp» | Página que muestra la PWA sin red (solo la ve quien pierde conexión) |
